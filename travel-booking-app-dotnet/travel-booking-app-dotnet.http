@@ -1,0 +1,6 @@
+@travel_booking_app_dotnet_HostAddress = http://localhost:5028
+
+GET {{travel_booking_app_dotnet_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
