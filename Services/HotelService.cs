@@ -60,7 +60,5 @@ namespace Services
 
             _hotelRepository.Remove(hotel);
         }
-
-       
     }
 }

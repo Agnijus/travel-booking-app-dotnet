@@ -1,0 +1,12 @@
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\bin\Debug\net8.0\Contracts.deps.json
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\bin\Debug\net8.0\Contracts.dll
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\bin\Debug\net8.0\Contracts.pdb
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\Contracts.AssemblyInfoInputs.cache
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\Contracts.AssemblyInfo.cs
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\Contracts.csproj.CoreCompileInputs.cache
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\Contracts.sourcelink.json
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\Contracts.dll
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\refint\Contracts.dll
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\Contracts.pdb
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Contracts\obj\Debug\net8.0\ref\Contracts.dll

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\travel-booking-app-dotnet.props" />
+</Project>

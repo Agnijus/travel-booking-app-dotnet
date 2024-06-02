@@ -1,6 +1,6 @@
 ﻿namespace travel_booking_app_dotnet.Core.Entities
 {
-    internal class Hotel
+    public class Hotel
     {
         public uint Id { get; set;  }
         public string Name { get; set; }
@@ -11,7 +11,7 @@
         public float GuestRating { get; set; }
         public ushort ReviewCount { get; set; }
         public ushort PricePerNight { get; set; }
-        public bool hasFreeCancellation { get; set; }
-        public bool hasPayOnArrival { get; set; }
+        public bool HasFreeCancellation { get; set; }
+        public bool HasPayOnArrival { get; set; }
     }
 }

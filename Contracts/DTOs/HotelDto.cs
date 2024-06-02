@@ -20,5 +20,5 @@ namespace Contracts.DTOs
         public bool hasFreeCancellation { get; set; }
         public bool hasPayOnArrival { get; set; }
     
-}
+    }
 }

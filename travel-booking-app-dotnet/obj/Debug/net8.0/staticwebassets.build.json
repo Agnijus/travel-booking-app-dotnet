@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "/JmWn85R6ngmKQMRM37HzkJgUri+PWBhbWm8vH9EOPQ=",
+  "Source": "travel-booking-app-dotnet",
+  "BasePath": "_content/travel-booking-app-dotnet",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

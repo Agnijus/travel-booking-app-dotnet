@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "kx9bRIRx/236B4cFE4bYPf1XZPBKNv2Dc+oE/aanktn/E6h/ZrzcLqAMPScFF5VtBbvVUMyUmnY8ngONN/6tZA==",
+  "dgSpecHash": "iyV0gcBd2uuKdW+prVZG4sf3PwrCQVqGeAyBUVR4VJMGtE9P7oGacy5oW9jE6+4XPnc1v0zd+Sfw45Mmyikebg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\travel-booking-app-dotnet.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Agnijus\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
+    "C:\\Users\\Agnijus\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512",
     "C:\\Users\\Agnijus\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Agnijus\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Agnijus\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
