@@ -5,7 +5,7 @@ namespace Services.Abstractions
     public interface IHotelService
     {
         Task<List<HotelDto>> GetAllAsync();
-        Task<HotelDto> GetByIdAsync(uint id);
+        Task<HotelDto> GetByIdAsync(int id);
         Task CreateAsync(HotelDto hotelDto);
         Task DeleteAsync(HotelDto hotelDto);
     }

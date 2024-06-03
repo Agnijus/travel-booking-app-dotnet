@@ -10,7 +10,7 @@ namespace Domain.Exceptions
     public sealed class HotelNotFoundException : NotFoundException
     {
 
-        public HotelNotFoundException(uint id)
+        public HotelNotFoundException(int id)
             : base($"The hotel with the identifier {id} was not found.")
         {
         }

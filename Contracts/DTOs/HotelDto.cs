@@ -8,9 +8,11 @@ namespace Contracts.DTOs
 {
     public class HotelDto
     {
-        public uint Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string[] Images { get; set; }
+        public List<RoomDto> Rooms { get; set; } = new List<RoomDto>();
+
         public string Address { get; set; }
         public double Distance { get; set; }
         public byte StarRating { get; set; }

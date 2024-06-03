@@ -16,7 +16,7 @@ namespace Persistence.Repositories
             return Task.FromResult(HotelData.Hotels);
         }
 
-        public Task<Hotel> GetByIdAsync(uint Id)
+        public Task<Hotel> GetByIdAsync(int Id)
         {
             var hotel = HotelData.Hotels.FirstOrDefault(h => h.Id == Id);
             return Task.FromResult(hotel);

@@ -24,7 +24,7 @@ namespace Services
             return hotelsDto;
         }
 
-        public async Task<HotelDto> GetByIdAsync(uint id)
+        public async Task<HotelDto> GetByIdAsync(int id)
         {
             var hotel = await _hotelRepository.GetByIdAsync(id);
 

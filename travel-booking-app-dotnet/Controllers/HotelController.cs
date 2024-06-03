@@ -23,7 +23,7 @@ namespace travel_booking_app_dotnet.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetHotelById(uint id)
+        public async Task<IActionResult> GetHotelById(int id)
         {
             var hotelDto = await _hotelService.GetByIdAsync(id);
 
