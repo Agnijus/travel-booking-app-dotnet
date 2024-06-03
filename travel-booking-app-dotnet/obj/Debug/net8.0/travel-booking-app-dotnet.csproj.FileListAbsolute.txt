@@ -43,3 +43,4 @@ C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\t
 C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\travel-booking-app-dotnet\bin\Debug\net8.0\Services.pdb
 C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\travel-booking-app-dotnet\bin\Debug\net8.0\Domain.pdb
 C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\travel-booking-app-dotnet\bin\Debug\net8.0\Persistence.pdb
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\travel-booking-app-dotnet\bin\Debug\net8.0\travel-booking-app-dotnet.staticwebassets.runtime.json

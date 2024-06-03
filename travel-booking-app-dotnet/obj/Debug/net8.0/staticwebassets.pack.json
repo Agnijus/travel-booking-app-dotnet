@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image1_0.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image1_0.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image1_1.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image1_1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image1_2.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image1_2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image2_0.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image2_0.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image2_1.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image2_1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image2_2.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image2_2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image3_0.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image3_0.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image3_1.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image3_1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image3_2.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\image3_2.jpeg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.travel-booking-app-dotnet.props",
+      "PackagePath": "build\\travel-booking-app-dotnet.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.travel-booking-app-dotnet.props",
+      "PackagePath": "buildMultiTargeting\\travel-booking-app-dotnet.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.travel-booking-app-dotnet.props",
+      "PackagePath": "buildTransitive\\travel-booking-app-dotnet.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.travel-booking-app-dotnet.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

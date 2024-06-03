@@ -19,9 +19,9 @@ namespace Persistence.Data
               Name = "Conrad Las Vegas at Resorts World",
               Images = new string[]
               {
-                "https://content.skyscnr.com/available/1215563226/1215563226_320x252.jpg",
-                "https://content.skyscnr.com/available/1303344146/1303344146_WxH.jpg",
-                "https://content.skyscnr.com/available/1215563226/1215563226_320x252.jpg",
+                 "/Assets/image1_0.jpeg",
+                 "/Assets/image1_1.jpeg",
+                 "/Assets/image1_2.jpeg"
               },
               Address =
                 "111 Resorts World Avenue, Downtown Las Vegas, Las Vegas, 89109, United States",
@@ -39,17 +39,17 @@ namespace Persistence.Data
               Name = "Waldorf Astoria Las Vegas",
               Images = new string[]
               {
-                "https://content.skyscnr.com/available/1394098245/1394098245_320x252.jpg",
-                "https://content.skyscnr.com/available/1303344146/1303344146_WxH.jpg",
-                "https://content.skyscnr.com/available/1215563226/1215563226_320x252.jpg",
+                "/Assets/image2_0.jpeg",
+                "/Assets/image2_1.jpeg",
+                "/Assets/image2_2.jpeg"
               },
               Address =
-                "111 Resorts World Avenue, Downtown Las Vegas, Las Vegas, 89109, United States",
+                "3752 Las Vegas Boulevard South, Downtown Las Vegas, Las Vegas, 89158, United States",
               Distance = 0.72,
               StarRating = 5,
               GuestRating = 4.0f,
-              ReviewCount = 1086,
-              PricePerNight = 304,
+              ReviewCount = 1092,
+              PricePerNight = 287,
               HasFreeCancellation = false,
               HasPayOnArrival = false,
             },
@@ -59,12 +59,12 @@ namespace Persistence.Data
               Name = "The Orleans Hotel & Casino",
               Images = new string[]
               {
-                "https://content.skyscnr.com/available/1167715507/1167715507_640x504.jpg",
-                "https://content.skyscnr.com/available/1303344146/1303344146_WxH.jpg",
-                "https://content.skyscnr.com/available/1215563226/1215563226_320x252.jpg",
+                "/Assets/image3_0.jpeg",
+                "/Assets/image3_1.jpeg",
+                "/Assets/image3_2.jpeg"
               },
               Address =
-                "111 Resorts World Avenue, Downtown Las Vegas, Las Vegas, 89109, United States",
+                "4500 W Tropicana Ave, Southwest Valley, Las Vegas, 89103, United States",
               Distance = 1.71,
               StarRating = 3,
               GuestRating = 3.7f,

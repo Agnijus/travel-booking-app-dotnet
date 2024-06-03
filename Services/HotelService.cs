@@ -2,7 +2,6 @@
 using Services.Abstractions;
 using Persistence.Repositories;
 using travel_booking_app_dotnet.Core.Repository_Interfaces;
-using travel_booking_app_dotnet.Core.Exceptions;
 using Mapster;
 using Domain.Exceptions;
 using travel_booking_app_dotnet.Core.Entities;
