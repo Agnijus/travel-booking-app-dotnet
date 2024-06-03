@@ -3,6 +3,7 @@ using Services;
 using travel_booking_app_dotnet.Controllers;
 using travel_booking_app_dotnet.Core.Repository_Interfaces;
 using Persistence.Repositories;
+using Domain.Repository_Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
@@ -10,6 +11,9 @@ builder.Services.AddControllers()
 
 builder.Services.AddScoped<IHotelService, HotelService>();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+
+builder.Services.AddScoped<IHotelBookingService, HotelBookingService>();
+builder.Services.AddScoped<IHotelBookingRepository, HotelBookingRepository>();
 
 
 

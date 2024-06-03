@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using travel_booking_app_dotnet.Core.Entities;
-using travel_booking_app_dotnet.Core.Repository_Interfaces;
 using Persistence.Data;
+using travel_booking_app_dotnet.Core.Repository_Interfaces;
 
 namespace Persistence.Repositories
 {
