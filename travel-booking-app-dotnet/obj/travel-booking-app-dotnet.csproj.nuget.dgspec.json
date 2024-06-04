@@ -31,7 +31,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

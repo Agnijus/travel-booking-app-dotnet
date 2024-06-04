@@ -16,19 +16,29 @@ namespace travel_booking_app_dotnet.Controllers
             _hotelBookingService = hotelBookingService;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetHotelBookingById(int id)
-        {
-            var hotelBookingDto = await _hotelBookingService.GetByIdAsync(id);
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetHotelBookingById(int id)
+        //{
+        //    var hotelBookingDto = await _hotelBookingService.GetByIdAsync(id);
 
-            return Ok(hotelBookingDto);
+        //    return Ok(hotelBookingDto);
+        //}
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTransactionById(int id)
+        {
+            var transactionDto = await _hotelBookingService.GetByIdAsync(id);
+
+            return Ok(transactionDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateHotelBooking([FromBody] HotelBookingForCreationDto hotelBookingForCreationDto)
+        public async Task<IActionResult> CreateGuestAccountHotelTransaction([FromBody] GuestAccountHotelBookingDto guestAccountHotelBookingDto)
         {
-            var hotelBookingDto = await _hotelBookingService.CreateAsync(hotelBookingForCreationDto);
-            return CreatedAtAction(nameof(GetHotelBookingById), new { id = hotelBookingDto.Id }, hotelBookingDto);
+            var transactionDto = await _hotelBookingService.CreateAsync(guestAccountHotelBookingDto);
+
+            return CreatedAtAction(nameof(GetTransactionById), new { id = transactionDto.Id }, transactionDto);
         }
 
     }

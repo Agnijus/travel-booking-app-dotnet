@@ -9,7 +9,7 @@ namespace Contracts.DTOs
     public class HotelBookingForCreationDto
     {
         public int Id { get; set; }
-        public string HotelId { get; set; }
+        public int HotelId { get; set; }
         public string RoomType { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }

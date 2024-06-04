@@ -15,6 +15,9 @@ builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IHotelBookingService, HotelBookingService>();
 builder.Services.AddScoped<IHotelBookingRepository, HotelBookingRepository>();
 
+builder.Services.AddScoped<IGuestAccountRepository, GuestAccountRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+
 
 
 

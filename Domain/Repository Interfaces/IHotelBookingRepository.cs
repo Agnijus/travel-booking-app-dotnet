@@ -7,7 +7,7 @@ namespace Domain.Repository_Interfaces
     {
         Task<HotelBooking> GetByIdAsync(int Id);
 
-        void Insert(HotelBooking hotel);
-        void Remove(HotelBooking hotel);
+        void Insert(HotelBooking hotelBooking);
+        void Remove(HotelBooking hotelBooking);
     }
 }

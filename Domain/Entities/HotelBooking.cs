@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,9 @@ namespace Domain.Entities
 {
     public class HotelBooking
     {
-        public static object HotelBookings { get; set; }
         public int Id { get; set; }
-        public string HotelId { get; set; }
-        public string RoomType { get; set; }
+        public int HotelId { get; set; }
+        public RoomType RoomType { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public double TotalPrice { get; set; }

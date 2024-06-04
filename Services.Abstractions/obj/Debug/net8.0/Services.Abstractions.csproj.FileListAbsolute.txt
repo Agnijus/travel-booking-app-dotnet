@@ -14,3 +14,5 @@ C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\t
 C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Services.Abstractions\obj\Debug\net8.0\refint\Services.Abstractions.dll
 C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Services.Abstractions\obj\Debug\net8.0\Services.Abstractions.pdb
 C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Services.Abstractions\obj\Debug\net8.0\ref\Services.Abstractions.dll
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Services.Abstractions\bin\Debug\net8.0\Domain.dll
+C:\Users\Agnijus\OneDrive\Documents\WebDevProjects\arrivia-mentorship-projects\travel-booking-app-dotnet\Services.Abstractions\bin\Debug\net8.0\Domain.pdb
