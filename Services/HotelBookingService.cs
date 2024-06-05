@@ -28,17 +28,12 @@ namespace Services
 
             if (transaction is null)
             {
-                throw new HotelNotFoundException(id);
+                throw new TransactionNotFoundException(id);
             }
 
             var transactionDto = transaction.Adapt<TransactionDto>();
 
             return transactionDto;
-        }
-
-        public Task DeleteAsync(TransactionDto transactionDto)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<TransactionDto> CreateAsync(GuestAccountHotelBookingDto guestAccountHotelBookingDto)
@@ -53,7 +48,6 @@ namespace Services
 
             _guestAccountRepository.Insert(guestAccount);
 
-
             var hotelBooking = new HotelBooking
             {
                 HotelId = guestAccountHotelBookingDto.HotelId,
@@ -65,7 +59,6 @@ namespace Services
 
             _hotelBookingRepository.Insert(hotelBooking);
 
-
             var transaction = new Transaction
             {
                 AccountId = guestAccount.Id,
@@ -76,11 +69,19 @@ namespace Services
 
             _transactionRepository.Insert(transaction);
 
-
             return transaction.Adapt<TransactionDto>();
         }
 
+        public async Task DeleteByIdAsync(int id)
+        {
+            var transaction = await _transactionRepository.GetByIdAsync(id);
 
+            if (transaction is null)
+            {
+                throw new TransactionNotFoundException(id);
+            }
 
+            _transactionRepository.Remove(transaction);
+        }
     }
 }

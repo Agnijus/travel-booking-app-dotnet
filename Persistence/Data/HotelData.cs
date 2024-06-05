@@ -83,6 +83,8 @@ namespace Persistence.Data
                 new Room(1, RoomType.DoubleRoom , 83),
                 new Room(2, RoomType.TwinRoom, 90),
                 new Room(3, RoomType.QuadrupleRoom, 112),
+
+
               },
               Address =
                 "4500 W Tropicana Ave, Southwest Valley, Las Vegas, 89103, United States",

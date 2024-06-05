@@ -7,7 +7,8 @@ using Domain.Repository_Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
-    .AddApplicationPart(typeof(HotelController).Assembly);
+    .AddApplicationPart(typeof(HotelController).Assembly)
+    .AddApplicationPart(typeof(BookingTransactionController).Assembly);
 
 builder.Services.AddScoped<IHotelService, HotelService>();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
