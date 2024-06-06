@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using travel_booking_app_dotnet.Core.Entities;
+﻿using travel_booking_app_dotnet.Core.Entities;
 using Persistence.Data;
 using travel_booking_app_dotnet.Core.Repository_Interfaces;
 

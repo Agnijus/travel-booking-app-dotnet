@@ -1,12 +1,5 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using travel_booking_app_dotnet.Core.Entities;
 
 
@@ -40,7 +33,6 @@ namespace Persistence.Data
               StarRating = 5,
               GuestRating = 3.0f,
               ReviewCount = 731,
-              PricePerNight = 173,
               HasFreeCancellation = true,
               HasPayOnArrival = false,
             },
@@ -66,7 +58,6 @@ namespace Persistence.Data
               StarRating = 5,
               GuestRating = 4.0f,
               ReviewCount = 1092,
-              PricePerNight = 287,
               HasFreeCancellation = false,
               HasPayOnArrival = false,
             },
@@ -94,7 +85,6 @@ namespace Persistence.Data
               StarRating = 3,
               GuestRating = 3.7f,
               ReviewCount = 6816,
-              PricePerNight = 83,
               HasFreeCancellation = false,
               HasPayOnArrival = true,
             }

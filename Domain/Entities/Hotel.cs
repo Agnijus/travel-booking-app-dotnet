@@ -13,7 +13,6 @@ namespace travel_booking_app_dotnet.Core.Entities
         public byte StarRating { get; set; }
         public float GuestRating { get; set; }
         public ushort ReviewCount { get; set; }
-        public ushort PricePerNight { get; set; }
         public bool HasFreeCancellation { get; set; }
         public bool HasPayOnArrival { get; set; }
     }

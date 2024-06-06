@@ -59,7 +59,7 @@ namespace Services
 
             _hotelReservationDetailsRepository.Insert(hotelReservationDetails);
 
-            var transaction = new Booking
+            var booking = new Booking
             {
                 AccountId = guestAccount.Id,
                 ReservationId = hotelReservationDetails.Id,
@@ -67,9 +67,9 @@ namespace Services
                 Status = TransactionStatus.Pending
             };
 
-            _bookingRepository.Insert(transaction);
+            _bookingRepository.Insert(booking);
 
-            return transaction.Adapt<BookingDto>();
+            return booking.Adapt<BookingDto>();
         }
 
         public async Task DeleteByIdAsync(int id)
