@@ -8,16 +8,16 @@ using Domain.Repository_Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(HotelController).Assembly)
-    .AddApplicationPart(typeof(BookingTransactionController).Assembly);
+    .AddApplicationPart(typeof(HotelBookingController).Assembly);
 
 builder.Services.AddScoped<IHotelService, HotelService>();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 
 builder.Services.AddScoped<IHotelBookingService, HotelBookingService>();
-builder.Services.AddScoped<IHotelBookingRepository, HotelBookingRepository>();
+builder.Services.AddScoped<IHotelReservationDetailsRepository, HotelReservationDetailsRepository>();
 
 builder.Services.AddScoped<IGuestAccountRepository, GuestAccountRepository>();
-builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 
 

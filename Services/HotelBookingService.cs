@@ -11,32 +11,32 @@ namespace Services
 {
     public class HotelBookingService : IHotelBookingService
     {
-        private readonly IHotelBookingRepository _hotelBookingRepository;
+        private readonly IHotelReservationDetailsRepository _hotelReservationDetailsRepository;
         private readonly IGuestAccountRepository _guestAccountRepository;
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly IBookingRepository _bookingRepository;
 
-        public HotelBookingService(IHotelBookingRepository hotelBookingRepository, IGuestAccountRepository guestAccountRepository, ITransactionRepository 
-            transactionRepository)
+        public HotelBookingService(IHotelReservationDetailsRepository hotelReservationDetailsRepository, IGuestAccountRepository guestAccountRepository, IBookingRepository
+            bookingRepository)
         {
-            _hotelBookingRepository = hotelBookingRepository;
+            _hotelReservationDetailsRepository = hotelReservationDetailsRepository;
             _guestAccountRepository = guestAccountRepository;
-            _transactionRepository = transactionRepository;
+            _bookingRepository = bookingRepository;
         }
-        public async Task<TransactionDto> GetByIdAsync(int id)
+        public async Task<BookingDto> GetByIdAsync(int id)
         {
-            var transaction = await _transactionRepository.GetByIdAsync(id);
+            var hotelBooking = await _bookingRepository.GetByIdAsync(id);
 
-            if (transaction is null)
+            if (hotelBooking is null)
             {
                 throw new TransactionNotFoundException(id);
             }
 
-            var transactionDto = transaction.Adapt<TransactionDto>();
+            var hotelBookingDto = hotelBooking.Adapt<BookingDto>();
 
-            return transactionDto;
+            return hotelBookingDto;
         }
 
-        public async Task<TransactionDto> CreateAsync(GuestAccountHotelBookingDto guestAccountHotelBookingDto)
+        public async Task<BookingDto> CreateAsync(GuestAccountHotelBookingDto guestAccountHotelBookingDto)
         {
             var guestAccount = new GuestAccount
             {
@@ -48,7 +48,7 @@ namespace Services
 
             _guestAccountRepository.Insert(guestAccount);
 
-            var hotelBooking = new HotelBooking
+            var hotelReservationDetails = new HotelReservationDetails
             {
                 HotelId = guestAccountHotelBookingDto.HotelId,
                 RoomType = guestAccountHotelBookingDto.RoomType,
@@ -57,31 +57,31 @@ namespace Services
                 TotalPrice = (double)guestAccountHotelBookingDto.TotalPrice,
             };
 
-            _hotelBookingRepository.Insert(hotelBooking);
+            _hotelReservationDetailsRepository.Insert(hotelReservationDetails);
 
-            var transaction = new Transaction
+            var transaction = new Booking
             {
                 AccountId = guestAccount.Id,
-                BookingId = hotelBooking.Id,
-                TotalPrice = hotelBooking.TotalPrice,
+                ReservationId = hotelReservationDetails.Id,
+                TotalPrice = hotelReservationDetails.TotalPrice,
                 Status = TransactionStatus.Pending
             };
 
-            _transactionRepository.Insert(transaction);
+            _bookingRepository.Insert(transaction);
 
-            return transaction.Adapt<TransactionDto>();
+            return transaction.Adapt<BookingDto>();
         }
 
         public async Task DeleteByIdAsync(int id)
         {
-            var transaction = await _transactionRepository.GetByIdAsync(id);
+            var hotelBooking = await _bookingRepository.GetByIdAsync(id);
 
-            if (transaction is null)
+            if (hotelBooking is null)
             {
                 throw new TransactionNotFoundException(id);
             }
 
-            _transactionRepository.Remove(transaction);
+            _bookingRepository.Remove(hotelBooking);
         }
     }
 }

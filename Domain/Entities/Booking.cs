@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class HotelBooking
+    public class Booking
     {
         public int Id { get; set; }
-        public int HotelId { get; set; }
-        public RoomType RoomType { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
+        public int AccountId { get; set; }
+        public int ReservationId { get; set; }
         public double TotalPrice { get; set; }
+        public TransactionStatus Status { get; set; }
     }
 }

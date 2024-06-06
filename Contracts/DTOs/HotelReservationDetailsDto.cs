@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Contracts.DTOs
 {
-    public class HotelBookingDto
+    public class HotelReservationDetailsDto
     {
         public int Id { get; set; }
         public int HotelId { get; set; }

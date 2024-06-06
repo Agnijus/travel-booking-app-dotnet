@@ -19,6 +19,7 @@ namespace Persistence.Repositories
 
         public void Insert(GuestAccount guestAccount)
         {
+            guestAccount.Id = GuestAccountData.GetNextId();
             GuestAccountData.GuestAccounts.Add(guestAccount);
         }
 

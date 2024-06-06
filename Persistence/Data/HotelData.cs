@@ -14,6 +14,8 @@ namespace Persistence.Data
 {
     internal class HotelData
     {
+        private static int lastId = 0;
+
         public static List<Hotel> Hotels { get; } = new List<Hotel>
         {
             new Hotel
@@ -96,6 +98,11 @@ namespace Persistence.Data
               HasFreeCancellation = false,
               HasPayOnArrival = true,
             }
-        };   
+        };
+
+        public static int GetNextId()
+        {
+            return ++lastId;
+        }
     }
 }

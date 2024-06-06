@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Transaction
+    public class BookingDto
     {
         public int Id { get; set; }
         public int AccountId { get; set; }
-        public int BookingId { get; set; }
+        public int ReservationId { get; set; }
         public double TotalPrice { get; set; }
         public TransactionStatus Status { get; set; }
     }

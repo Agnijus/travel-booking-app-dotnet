@@ -11,12 +11,10 @@ namespace Services.Abstractions
 {
     public interface IHotelBookingService
     {
-        Task<TransactionDto> GetByIdAsync(int id);
+        Task<BookingDto> GetByIdAsync(int id);
         Task DeleteByIdAsync(int  id);
 
-        Task<TransactionDto> CreateAsync(GuestAccountHotelBookingDto guestAccountHotelBookingDto);
-
-
+        Task<BookingDto> CreateAsync(GuestAccountHotelBookingDto guestAccountHotelBookingDto);
 
     }
 }

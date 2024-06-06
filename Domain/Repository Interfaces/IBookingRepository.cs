@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Repository_Interfaces
 {
-    public interface ITransactionRepository
+    public interface IBookingRepository
     {
-        Task<Transaction> GetByIdAsync(int Id);
+        Task<Booking> GetByIdAsync(int Id);
 
-        void Insert(Transaction transaction);
-        void Remove(Transaction transaction);
+        void Insert(Booking booking);
+        void Remove(Booking booking);
     }
 }

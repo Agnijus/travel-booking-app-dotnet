@@ -1,6 +1,38 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\brand0.png",
+      "PackagePath": "staticwebassets\\Assets\\brand0.png"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\brand1.png",
+      "PackagePath": "staticwebassets\\Assets\\brand1.png"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\brand2.png",
+      "PackagePath": "staticwebassets\\Assets\\brand2.png"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\brand3.png",
+      "PackagePath": "staticwebassets\\Assets\\brand3.png"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\brand4.png",
+      "PackagePath": "staticwebassets\\Assets\\brand4.png"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\brand5.png",
+      "PackagePath": "staticwebassets\\Assets\\brand5.png"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\hero.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\hero.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\hero2.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\hero2.jpeg"
+    },
+    {
       "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image1_0.jpeg",
       "PackagePath": "staticwebassets\\Assets\\image1_0.jpeg"
     },
@@ -35,6 +67,18 @@
     {
       "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image3_2.jpeg",
       "PackagePath": "staticwebassets\\Assets\\image3_2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\services0.svg",
+      "PackagePath": "staticwebassets\\Assets\\services0.svg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\services1.svg",
+      "PackagePath": "staticwebassets\\Assets\\services1.svg"
+    },
+    {
+      "Id": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\services2.svg",
+      "PackagePath": "staticwebassets\\Assets\\services2.svg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.travel-booking-app-dotnet.props",

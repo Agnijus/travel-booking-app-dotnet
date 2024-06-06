@@ -24,6 +24,7 @@ namespace Persistence.Repositories
 
         public void Insert(Hotel hotel)
         {
+            hotel.Id = HotelData.GetNextId();
             HotelData.Hotels.Add(hotel);
         }
 
