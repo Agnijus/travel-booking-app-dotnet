@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services;
 using Services.Abstractions;
 
 namespace travel_booking_app_dotnet.Controllers
@@ -22,7 +23,7 @@ namespace travel_booking_app_dotnet.Controllers
             return Ok(hotels);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetHotelById(int id)
         {
             var hotelDto = await _hotelService.GetByIdAsync(id);
@@ -30,8 +31,12 @@ namespace travel_booking_app_dotnet.Controllers
             return Ok(hotelDto);
         }
 
-        
+        [HttpGet("destination/{destination}")]
+        public async Task<IActionResult> GetByDestination(string destination)
+        {
+            var hotelDto = await _hotelService.GetByDestinationAsync(destination);
 
-        
+            return Ok(hotelDto);
+        }
     }
 }

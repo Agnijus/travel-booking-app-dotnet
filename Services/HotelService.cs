@@ -39,6 +39,18 @@ namespace Services
             return hotelDto;
         }
 
+        public async Task<List<HotelDto>> GetByDestinationAsync(string destination)
+        {
+            var hotels = await _hotelRepository.GetAllAsync();
+
+            var filteredHotels = hotels.Where(h => h.City == destination).ToList();
+
+            var hotelsDto = filteredHotels.Adapt<List<HotelDto>>();
+
+            return hotelsDto;
+
+        }
+
         public Task CreateAsync(HotelDto hotelDto)
         {
             var hotel = hotelDto.Adapt<Hotel>();

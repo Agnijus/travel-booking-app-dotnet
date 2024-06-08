@@ -22,7 +22,6 @@ builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IPopularDestinationRepository, PopularDestinationRepository>();
 builder.Services.AddScoped<IPopularDestinationService, PopularDestinationService>();
 
-builder.Services.AddScoped<IHotelSearchService, HotelSearchService>();
 
 
 
