@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Services.Abstractions
 {
-    public interface IPopularDestinationService
+    public interface IHotelSearchService
     {
-        Task<List<PopularDestinationDto>> GetAllAsync();
+        Task<List<HotelDto>> GetByDestinationAsync(string destination);
     }
 }

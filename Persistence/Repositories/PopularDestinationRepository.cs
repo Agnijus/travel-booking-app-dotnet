@@ -1,4 +1,5 @@
-﻿using Domain.Repository_Interfaces;
+﻿using Domain.Entities;
+using Domain.Repository_Interfaces;
 using Persistence.Data;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Persistence.Repositories
 {
     public class PopularDestinationRepository : IPopularDestinationRepository
     {
-        public Task<List<string>> GetAllAsync()
+        public Task<List<PopularDestination>> GetAllAsync()
         {
             return Task.FromResult(PopularDestinationData.PopularDestinations);
         }
