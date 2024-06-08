@@ -19,6 +19,11 @@ builder.Services.AddScoped<IHotelReservationDetailsRepository, HotelReservationD
 builder.Services.AddScoped<IGuestAccountRepository, GuestAccountRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
+builder.Services.AddScoped<IPopularDestinationRepository, PopularDestinationRepository>();
+builder.Services.AddScoped<IPopularDestinationService, PopularDestinationService>();
+
+
+
 
 
 
@@ -35,6 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
+
 
 app.UseHttpsRedirection();
 

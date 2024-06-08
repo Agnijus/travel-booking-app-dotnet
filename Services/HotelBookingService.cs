@@ -11,6 +11,7 @@ namespace Services
 {
     public class HotelBookingService : IHotelBookingService
     {
+
         private readonly IHotelReservationDetailsRepository _hotelReservationDetailsRepository;
         private readonly IGuestAccountRepository _guestAccountRepository;
         private readonly IBookingRepository _bookingRepository;
@@ -28,7 +29,7 @@ namespace Services
 
             if (hotelBooking is null)
             {
-                throw new TransactionNotFoundException(id);
+                throw new BookingNotFoundException(id);
             }
 
             var hotelBookingDto = hotelBooking.Adapt<BookingDto>();
@@ -78,7 +79,7 @@ namespace Services
 
             if (hotelBooking is null)
             {
-                throw new TransactionNotFoundException(id);
+                throw new BookingNotFoundException(id);
             }
 
             _bookingRepository.Remove(hotelBooking);

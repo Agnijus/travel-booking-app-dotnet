@@ -9,6 +9,7 @@ namespace travel_booking_app_dotnet.Controllers
     [Route("/api/booking")]
     public class HotelBookingController : ControllerBase
     {
+
         private readonly IHotelBookingService _hotelBookingService;
         public HotelBookingController(IHotelBookingService hotelBookingService)
         {

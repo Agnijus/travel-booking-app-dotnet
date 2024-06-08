@@ -29,6 +29,7 @@ namespace Persistence.Data
               },
               Address =
                 "111 Resorts World Avenue, Downtown Las Vegas, Las Vegas, 89109, United States",
+              City = "Las Vegas",
               Distance = 0.8,
               StarRating = 5,
               GuestRating = 3.0f,
@@ -54,6 +55,7 @@ namespace Persistence.Data
               },
               Address =
                 "3752 Las Vegas Boulevard South, Downtown Las Vegas, Las Vegas, 89158, United States",
+              City = "Las Vegas",
               Distance = 0.72,
               StarRating = 5,
               GuestRating = 4.0f,
@@ -81,6 +83,7 @@ namespace Persistence.Data
               },
               Address =
                 "4500 W Tropicana Ave, Southwest Valley, Las Vegas, 89103, United States",
+              City = "Las Vegas",
               Distance = 1.71,
               StarRating = 3,
               GuestRating = 3.7f,

@@ -8,5 +8,6 @@ namespace Services.Abstractions
         Task<HotelDto> GetByIdAsync(int id);
         Task CreateAsync(HotelDto hotelDto);
         Task DeleteAsync(HotelDto hotelDto);
+
     }
 }

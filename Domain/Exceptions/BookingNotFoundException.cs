@@ -7,10 +7,10 @@ using travel_booking_app_dotnet.Core.Exceptions;
 
 namespace Domain.Exceptions
 {
-    public class TransactionNotFoundException : NotFoundException
+    public class BookingNotFoundException : NotFoundException
     {
-        public TransactionNotFoundException(int id)
-           : base($"The transaction with the identifier {id} was not found.")
+        public BookingNotFoundException(int id)
+           : base($"The booking with the identifier {id} was not found.")
         {
         }
     }

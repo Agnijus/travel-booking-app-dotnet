@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wDIkFOzKWWZyGz/kHGMKzu36qI/bAnZXUKmyclo7KxA=",
+  "Hash": "jFmOxkW6pEPW+33jrWWRGVsu1aTrWpmXxowSmWhTyY8=",
   "Source": "travel-booking-app-dotnet",
   "BasePath": "_content/travel-booking-app-dotnet",
   "Mode": "Default",
@@ -167,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Assets\\hero2.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\hero2_mobile.jpeg",
+      "SourceId": "travel-booking-app-dotnet",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\",
+      "BasePath": "_content/travel-booking-app-dotnet",
+      "RelativePath": "Assets/hero2_mobile.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\hero2_mobile.jpeg"
     },
     {
       "Identity": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\travel-booking-app-dotnet\\wwwroot\\Assets\\image1_0.jpeg",

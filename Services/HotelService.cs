@@ -10,6 +10,7 @@ namespace Services
 {
     public class HotelService : IHotelService
     {
+
         private readonly IHotelRepository _hotelRepository;
         public HotelService(IHotelRepository hotelRepository) 
         {
@@ -59,5 +60,8 @@ namespace Services
 
             _hotelRepository.Remove(hotel);
         }
+
+       
+
     }
 }
