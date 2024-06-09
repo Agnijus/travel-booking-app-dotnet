@@ -90,6 +90,32 @@ namespace Persistence.Data
               ReviewCount = 6816,
               HasFreeCancellation = false,
               HasPayOnArrival = true,
+            },
+            new Hotel
+            {
+              Id = 4,
+              Name = "Hotel Cafe Royal",
+              Images = new string[]
+              {
+                "/Assets/image4_0.jpeg",
+                "/Assets/image4_1.jpeg",
+                "/Assets/image4_2.jpeg"
+              },
+              Rooms = new List<Room>
+              {
+                new Room(1, RoomType.DoubleRoom , 1170),
+                new Room(2, RoomType.TwinRoom, 1200),
+                new Room(3, RoomType.QuadrupleRoom, 1600),
+              },
+              Address =
+                "10 Air St, The West End, London, W1B 4DY, United Kingdom",
+              City = "London",
+              Distance = 0.75,
+              StarRating = 5,
+              GuestRating = 5f,
+              ReviewCount = 2459,
+              HasFreeCancellation = true,
+              HasPayOnArrival = true,
             }
         };
 
