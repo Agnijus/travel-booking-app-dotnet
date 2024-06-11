@@ -5,6 +5,8 @@ using travel_booking_app_dotnet.Core.Repository_Interfaces;
 using Mapster;
 using Domain.Exceptions;
 using travel_booking_app_dotnet.Core.Entities;
+using FluentValidation;
+using Domain.Entities;
 
 namespace Services
 {
@@ -12,10 +14,13 @@ namespace Services
     {
 
         private readonly IHotelRepository _hotelRepository;
-        public HotelService(IHotelRepository hotelRepository) 
+        private readonly IValidator<HotelDto> _hotelValidator;
+        public HotelService(IHotelRepository hotelRepository, IValidator<HotelDto> hotelValidator)
         {
             _hotelRepository = hotelRepository;
+            _hotelValidator = hotelValidator;
         }
+
         public async Task<List<HotelDto>> GetAllAsync()
         {
             var hotels = await _hotelRepository.GetAllAsync();
@@ -51,14 +56,19 @@ namespace Services
 
         }
 
-        public Task CreateAsync(HotelDto hotelDto)
+        public async Task<HotelDto> CreateAsync(HotelDto hotelDto)
         {
+            var validationResult = await _hotelValidator.ValidateAsync(hotelDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
             var hotel = hotelDto.Adapt<Hotel>();
 
             _hotelRepository.Insert(hotel);
 
-            return Task.CompletedTask;
-
+            return hotel.Adapt<HotelDto>();
         }
 
         public async Task DeleteAsync(HotelDto hotelDto)
@@ -72,8 +82,5 @@ namespace Services
 
             _hotelRepository.Remove(hotel);
         }
-
-       
-
     }
 }

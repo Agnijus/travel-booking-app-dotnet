@@ -4,6 +4,9 @@ using travel_booking_app_dotnet.Controllers;
 using travel_booking_app_dotnet.Core.Repository_Interfaces;
 using Persistence.Repositories;
 using Domain.Repository_Interfaces;
+using FluentValidation;
+using Contracts.DTOs;
+using Services.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
@@ -21,6 +24,9 @@ builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 builder.Services.AddScoped<IPopularDestinationRepository, PopularDestinationRepository>();
 builder.Services.AddScoped<IPopularDestinationService, PopularDestinationService>();
+
+
+builder.Services.AddScoped<IValidator<HotelDto>, HotelDtoValidator>();
 
 
 

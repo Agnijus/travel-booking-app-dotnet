@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "qS/Ff3E99ml3pF4+QbFMAXynvMNFHC+lFkhLi6Z/QXKGNB0jWL3cyyjKfLp2z8ImTJArhpVRl8dCJuHUl1JfkQ==",
+  "dgSpecHash": "yFPBrpICgb4bEVcgePYh289NukipI0p2CgbibG7Iqp+E8HI7PjgSboVHVEPEqesFirykrw0VsAjm/q0SxBv1jg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Services\\Services.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Agnijus\\.nuget\\packages\\fluentvalidation\\11.9.2\\fluentvalidation.11.9.2.nupkg.sha512",
     "C:\\Users\\Agnijus\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
     "C:\\Users\\Agnijus\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512"
   ],

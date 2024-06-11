@@ -5,6 +5,7 @@ using Domain.Exceptions;
 using Domain.Repository_Interfaces;
 using Mapster;
 using Services.Abstractions;
+using Services.Validators;
 
 
 namespace Services
@@ -46,6 +47,8 @@ namespace Services
                 Email = guestAccountHotelBookingDto.Email,
                 ContactNumber = guestAccountHotelBookingDto.PhoneNumber
             };
+
+           
 
             _guestAccountRepository.Insert(guestAccount);
 

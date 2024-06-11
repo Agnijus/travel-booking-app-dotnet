@@ -7,7 +7,7 @@ namespace Services.Abstractions
         Task<List<HotelDto>> GetAllAsync();
         Task<HotelDto> GetByIdAsync(int id);
         Task<List<HotelDto>> GetByDestinationAsync(string destination);
-        Task CreateAsync(HotelDto hotelDto);
+        Task<HotelDto> CreateAsync(HotelDto hotelForCreationDto);
         Task DeleteAsync(HotelDto hotelDto);
 
     }

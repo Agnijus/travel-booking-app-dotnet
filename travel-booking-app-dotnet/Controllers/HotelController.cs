@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Contracts.DTOs;
+using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.Abstractions;
 
@@ -37,6 +38,14 @@ namespace travel_booking_app_dotnet.Controllers
             var hotelDto = await _hotelService.GetByDestinationAsync(destination);
 
             return Ok(hotelDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateHotel([FromBody] HotelDto hotelForCreationDto)
+        {
+            var hotelDto = await _hotelService.CreateAsync(hotelForCreationDto);
+
+            return CreatedAtAction(nameof(GetHotelById), new { id = hotelDto.Id }, hotelDto);
         }
     }
 }
