@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\Domain.csproj",
+      "projectPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\Agnijus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\obj\\",
+      "outputPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

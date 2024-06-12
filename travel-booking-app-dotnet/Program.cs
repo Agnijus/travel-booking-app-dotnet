@@ -27,6 +27,8 @@ builder.Services.AddScoped<IPopularDestinationService, PopularDestinationService
 
 
 builder.Services.AddScoped<IValidator<HotelDto>, HotelDtoValidator>();
+builder.Services.AddScoped<IValidator<GuestAccountHotelBookingDto>, GuestAccountHotelBookingDtoValidator>();
+
 
 
 

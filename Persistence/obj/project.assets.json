@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Persistence\\Persistence.csproj",
+      "projectUniqueName": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Persistence\\Persistence.csproj",
       "projectName": "Persistence",
-      "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Persistence\\Persistence.csproj",
+      "projectPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Persistence\\Persistence.csproj",
       "packagesPath": "C:\\Users\\Agnijus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Persistence\\obj\\",
+      "outputPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -58,8 +58,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\Domain.csproj"
+            "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Domain\\Domain.csproj"
             }
           }
         }

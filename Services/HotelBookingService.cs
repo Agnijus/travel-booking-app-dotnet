@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Repository_Interfaces;
+using FluentValidation;
 using Mapster;
 using Services.Abstractions;
 using Services.Validators;
@@ -16,13 +17,17 @@ namespace Services
         private readonly IHotelReservationDetailsRepository _hotelReservationDetailsRepository;
         private readonly IGuestAccountRepository _guestAccountRepository;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IValidator<GuestAccountHotelBookingDto> _validator;
+
+
 
         public HotelBookingService(IHotelReservationDetailsRepository hotelReservationDetailsRepository, IGuestAccountRepository guestAccountRepository, IBookingRepository
-            bookingRepository)
+            bookingRepository, IValidator<GuestAccountHotelBookingDto> validator)
         {
             _hotelReservationDetailsRepository = hotelReservationDetailsRepository;
             _guestAccountRepository = guestAccountRepository;
             _bookingRepository = bookingRepository;
+            _validator = validator;
         }
         public async Task<BookingDto> GetByIdAsync(int id)
         {
@@ -40,15 +45,21 @@ namespace Services
 
         public async Task<BookingDto> CreateAsync(GuestAccountHotelBookingDto guestAccountHotelBookingDto)
         {
+
+            var validationResult = await _validator.ValidateAsync(guestAccountHotelBookingDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
+
             var guestAccount = new GuestAccount
             {
                 FirstName = guestAccountHotelBookingDto.FirstName,
                 LastName = guestAccountHotelBookingDto.LastName,
                 Email = guestAccountHotelBookingDto.Email,
-                ContactNumber = guestAccountHotelBookingDto.PhoneNumber
+                ContactNumber = guestAccountHotelBookingDto.ContactNumber
             };
-
-           
 
             _guestAccountRepository.Insert(guestAccount);
 
@@ -61,6 +72,7 @@ namespace Services
                 TotalPrice = (double)guestAccountHotelBookingDto.TotalPrice,
             };
 
+           
             _hotelReservationDetailsRepository.Insert(hotelReservationDetails);
 
             var booking = new Booking

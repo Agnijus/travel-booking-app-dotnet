@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CKXR/yCx/yr6VzGIWTG+cgiw8FTLloPXDzCX/V8sfjzGtkvpqtEFU9engQHFdpe3h+H/rYSdS43kODnIBz3J6g==",
+  "dgSpecHash": "cd/PaJXQZbnkXo54cSumbkaIp2Shna6trS33mzZApg3FNiIGeYe3ysZmpiWoO3xr7/N9PtnBUaUFA2luSFUd3A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Contracts\\Contracts.csproj",
+  "projectFilePath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Contracts\\Contracts.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

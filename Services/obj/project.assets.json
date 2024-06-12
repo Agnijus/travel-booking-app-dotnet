@@ -179,11 +179,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Services\\Services.csproj",
+      "projectUniqueName": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Services\\Services.csproj",
+      "projectPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Services\\Services.csproj",
       "packagesPath": "C:\\Users\\Agnijus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Services\\obj\\",
+      "outputPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -204,17 +204,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Contracts\\Contracts.csproj": {
-              "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Contracts\\Contracts.csproj"
+            "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Contracts\\Contracts.csproj": {
+              "projectPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Contracts\\Contracts.csproj"
             },
-            "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Domain\\Domain.csproj"
+            "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Domain\\Domain.csproj"
             },
-            "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Persistence\\Persistence.csproj": {
-              "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Persistence\\Persistence.csproj"
+            "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Persistence\\Persistence.csproj": {
+              "projectPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Persistence\\Persistence.csproj"
             },
-            "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Services.Abstractions\\Services.Abstractions.csproj": {
-              "projectPath": "C:\\Users\\Agnijus\\OneDrive\\Documents\\WebDevProjects\\arrivia-mentorship-projects\\travel-booking-app-dotnet\\Services.Abstractions\\Services.Abstractions.csproj"
+            "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Services.Abstractions\\Services.Abstractions.csproj": {
+              "projectPath": "C:\\Users\\Agnijus\\travel-booking-app-dotnet\\Services.Abstractions\\Services.Abstractions.csproj"
             }
           }
         }
