@@ -1,15 +1,16 @@
-﻿using Contracts.DTOs;
+﻿using Application.Interfaces;
+using Application.Models.Requests;
 using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Repository_Interfaces;
-using FluentValidation;
-using Mapster;
-using Services.Abstractions;
-using Services.Validators;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Services
+namespace Application.Services
 {
     public class HotelBookingService : IHotelBookingService
     {
@@ -27,23 +28,38 @@ namespace Services
             _guestAccountRepository = guestAccountRepository;
             _bookingRepository = bookingRepository;
         }
-        public async Task<BookingDto> GetByIdAsync(int id)
+        public Booking GetByIdAsync(int id)
         {
-            var hotelBooking = await _bookingRepository.GetByIdAsync(id);
+            var hotelBooking = _bookingRepository.GetByIdAsync(id);
 
             if (hotelBooking is null)
             {
                 throw new BookingNotFoundException(id);
             }
 
-            var hotelBookingDto = hotelBooking.Adapt<BookingDto>();
-
-            return hotelBookingDto;
+            return hotelBooking;
         }
 
-        public async Task<Booking> CreateAsync(GuestAccount guestAccount, HotelReservationDetails hotelReservationDetails)
+        public Booking CreateAsync(PostBookingRequest request)
         {
+            var guestAccount = new GuestAccount
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                ContactNumber = request.ContactNumber
+            };
+
             _guestAccountRepository.Insert(guestAccount);
+
+            var hotelReservationDetails = new HotelReservationDetails
+            {
+                HotelId = request.HotelId,
+                RoomType = request.RoomType,
+                CheckInDate = request.CheckInDate,
+                CheckOutDate = request.CheckOutDate,
+                TotalPrice = request.TotalPrice,
+            };
 
             _hotelReservationDetailsRepository.Insert(hotelReservationDetails);
 
@@ -61,9 +77,9 @@ namespace Services
         }
 
 
-        public async Task DeleteByIdAsync(int id)
+        public void DeleteByIdAsync(int id)
         {
-            var hotelBooking = await _bookingRepository.GetByIdAsync(id);
+            var hotelBooking = _bookingRepository.GetByIdAsync(id);
 
             if (hotelBooking is null)
             {

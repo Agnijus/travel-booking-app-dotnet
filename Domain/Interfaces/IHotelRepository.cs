@@ -4,8 +4,8 @@ namespace travel_booking_app_dotnet.Core.Repository_Interfaces
 {
     public interface IHotelRepository
     {
-        Task<List<Hotel>> GetAllAsync();
-        Task<Hotel> GetByIdAsync(int Id);
+        List<Hotel> GetAllAsync();
+        Hotel GetByIdAsync(int Id);
 
         void Add(Hotel hotel);
         void Delete(Hotel hotel);

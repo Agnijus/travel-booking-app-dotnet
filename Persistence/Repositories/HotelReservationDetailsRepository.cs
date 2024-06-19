@@ -6,10 +6,10 @@ namespace Persistence.Repositories
 {
     public class HotelReservationDetailsRepository : IHotelReservationDetailsRepository
     {
-        public Task<HotelReservationDetails> GetByIdAsync(int Id)
+        public HotelReservationDetails GetByIdAsync(int Id)
         {
             var hotelBookings = HotelReservationDetailsData.HotelReservations.FirstOrDefault(b => b.Id == Id);
-            return Task.FromResult(hotelBookings);
+            return hotelBookings;
         }
 
         public void Insert(HotelReservationDetails hotelBooking)

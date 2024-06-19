@@ -1,15 +1,13 @@
-﻿using Contracts.DTOs;
+﻿using Application.Interfaces;
+using Domain.Entities;
 using Domain.Repository_Interfaces;
-using Mapster;
-using Services.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using travel_booking_app_dotnet.Core.Entities;
 
-namespace Services
+namespace Application.Services
 {
     public class PopularDestinationService : IPopularDestinationService
     {
@@ -19,13 +17,12 @@ namespace Services
         {
             _popularDestinationRepository = popularDestinationRepository;
         }
-        public async Task<List<PopularDestinationDto>> GetAllAsync()
+        public async Task<List<PopularDestination>> GetAllAsync()
         {
             var popularDestinations = await _popularDestinationRepository.GetAllAsync();
 
-            var popularDestinationsDto = popularDestinations.Adapt<List<PopularDestinationDto>>();
 
-            return popularDestinationsDto;
+            return popularDestinations;
         }
     }
 }

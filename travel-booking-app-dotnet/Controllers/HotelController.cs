@@ -1,8 +1,7 @@
-﻿using Contracts.DTOs;
+﻿using Application.Interfaces;
+using Application.Models.Requests;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Services;
-using Services.Abstractions;
 
 namespace travel_booking_app_dotnet.Controllers
 {
@@ -20,7 +19,7 @@ namespace travel_booking_app_dotnet.Controllers
         [HttpGet]
         public async Task<IActionResult> GetHotels()
         {
-            var hotels = await _hotelService.GetAllAsync();
+            var hotels = _hotelService.GetAllAsync();
 
             return Ok(hotels);
         }
@@ -28,23 +27,23 @@ namespace travel_booking_app_dotnet.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetHotelById(int id)
         {
-            var hotelDto = await _hotelService.GetByIdAsync(id);
+            var hotel = _hotelService.GetByIdAsync(id);
 
-            return Ok(hotelDto);
+            return Ok(hotel);
         }
 
         [HttpGet("destination/{destination}")]
         public async Task<IActionResult> GetByDestination(string destination)
         {
-            var hotelDto = await _hotelService.GetByDestinationAsync(destination);
+            var hotel =  _hotelService.GetByDestinationAsync(destination);
 
-            return Ok(hotelDto);
+            return Ok(hotel);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateHotel([FromBody] PostHotelRequest request)
         {
-            var hotel = await _hotelService.CreateAsync(request);
+            var hotel = _hotelService.CreateAsync(request);
 
             return CreatedAtAction(nameof(GetHotelById), new { id = hotel.Id }, hotel);
         }

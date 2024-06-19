@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Services;
-using Services.Abstractions;
+﻿using Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace travel_booking_app_dotnet.Controllers
 {

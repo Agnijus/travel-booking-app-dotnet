@@ -6,15 +6,15 @@ namespace Persistence.Repositories
 {
     public class HotelRepository : IHotelRepository
     {
-        public Task<List<Hotel>> GetAllAsync()
+        public List<Hotel> GetAllAsync()
         {
-            return Task.FromResult(HotelData.Hotels);
+            return HotelData.Hotels;
         }
 
-        public Task<Hotel> GetByIdAsync(int Id)
+        public Hotel GetByIdAsync(int Id)
         {
             var hotel = HotelData.Hotels.FirstOrDefault(h => h.Id == Id);
-            return Task.FromResult(hotel);
+            return hotel;
         }
 
         public void Add(Hotel hotel)

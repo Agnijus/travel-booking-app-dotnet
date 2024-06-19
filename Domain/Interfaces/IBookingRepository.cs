@@ -9,7 +9,7 @@ namespace Domain.Repository_Interfaces
 {
     public interface IBookingRepository
     {
-        Task<Booking> GetByIdAsync(int Id);
+        Booking GetByIdAsync(int Id);
 
         void Add(Booking booking);
         void Delete(Booking booking);

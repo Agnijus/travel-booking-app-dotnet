@@ -6,10 +6,10 @@ namespace Persistence.Repositories
 {
     public class GuestAccountRepository : IGuestAccountRepository
     {
-        public Task<GuestAccount> GetByIdAsync(int Id)
+        public GuestAccount GetByIdAsync(int Id)
         {
             var guestAccounts = GuestAccountData.GuestAccounts.FirstOrDefault(b => b.Id == Id);
-            return Task.FromResult(guestAccounts);
+            return guestAccounts;
         }
 
         public void Insert(GuestAccount guestAccount)

@@ -1,14 +1,12 @@
-﻿using Contracts.DTOs;
-using Services.Abstractions;
-using Persistence.Repositories;
-using travel_booking_app_dotnet.Core.Repository_Interfaces;
-using Mapster;
+﻿using Application.Interfaces;
 using Domain.Exceptions;
-using travel_booking_app_dotnet.Core.Entities;
-using FluentValidation;
 using Domain.Entities;
+using Application.Models.Requests;
+using travel_booking_app_dotnet.Core.Entities;
+using travel_booking_app_dotnet.Core.Repository_Interfaces;
 
-namespace Services
+
+namespace Application.Services
 {
     public class HotelService : IHotelService
     {
@@ -19,42 +17,36 @@ namespace Services
             _hotelRepository = hotelRepository;
         }
 
-        public async Task<List<HotelDto>> GetAllAsync()
+        public List<Hotel> GetAllAsync()
         {
-            var hotels = await _hotelRepository.GetAllAsync();
+            var hotels = _hotelRepository.GetAllAsync();
 
-            var hotelsDto = hotels.Adapt<List<HotelDto>>();
-
-            return hotelsDto;
+            return hotels;
         }
 
-        public async Task<HotelDto> GetByIdAsync(int id)
+        public Hotel GetByIdAsync(int id)
         {
-            var hotel = await _hotelRepository.GetByIdAsync(id);
+            var hotel = _hotelRepository.GetByIdAsync(id);
 
             if (hotel is null)
             {
                 throw new HotelNotFoundException(id);
             }
 
-            var hotelDto = hotel.Adapt<HotelDto>();
-
-            return hotelDto;
+            return hotel;
         }
 
-        public async Task<List<HotelDto>> GetByDestinationAsync(string destination)
+        public List<Hotel> GetByDestinationAsync(string destination)
         {
-            var hotels = await _hotelRepository.GetAllAsync();
+            var hotels = _hotelRepository.GetAllAsync();
 
             var filteredHotels = hotels.Where(h => h.City == destination).ToList();
 
-            var hotelsDto = filteredHotels.Adapt<List<HotelDto>>();
-
-            return hotelsDto;
+            return hotels;
 
         }
 
-        public async Task<Hotel> CreateAsync(PostHotelRequest request)
+        public Hotel CreateAsync(PostHotelRequest request)
         {
             var hotel = new Hotel
             {
@@ -76,16 +68,28 @@ namespace Services
             return hotel;
         }
 
-        public async Task DeleteAsync(HotelDto hotelDto)
+        public void DeleteByIdAsync(int id)
         {
-            var hotel = await _hotelRepository.GetByIdAsync(hotelDto.Id);
+            var hotel = _hotelRepository.GetByIdAsync(id);
 
-            if(hotel is null)
+            if (hotel is null)
             {
-                throw new HotelNotFoundException(hotelDto.Id);
+                throw new HotelNotFoundException(id);
             }
 
             _hotelRepository.Delete(hotel);
         }
+
+        //public void DeleteByIdAsync(int id)
+        //{
+        //    var hotelBooking = _bookingRepository.GetByIdAsync(id);
+
+        //    if (hotelBooking is null)
+        //    {
+        //        throw new BookingNotFoundException(id);
+        //    }
+
+        //    _bookingRepository.Delete(hotelBooking);
+        //}
     }
 }

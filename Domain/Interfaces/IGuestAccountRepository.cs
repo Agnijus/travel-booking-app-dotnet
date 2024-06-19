@@ -10,7 +10,7 @@ namespace Domain.Repository_Interfaces
 {
     public interface IGuestAccountRepository
     {
-        Task<GuestAccount> GetByIdAsync(int Id);
+        GuestAccount GetByIdAsync(int Id);
 
         void Insert(GuestAccount guestAccount);
         void Remove(GuestAccount guestAccount);

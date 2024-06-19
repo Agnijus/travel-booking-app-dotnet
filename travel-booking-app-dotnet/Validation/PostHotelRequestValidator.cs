@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Domain.Entities;
+using Application.Models.Requests;
 
 namespace travel_booking_app_dotnet.Validation
 {
@@ -13,7 +14,7 @@ namespace travel_booking_app_dotnet.Validation
 
             RuleFor(hotel => hotel.Images)
                     .NotNull()
-                    .Must(images => images.Length == 3).WithMessage("Must contain 3 images.");
+                    .Must(images => images?.Length == 3).WithMessage("Must contain 3 images.");
 
             RuleFor(hotel => hotel.Address)
                     .NotEmpty().WithMessage("Address cannot be empty.");
