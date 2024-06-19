@@ -17,13 +17,13 @@ namespace Persistence.Repositories
             return Task.FromResult(hotel);
         }
 
-        public void Insert(Hotel hotel)
+        public void Add(Hotel hotel)
         {
             hotel.Id = HotelData.GetNextId();
             HotelData.Hotels.Add(hotel);
         }
 
-        public void Remove(Hotel hotel)
+        public void Delete(Hotel hotel)
         {
             HotelData.Hotels.Remove(hotel);
         }

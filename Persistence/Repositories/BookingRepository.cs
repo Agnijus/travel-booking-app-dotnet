@@ -13,13 +13,13 @@ namespace Persistence.Repositories
             return Task.FromResult(hotelBooking);
         }
 
-        public void Insert(Booking transaction)
+        public void Add(Booking transaction)
         {
             transaction.Id = BookingData.GetNextId();
             BookingData.Bookings.Add(transaction);
         }
 
-        public void Remove(Booking transaction)
+        public void Delete(Booking transaction)
         {
             BookingData.Bookings.Remove(transaction);
         }

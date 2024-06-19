@@ -1,4 +1,6 @@
 ﻿using Contracts.DTOs;
+using Domain.Entities;
+using travel_booking_app_dotnet.Core.Entities;
 
 namespace Services.Abstractions
 {
@@ -7,7 +9,7 @@ namespace Services.Abstractions
         Task<List<HotelDto>> GetAllAsync();
         Task<HotelDto> GetByIdAsync(int id);
         Task<List<HotelDto>> GetByDestinationAsync(string destination);
-        Task<HotelDto> CreateAsync(HotelDto hotelForCreationDto);
+        Task<Hotel> CreateAsync(PostHotelRequest request);
         Task DeleteAsync(HotelDto hotelDto);
 
     }

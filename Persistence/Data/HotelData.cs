@@ -7,6 +7,8 @@ namespace Persistence.Data
 {
     internal class HotelData
     {
+        // TODO: change to normal object init, create a method to do repository operations
+
         private static int lastId = 0;
 
         public static List<Hotel> Hotels { get; } = new List<Hotel>

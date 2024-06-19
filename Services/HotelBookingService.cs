@@ -17,17 +17,15 @@ namespace Services
         private readonly IHotelReservationDetailsRepository _hotelReservationDetailsRepository;
         private readonly IGuestAccountRepository _guestAccountRepository;
         private readonly IBookingRepository _bookingRepository;
-        private readonly IValidator<GuestAccountHotelBookingDto> _validator;
 
 
 
         public HotelBookingService(IHotelReservationDetailsRepository hotelReservationDetailsRepository, IGuestAccountRepository guestAccountRepository, IBookingRepository
-            bookingRepository, IValidator<GuestAccountHotelBookingDto> validator)
+            bookingRepository)
         {
             _hotelReservationDetailsRepository = hotelReservationDetailsRepository;
             _guestAccountRepository = guestAccountRepository;
             _bookingRepository = bookingRepository;
-            _validator = validator;
         }
         public async Task<BookingDto> GetByIdAsync(int id)
         {
@@ -43,36 +41,10 @@ namespace Services
             return hotelBookingDto;
         }
 
-        public async Task<BookingDto> CreateAsync(GuestAccountHotelBookingDto guestAccountHotelBookingDto)
+        public async Task<Booking> CreateAsync(GuestAccount guestAccount, HotelReservationDetails hotelReservationDetails)
         {
-
-            var validationResult = await _validator.ValidateAsync(guestAccountHotelBookingDto);
-            if (!validationResult.IsValid)
-            {
-                throw new ValidationException(validationResult.Errors);
-            }
-
-
-            var guestAccount = new GuestAccount
-            {
-                FirstName = guestAccountHotelBookingDto.FirstName,
-                LastName = guestAccountHotelBookingDto.LastName,
-                Email = guestAccountHotelBookingDto.Email,
-                ContactNumber = guestAccountHotelBookingDto.ContactNumber
-            };
-
             _guestAccountRepository.Insert(guestAccount);
 
-            var hotelReservationDetails = new HotelReservationDetails
-            {
-                HotelId = guestAccountHotelBookingDto.HotelId,
-                RoomType = guestAccountHotelBookingDto.RoomType,
-                CheckInDate = guestAccountHotelBookingDto.CheckInDate,
-                CheckOutDate = guestAccountHotelBookingDto.CheckOutDate,
-                TotalPrice = (double)guestAccountHotelBookingDto.TotalPrice,
-            };
-
-           
             _hotelReservationDetailsRepository.Insert(hotelReservationDetails);
 
             var booking = new Booking
@@ -83,10 +55,11 @@ namespace Services
                 Status = TransactionStatus.Pending
             };
 
-            _bookingRepository.Insert(booking);
+            _bookingRepository.Add(booking);
 
-            return booking.Adapt<BookingDto>();
+            return booking;
         }
+
 
         public async Task DeleteByIdAsync(int id)
         {
@@ -97,7 +70,7 @@ namespace Services
                 throw new BookingNotFoundException(id);
             }
 
-            _bookingRepository.Remove(hotelBooking);
+            _bookingRepository.Delete(hotelBooking);
         }
     }
 }

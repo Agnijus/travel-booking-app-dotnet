@@ -1,4 +1,5 @@
 ﻿using Contracts.DTOs;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstractions;
 
@@ -26,11 +27,11 @@ namespace travel_booking_app_dotnet.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBooking([FromBody] GuestAccountHotelBookingDto guestAccountHotelBookingDto)
+        public async Task<IActionResult> CreateBooking([FromBody] PostBookingRequest request)
         {
-            var bookingDto = await _hotelBookingService.CreateAsync(guestAccountHotelBookingDto);
+            var booking = await _hotelBookingService.CreateAsync(request.GuestAccount, request.HotelReservationDetails);
 
-            return CreatedAtAction(nameof(GetBookingById), new { id = bookingDto.Id }, bookingDto);
+            return CreatedAtAction(nameof(GetBookingById), new { id = booking.Id }, booking);
         }
 
         [HttpDelete]

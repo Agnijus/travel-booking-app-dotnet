@@ -14,11 +14,9 @@ namespace Services
     {
 
         private readonly IHotelRepository _hotelRepository;
-        private readonly IValidator<HotelDto> _hotelValidator;
-        public HotelService(IHotelRepository hotelRepository, IValidator<HotelDto> hotelValidator)
+        public HotelService(IHotelRepository hotelRepository)
         {
             _hotelRepository = hotelRepository;
-            _hotelValidator = hotelValidator;
         }
 
         public async Task<List<HotelDto>> GetAllAsync()
@@ -56,19 +54,26 @@ namespace Services
 
         }
 
-        public async Task<HotelDto> CreateAsync(HotelDto hotelDto)
+        public async Task<Hotel> CreateAsync(PostHotelRequest request)
         {
-            var validationResult = await _hotelValidator.ValidateAsync(hotelDto);
-            if (!validationResult.IsValid)
+            var hotel = new Hotel
             {
-                throw new ValidationException(validationResult.Errors);
-            }
+                Name = request.Name,
+                Images = request.Images,
+                Address = request.Address,
+                City = request.City,
+                Distance = request.Distance,
+                StarRating = request.StarRating,
+                GuestRating = request.GuestRating,
+                ReviewCount = request.ReviewCount,
+                HasFreeCancellation = request.HasFreeCancellation,
+                HasPayOnArrival = request.HasPayOnArrival,
+                Rooms = request.Rooms
+            };
 
-            var hotel = hotelDto.Adapt<Hotel>();
+            _hotelRepository.Add(hotel);
 
-            _hotelRepository.Insert(hotel);
-
-            return hotel.Adapt<HotelDto>();
+            return hotel;
         }
 
         public async Task DeleteAsync(HotelDto hotelDto)
@@ -80,7 +85,7 @@ namespace Services
                 throw new HotelNotFoundException(hotelDto.Id);
             }
 
-            _hotelRepository.Remove(hotel);
+            _hotelRepository.Delete(hotel);
         }
     }
 }

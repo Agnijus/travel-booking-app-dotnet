@@ -19,6 +19,11 @@
 /Services.Abstractions/obj
 
 
+
+/.vs
+
+
+
 # Node
 /node_modules
 npm-debug.log

@@ -7,11 +7,13 @@ using Domain.Repository_Interfaces;
 using FluentValidation;
 using Contracts.DTOs;
 using Services.Validators;
+using travel_booking_app_dotnet.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(HotelController).Assembly)
-    .AddApplicationPart(typeof(HotelBookingController).Assembly);
+    .AddApplicationPart(typeof(HotelBookingController).Assembly)
+    .AddTravelFluentValidation();
 
 builder.Services.AddScoped<IHotelService, HotelService>();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
@@ -26,13 +28,9 @@ builder.Services.AddScoped<IPopularDestinationRepository, PopularDestinationRepo
 builder.Services.AddScoped<IPopularDestinationService, PopularDestinationService>();
 
 
-builder.Services.AddScoped<IValidator<HotelDto>, HotelDtoValidator>();
-builder.Services.AddScoped<IValidator<GuestAccountHotelBookingDto>, GuestAccountHotelBookingDtoValidator>();
 
 
-
-
-
+//builder.Services.AddControllers().AddTravelFluentValidation();
 
 
 

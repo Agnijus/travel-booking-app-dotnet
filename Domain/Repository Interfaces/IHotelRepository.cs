@@ -7,7 +7,7 @@ namespace travel_booking_app_dotnet.Core.Repository_Interfaces
         Task<List<Hotel>> GetAllAsync();
         Task<Hotel> GetByIdAsync(int Id);
 
-        void Insert(Hotel hotel);
-        void Remove(Hotel hotel);
+        void Add(Hotel hotel);
+        void Delete(Hotel hotel);
     }
 }

@@ -12,3 +12,4 @@ namespace Domain.Entities
         public TransactionStatus Status { get; set; }
     }
 }
+
