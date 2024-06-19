@@ -5,18 +5,18 @@
 /tmp
 /out-tsc
 /bazel-out
+
 /travel-booking-app-dotnet/bin
 /travel-booking-app-dotnet/obj
-/Contracts/bin
-/Contracts/obj
+
 /Domain/bin
 /Domain/obj
+
 /Persistence/bin
 /Persistence/obj
-/Services/bin
-/Services/obj
-/Services.Abstractions/bin
-/Services.Abstractions/obj
+
+/Application/bin
+/Application/obj
 
 
 
