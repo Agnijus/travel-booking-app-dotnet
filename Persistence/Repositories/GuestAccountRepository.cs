@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using Azure.Core;
+using Dapper;
+using Domain.Entities;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
 
@@ -6,21 +8,44 @@ namespace Persistence.Repositories
 {
     public class GuestAccountRepository : IGuestAccountRepository
     {
-        public GuestAccount GetByIdAsync(int Id)
+        private readonly DapperContext _context;
+
+        public GuestAccountRepository(DapperContext context)
         {
-            var guestAccounts = GuestAccountData.GuestAccounts.FirstOrDefault(b => b.Id == Id);
-            return guestAccounts;
+            _context = context;
+        }
+        public async Task<GuestAccount> GetByIdAsync(int Id)
+        {
+            var query = "SELECT * FROM GuestAccounts WHERE id = @id";
+
+            using (var connection = _context.CreateConnection())
+            {
+                return await connection.QueryFirstOrDefaultAsync<GuestAccount>(query, new { Id });
+            }
         }
 
-        public void Add(GuestAccount guestAccount)
+        public async Task<int> AddAsync(GuestAccount guestAccount)
         {
-            guestAccount.Id = GuestAccountData.GetNextId();
-            GuestAccountData.GuestAccounts.Add(guestAccount);
+            var query = @"
+            INSERT INTO GuestAccounts (FirstName, LastName, Email, ContactNumber) 
+            VALUES (@FirstName, @LastName, @Email, @ContactNumber);
+            SELECT CAST(SCOPE_IDENTITY() as int);";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var id = await connection.QuerySingleAsync<int>(query, guestAccount);
+                return id;
+            }
         }
 
-        public void Delete(GuestAccount guestAccount)
+        public async Task DeleteAsync(GuestAccount guestAccount)
         {
-            GuestAccountData.GuestAccounts.Remove(guestAccount);
+            var query = "DELETE FROM GuestAccounts WHERE Id = @Id";
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, new { Id = guestAccount.Id });
+            }
         }
     }
 }

@@ -16,16 +16,16 @@ namespace Application.Services
             _hotelRepository = hotelRepository;
         }
 
-        public List<Hotel> GetAllAsync()
+        public async Task<List<Hotel>> GetAllAsync()
         {
-            var hotels = _hotelRepository.GetAllAsync();
+            var hotels = await _hotelRepository.GetAllAsync();
 
             return hotels;
         }
 
-        public Hotel GetByIdAsync(int id)
+        public async Task<Hotel> GetByIdAsync(int id)
         {
-            var hotel = _hotelRepository.GetByIdAsync(id);
+            var hotel = await _hotelRepository.GetByIdAsync(id);
 
             if (hotel is null)
             {
@@ -35,9 +35,9 @@ namespace Application.Services
             return hotel;
         }
 
-        public List<Hotel> GetByDestinationAsync(string destination)
+        public async Task<List<Hotel>> GetByDestinationAsync(string destination)
         {
-            var hotels = _hotelRepository.GetAllAsync();
+            var hotels = await _hotelRepository.GetAllAsync();
 
             var filteredHotels = hotels.Where(h => h.City == destination).ToList();
 
@@ -45,7 +45,7 @@ namespace Application.Services
 
         }
 
-        public Hotel CreateAsync(PostHotelRequest request)
+        public async Task<Hotel> CreateAsync(PostHotelRequest request)
         {
             var hotel = new Hotel
             {
@@ -62,12 +62,10 @@ namespace Application.Services
                 Rooms = request.Rooms
             };
 
-            _hotelRepository.Add(hotel);
-
-            return hotel;
+            return await _hotelRepository.AddAsync(hotel);
         }
 
-        public void DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int id)
         {
             var hotel = _hotelRepository.GetByIdAsync(id);
 
@@ -76,7 +74,7 @@ namespace Application.Services
                 throw new HotelNotFoundException(id);
             }
 
-            _hotelRepository.Delete(hotel);
+            await _hotelRepository.DeleteAsync(id);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Dapper;
+using Domain.Entities;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
 
@@ -7,9 +8,22 @@ namespace Persistence.Repositories
 {
     public class PopularDestinationRepository : IPopularDestinationRepository
     {
-        public Task<List<PopularDestination>> GetAllAsync()
+        private readonly DapperContext _context;
+        public PopularDestinationRepository(DapperContext context)
         {
-            return Task.FromResult(PopularDestinationData.PopularDestinations);
+            _context = context;
+        }
+
+        public async Task<List<PopularDestination>> GetAllAsync()
+        {
+             var query = "SELECT * FROM PopularDestinations";
+
+             using (var connection = _context.CreateConnection())
+                {
+                var destinations = await connection.QueryAsync<PopularDestination>(query);
+
+                return destinations.ToList();  
+             }    
         }
     }
 }

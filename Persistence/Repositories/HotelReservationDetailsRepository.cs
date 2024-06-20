@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using Dapper;
+using Domain.Entities;
+using Domain.Enums;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
 
@@ -6,21 +8,53 @@ namespace Persistence.Repositories
 {
     public class HotelReservationDetailsRepository : IHotelReservationDetailsRepository
     {
-        public HotelReservationDetails GetByIdAsync(int Id)
+        private readonly DapperContext _context;
+
+        public HotelReservationDetailsRepository(DapperContext context)
         {
-            var hotelBookings = HotelReservationDetailsData.HotelReservations.FirstOrDefault(b => b.Id == Id);
-            return hotelBookings;
+            _context = context;
+        }
+        public async Task<HotelReservationDetails> GetByIdAsync(int Id)
+        {
+            var query = "SELECT * FROM HotelReservationDetails WHERE id = @id";
+
+            using (var connection = _context.CreateConnection())
+            {
+                return await connection.QueryFirstOrDefaultAsync<HotelReservationDetails>(query, new { Id });
+            }
         }
 
-        public void Add(HotelReservationDetails hotelBooking)
+        public async Task<int> AddAsync(HotelReservationDetails hotelReservation)
         {
-            hotelBooking.Id = HotelReservationDetailsData.GetNextId();
-            HotelReservationDetailsData.HotelReservations.Add(hotelBooking);
+            var query = @"
+            INSERT INTO HotelReservationDetails (HotelId, RoomType, CheckInDate, CheckOutDate, TotalPrice) 
+            VALUES (@HotelId, @RoomType, @CheckInDate, @CheckOutDate, @TotalPrice);
+            SELECT CAST(SCOPE_IDENTITY() as int);";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var parameters = new
+                {
+                    HotelId = hotelReservation.HotelId,
+                    RoomType = hotelReservation.RoomType.ToString(),
+                    CheckInDate = hotelReservation.CheckInDate,
+                    CheckOutDate = hotelReservation.CheckOutDate,
+                    TotalPrice = hotelReservation.TotalPrice
+                };
+
+                var id = await connection.QuerySingleAsync<int>(query, parameters);
+                return id;
+            }
         }
 
-        public void Delete(HotelReservationDetails hotelBooking)
+        public async Task DeleteAsync(HotelReservationDetails hotelBooking)
         {
-            HotelReservationDetailsData.HotelReservations.Remove(hotelBooking);
+            var query = "DELETE FROM GuestAccounts WHERE Id = @Id";
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, new { Id = hotelBooking.Id });
+            }
         }
     }
 }

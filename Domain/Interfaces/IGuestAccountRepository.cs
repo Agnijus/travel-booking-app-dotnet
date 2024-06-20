@@ -4,9 +4,8 @@ namespace Domain.Repository_Interfaces
 {
     public interface IGuestAccountRepository
     {
-        GuestAccount GetByIdAsync(int Id);
-
-        void Add(GuestAccount guestAccount);
-        void Delete(GuestAccount guestAccount);
+        Task<GuestAccount> GetByIdAsync(int Id);
+        Task<int> AddAsync(GuestAccount guestAccount);
+        Task DeleteAsync(GuestAccount guestAccount);
     }
 }

@@ -5,10 +5,10 @@ namespace Application.Interfaces
 {
     public interface IHotelService
     {
-        List<Hotel> GetAllAsync();
-        Hotel GetByIdAsync(int id);
-        List<Hotel> GetByDestinationAsync(string destination);
-        Hotel CreateAsync(PostHotelRequest request);
-        void DeleteByIdAsync(int id);
+        Task<List<Hotel>> GetAllAsync();
+        Task<Hotel> GetByIdAsync(int id);
+        Task<List<Hotel>> GetByDestinationAsync(string destination);
+        Task<Hotel> CreateAsync(PostHotelRequest request);
+        Task DeleteByIdAsync(int id);
     }
 }

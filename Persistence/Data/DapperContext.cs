@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using System.Data;
+using Microsoft.Data.SqlClient;
+
 
 
 namespace Persistence.Data
@@ -17,6 +18,6 @@ namespace Persistence.Data
         }
 
         public IDbConnection CreateConnection()
-            => new MySqlConnection(_connectionString);
+            => new SqlConnection(_connectionString);
     }
 }

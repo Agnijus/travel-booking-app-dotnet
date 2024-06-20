@@ -6,10 +6,10 @@ namespace Application.Interfaces
 {
     public interface IHotelBookingService
     {
-        Booking GetByIdAsync(int id);
-        void DeleteByIdAsync(int id);
+        Task<Booking> GetByIdAsync(int id);
+        Task DeleteByIdAsync(int id);
 
-        Booking CreateAsync(PostBookingRequest request);
+        Task<Booking> CreateAsync(PostBookingRequest request);
 
     }
 }

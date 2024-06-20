@@ -20,9 +20,7 @@ namespace travel_booking_app_dotnet.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookingById(int id)
         {
-            var booking = _hotelBookingService.GetByIdAsync(id);
-
-            
+            var booking = await _hotelBookingService.GetByIdAsync(id);
 
             return Ok(booking);
         }
@@ -30,7 +28,7 @@ namespace travel_booking_app_dotnet.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBooking([FromBody] PostBookingRequest request)
         {
-            var booking = _hotelBookingService.CreateAsync(request);
+            var booking = await _hotelBookingService.CreateAsync(request);
 
             return CreatedAtAction(nameof(GetBookingById), new { id = booking.Id }, booking);
         }
@@ -38,7 +36,7 @@ namespace travel_booking_app_dotnet.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteBookingById(int id)
         {
-            _hotelBookingService.DeleteByIdAsync(id);
+            await _hotelBookingService.DeleteByIdAsync(id);
 
             return NoContent();
         }

@@ -24,9 +24,9 @@ namespace Application.Services
             _guestAccountRepository = guestAccountRepository;
             _bookingRepository = bookingRepository;
         }
-        public Booking GetByIdAsync(int id)
+        public async Task<Booking> GetByIdAsync(int id)
         {
-            var hotelBooking = _bookingRepository.GetByIdAsync(id);
+            var hotelBooking = await _bookingRepository.GetByIdAsync(id);
 
             if (hotelBooking is null)
             {
@@ -36,7 +36,7 @@ namespace Application.Services
             return hotelBooking;
         }
 
-        public Booking CreateAsync(PostBookingRequest request)
+        public async Task<Booking> CreateAsync(PostBookingRequest request)
         {
             var guestAccount = new GuestAccount
             {
@@ -46,7 +46,7 @@ namespace Application.Services
                 ContactNumber = request.ContactNumber
             };
 
-            _guestAccountRepository.Add(guestAccount);
+            var guestAccountId = await _guestAccountRepository.AddAsync(guestAccount);
 
             var hotelReservationDetails = new HotelReservationDetails
             {
@@ -57,32 +57,32 @@ namespace Application.Services
                 TotalPrice = request.TotalPrice,
             };
 
-            _hotelReservationDetailsRepository.Add(hotelReservationDetails);
+            var hotelReservationId = await _hotelReservationDetailsRepository.AddAsync(hotelReservationDetails);
 
             var booking = new Booking
             {
-                AccountId = guestAccount.Id,
-                ReservationId = hotelReservationDetails.Id,
+                AccountId = guestAccountId,
+                ReservationId = hotelReservationId,
                 TotalPrice = hotelReservationDetails.TotalPrice,
                 Status = TransactionStatus.Pending
             };
 
-            _bookingRepository.Add(booking);
+            var createdBooking = await _bookingRepository.AddAsync(booking);
 
-            return booking;
+            return createdBooking;
         }
 
 
-        public void DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            var hotelBooking = _bookingRepository.GetByIdAsync(id);
+            var hotelBooking = await _bookingRepository.GetByIdAsync(id);
 
             if (hotelBooking is null)
             {
                 throw new BookingNotFoundException(id);
             }
 
-            _bookingRepository.Delete(hotelBooking);
+            await _bookingRepository.DeleteAsync(hotelBooking);
         }
     }
 }
