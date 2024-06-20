@@ -12,13 +12,13 @@ namespace Persistence.Repositories
             return hotelBookings;
         }
 
-        public void Insert(HotelReservationDetails hotelBooking)
+        public void Add(HotelReservationDetails hotelBooking)
         {
             hotelBooking.Id = HotelReservationDetailsData.GetNextId();
             HotelReservationDetailsData.HotelReservations.Add(hotelBooking);
         }
 
-        public void Remove(HotelReservationDetails hotelBooking)
+        public void Delete(HotelReservationDetails hotelBooking)
         {
             HotelReservationDetailsData.HotelReservations.Remove(hotelBooking);
         }

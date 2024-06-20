@@ -4,11 +4,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Repository_Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Application.Services
 {
@@ -50,7 +46,7 @@ namespace Application.Services
                 ContactNumber = request.ContactNumber
             };
 
-            _guestAccountRepository.Insert(guestAccount);
+            _guestAccountRepository.Add(guestAccount);
 
             var hotelReservationDetails = new HotelReservationDetails
             {
@@ -61,7 +57,7 @@ namespace Application.Services
                 TotalPrice = request.TotalPrice,
             };
 
-            _hotelReservationDetailsRepository.Insert(hotelReservationDetails);
+            _hotelReservationDetailsRepository.Add(hotelReservationDetails);
 
             var booking = new Booking
             {

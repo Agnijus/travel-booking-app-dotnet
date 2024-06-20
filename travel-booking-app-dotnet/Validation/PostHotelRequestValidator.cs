@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Domain.Entities;
 using Application.Models.Requests;
 
 namespace travel_booking_app_dotnet.Validation

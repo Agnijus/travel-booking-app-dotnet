@@ -1,62 +1,15 @@
-using travel_booking_app_dotnet.Controllers;
-using travel_booking_app_dotnet.Core.Repository_Interfaces;
-using Domain.Repository_Interfaces;
-using FluentValidation;
-using travel_booking_app_dotnet.Middleware;
-using Application.Interfaces;
-using Persistence.Repositories;
-using Application.Services;
+using travel_booking_app_dotnet;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers()
-    .AddApplicationPart(typeof(HotelController).Assembly)
-    .AddApplicationPart(typeof(HotelBookingController).Assembly)
-    .AddTravelFluentValidation();
 
-builder.Services.AddScoped<IHotelService, HotelService>();
-builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+builder.Services.AddControllers();
 
-builder.Services.AddScoped<IHotelBookingService, HotelBookingService>();
-builder.Services.AddScoped<IHotelReservationDetailsRepository, HotelReservationDetailsRepository>();
-
-builder.Services.AddScoped<IGuestAccountRepository, GuestAccountRepository>();
-builder.Services.AddScoped<IBookingRepository, BookingRepository>();
-
-builder.Services.AddScoped<IPopularDestinationRepository, PopularDestinationRepository>();
-builder.Services.AddScoped<IPopularDestinationService, PopularDestinationService>();
-
-
-
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+var startup = new Startup(builder.Configuration);
+startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseStaticFiles();
-
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
-
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
-
-
-
-
-
-app.UseEndpoints(endpoints =>
-{
-    _ = endpoints.MapControllers();
-});
-
+var env = app.Environment;
+startup.Configure(app, env);
 
 app.Run();

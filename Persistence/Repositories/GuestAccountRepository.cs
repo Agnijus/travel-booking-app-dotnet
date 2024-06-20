@@ -12,13 +12,13 @@ namespace Persistence.Repositories
             return guestAccounts;
         }
 
-        public void Insert(GuestAccount guestAccount)
+        public void Add(GuestAccount guestAccount)
         {
             guestAccount.Id = GuestAccountData.GetNextId();
             GuestAccountData.GuestAccounts.Add(guestAccount);
         }
 
-        public void Remove(GuestAccount guestAccount)
+        public void Delete(GuestAccount guestAccount)
         {
             GuestAccountData.GuestAccounts.Remove(guestAccount);
         }

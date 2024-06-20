@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Application.Models.Requests;
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -21,7 +20,9 @@ namespace travel_booking_app_dotnet.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookingById(int id)
         {
-            var booking =  _hotelBookingService.GetByIdAsync(id);
+            var booking = _hotelBookingService.GetByIdAsync(id);
+
+            
 
             return Ok(booking);
         }

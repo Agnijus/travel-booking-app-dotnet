@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Application.Models.Requests;
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace travel_booking_app_dotnet.Controllers

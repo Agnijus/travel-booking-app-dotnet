@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Domain.Exceptions;
-using Domain.Entities;
 using Application.Models.Requests;
 using travel_booking_app_dotnet.Core.Entities;
 using travel_booking_app_dotnet.Core.Repository_Interfaces;
@@ -42,7 +41,7 @@ namespace Application.Services
 
             var filteredHotels = hotels.Where(h => h.City == destination).ToList();
 
-            return hotels;
+            return filteredHotels;
 
         }
 
@@ -79,17 +78,5 @@ namespace Application.Services
 
             _hotelRepository.Delete(hotel);
         }
-
-        //public void DeleteByIdAsync(int id)
-        //{
-        //    var hotelBooking = _bookingRepository.GetByIdAsync(id);
-
-        //    if (hotelBooking is null)
-        //    {
-        //        throw new BookingNotFoundException(id);
-        //    }
-
-        //    _bookingRepository.Delete(hotelBooking);
-        //}
     }
 }

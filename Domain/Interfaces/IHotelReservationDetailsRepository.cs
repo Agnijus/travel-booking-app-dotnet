@@ -7,7 +7,7 @@ namespace Domain.Repository_Interfaces
     {
         HotelReservationDetails GetByIdAsync(int Id);
 
-        void Insert(HotelReservationDetails hotelReservationDetails);
-        void Remove(HotelReservationDetails hotelReservationDetails);
+        void Add(HotelReservationDetails hotelReservationDetails);
+        void Delete(HotelReservationDetails hotelReservationDetails);
     }
 }
