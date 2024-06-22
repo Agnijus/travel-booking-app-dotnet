@@ -64,12 +64,10 @@ namespace Application.Services
                 GuestAccountId = guestAccountId,
                 HotelReservationId = hotelReservationId,
                 TotalPrice = hotelReservationDetails.TotalPrice,
-                TransactionStatusId = 0
+                TransactionStatusId = 1 // Pending
             };
 
-            var createdBooking = await _bookingRepository.AddAsync(booking);
-
-            return createdBooking;
+            return await _bookingRepository.AddAsync(booking);
         }
 
 

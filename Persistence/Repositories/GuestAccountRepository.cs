@@ -16,7 +16,7 @@ namespace Persistence.Repositories
         }
         public async Task<GuestAccount> GetByIdAsync(int id)
         {
-            var query = "SELECT * FROM GuestAccounts WHERE id = @id";
+            var query = "SELECT * FROM GuestAccount WHERE id = @id";
 
             using (var connection = _context.CreateConnection())
             {
@@ -27,7 +27,7 @@ namespace Persistence.Repositories
         public async Task<int> AddAsync(GuestAccount guestAccount)
         {
             var query = @"
-            INSERT INTO GuestAccounts (FirstName, LastName, Email, ContactNumber) 
+            INSERT INTO GuestAccount (FirstName, LastName, Email, ContactNumber) 
             VALUES (@FirstName, @LastName, @Email, @ContactNumber);
             SELECT CAST(SCOPE_IDENTITY() as int);";
 
@@ -40,7 +40,7 @@ namespace Persistence.Repositories
 
         public async Task DeleteByIdAsync(int id)
         {
-            var query = "DELETE FROM GuestAccounts WHERE Id = @Id";
+            var query = "DELETE FROM GuestAccount WHERE Id = @Id";
 
             using (var connection = _context.CreateConnection())
             {

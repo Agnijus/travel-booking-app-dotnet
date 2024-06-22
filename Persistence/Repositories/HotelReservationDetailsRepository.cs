@@ -16,7 +16,7 @@ namespace Persistence.Repositories
         }
         public async Task<HotelReservation> GetByIdAsync(int Id)
         {
-            var query = "SELECT * FROM HotelReservationDetails WHERE id = @id";
+            var query = "SELECT * FROM HotelReservation WHERE id = @id";
 
             using (var connection = _context.CreateConnection())
             {
@@ -27,22 +27,14 @@ namespace Persistence.Repositories
         public async Task<int> AddAsync(HotelReservation hotelReservation)
         {
             var query = @"
-            INSERT INTO HotelReservationDetails (HotelId, RoomTypeId, CheckInDate, CheckOutDate, TotalPrice) 
+            INSERT INTO HotelReservation (HotelId, RoomTypeId, CheckInDate, CheckOutDate, TotalPrice) 
             VALUES (@HotelId, @RoomTypeId, @CheckInDate, @CheckOutDate, @TotalPrice);
             SELECT CAST(SCOPE_IDENTITY() as int);";
 
             using (var connection = _context.CreateConnection())
             {
-                var parameters = new
-                {
-                    HotelId = hotelReservation.HotelId,
-                    RoomTypeId = hotelReservation.RoomTypeId,
-                    CheckInDate = hotelReservation.CheckInDate,
-                    CheckOutDate = hotelReservation.CheckOutDate,
-                    TotalPrice = hotelReservation.TotalPrice
-                };
-
-                var id = await connection.QuerySingleAsync<int>(query, parameters);
+                
+                var id = await connection.QuerySingleAsync<int>(query, hotelReservation);
                 return id;
             }
         }

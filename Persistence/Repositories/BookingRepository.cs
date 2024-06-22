@@ -16,7 +16,7 @@ namespace Persistence.Repositories
 
         public async Task<Booking> GetByIdAsync(int Id)
         {
-            var query = "SELECT * FROM Bookings WHERE id = @id";
+            var query = "SELECT * FROM Booking WHERE id = @id";
 
             using (var connection = _context.CreateConnection())
             {
@@ -28,7 +28,7 @@ namespace Persistence.Repositories
         public async Task<Booking> AddAsync(Booking booking)
         {
             var query = @"
-            INSERT INTO Bookings (GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId) 
+            INSERT INTO Booking (GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId) 
             VALUES (@GuestAccountId, @HotelReservationId, @TotalPrice, @TransactionStatusId);
             SELECT CAST(SCOPE_IDENTITY() as int);";
 
@@ -43,7 +43,7 @@ namespace Persistence.Repositories
 
         public async Task<int> DeleteByIdAsync(int id)
         {
-            var query = "DELETE FROM Bookings WHERE Id = @Id";
+            var query = "DELETE FROM Booking WHERE Id = @Id";
 
             using (var connection = _context.CreateConnection())
             {
