@@ -36,15 +36,10 @@ namespace Application.Services
             return hotel;
         }
 
-        //public async Task<List<Hotel>> GetByDestinationAsync(string destination)
-        //{
-        //    var hotels = await _hotelRepository.GetAllAsync();
-
-        //    var filteredHotels = hotels.Where(h => h.City == destination).ToList();
-
-        //    return filteredHotels;
-
-        //}
+        public async Task<List<GetHotelResponse>> GetByDestinationAsync(string destination)
+        {
+            return await _hotelRepository.GetByDestinationAsync(destination);
+        }
 
         public async Task<Hotel> CreateAsync(PostHotelRequest request)
         {

@@ -18,7 +18,6 @@ namespace Application.Models.Responses
 
 
         // Join and get Images and Rooms associated with the HotelId
-        // IEnumerable because I won't be modifying, only iterating
 
         public ICollection<string>? Images  { get; set; }
         public ICollection<Room>? Rooms { get; set; }

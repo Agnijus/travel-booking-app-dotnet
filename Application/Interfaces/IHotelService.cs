@@ -8,7 +8,7 @@ namespace Application.Interfaces
     {
         Task<List<GetHotelResponse>> GetAllAsync();
         Task<GetHotelResponse> GetByIdAsync(int id);
-        //Task<List<Hotel>> GetByDestinationAsync(string destination);
+        Task<List<GetHotelResponse>> GetByDestinationAsync(string destination);
         Task<Hotel> CreateAsync(PostHotelRequest request);
         Task DeleteByIdAsync(int id);
     }

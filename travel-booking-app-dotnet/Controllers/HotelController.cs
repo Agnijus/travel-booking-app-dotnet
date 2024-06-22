@@ -31,13 +31,13 @@ namespace travel_app.Controllers
             return Ok(hotel);
         }
 
-        //[HttpGet("destination/{destination}")]
-        //public async Task<IActionResult> GetByDestination(string destination)
-        //{
-        //    var hotel = await _hotelService.GetByDestinationAsync(destination);
+        [HttpGet("destination/{destination}")]
+        public async Task<IActionResult> GetByDestination(string destination)
+        {
+            var hotels = await _hotelService.GetByDestinationAsync(destination);
 
-        //    return Ok(hotel);
-        //}
+            return Ok(hotels);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateHotel([FromBody] PostHotelRequest request)
