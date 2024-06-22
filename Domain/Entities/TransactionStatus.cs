@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    internal class TransactionStatus
+    public class TransactionStatus
     {
+        public int TransactionStatusId { get; set; }
+        public string? Description { get; set; }
     }
 }

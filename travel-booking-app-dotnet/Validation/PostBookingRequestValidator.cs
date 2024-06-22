@@ -26,8 +26,8 @@ namespace travel_app.Validation
             RuleFor(request => request.HotelId)
                 .NotNull().WithMessage("HotelId cannot be null");
 
-            RuleFor(request => request.RoomType)
-                .IsInEnum().WithMessage("RoomType must be a valid type.");
+            //RuleFor(request => request.RoomType)
+            //    .IsInEnum().WithMessage("RoomType must be a valid type.");
 
             RuleFor(request => request)
                 .Must(request => BeAValidDate(request.CheckInDate)).WithMessage("CheckInDate must not be default DateTime value");

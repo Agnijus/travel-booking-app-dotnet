@@ -27,8 +27,8 @@ namespace Persistence.Repositories
         public async Task<int> AddAsync(HotelReservation hotelReservation)
         {
             var query = @"
-            INSERT INTO HotelReservationDetails (HotelId, RoomType, CheckInDate, CheckOutDate, TotalPrice) 
-            VALUES (@HotelId, @RoomType, @CheckInDate, @CheckOutDate, @TotalPrice);
+            INSERT INTO HotelReservationDetails (HotelId, RoomTypeId, CheckInDate, CheckOutDate, TotalPrice) 
+            VALUES (@HotelId, @RoomTypeId, @CheckInDate, @CheckOutDate, @TotalPrice);
             SELECT CAST(SCOPE_IDENTITY() as int);";
 
             using (var connection = _context.CreateConnection())
@@ -36,7 +36,7 @@ namespace Persistence.Repositories
                 var parameters = new
                 {
                     HotelId = hotelReservation.HotelId,
-                    RoomType = hotelReservation.RoomType.ToString(),
+                    RoomTypeId = hotelReservation.RoomTypeId,
                     CheckInDate = hotelReservation.CheckInDate,
                     CheckOutDate = hotelReservation.CheckOutDate,
                     TotalPrice = hotelReservation.TotalPrice
@@ -47,13 +47,13 @@ namespace Persistence.Repositories
             }
         }
 
-        public async Task DeleteAsync(HotelReservation hotelBooking)
+        public async Task DeleteByIdAsync(int id)
         {
             var query = "DELETE FROM GuestAccounts WHERE Id = @Id";
 
             using (var connection = _context.CreateConnection())
             {
-                await connection.ExecuteAsync(query, new { Id = hotelBooking.Id });
+                await connection.ExecuteAsync(query, new { id });
             }
         }
     }

@@ -3,6 +3,7 @@ using Domain.Exceptions;
 using Application.Models.Requests;
 using travel_app.Core.Entities;
 using travel_app.Core.Repository_Interfaces;
+using Application.Models.Responses;
 
 
 namespace Application.Services
@@ -16,14 +17,14 @@ namespace Application.Services
             _hotelRepository = hotelRepository;
         }
 
-        public async Task<List<Hotel>> GetAllAsync()
-        {
-            var hotels = await _hotelRepository.GetAllAsync();
+        //public async Task<List<Hotel>> GetAllAsync()
+        //{
+        //    var hotels = await _hotelRepository.GetAllAsync();
 
-            return hotels;
-        }
+        //    return hotels;
+        //}
 
-        public async Task<Hotel> GetByIdAsync(int id)
+        public async Task<GetHotelResponse> GetByIdAsync(int id)
         {
             var hotel = await _hotelRepository.GetByIdAsync(id);
 
@@ -35,22 +36,21 @@ namespace Application.Services
             return hotel;
         }
 
-        public async Task<List<Hotel>> GetByDestinationAsync(string destination)
-        {
-            var hotels = await _hotelRepository.GetAllAsync();
+        //public async Task<List<Hotel>> GetByDestinationAsync(string destination)
+        //{
+        //    var hotels = await _hotelRepository.GetAllAsync();
 
-            var filteredHotels = hotels.Where(h => h.City == destination).ToList();
+        //    var filteredHotels = hotels.Where(h => h.City == destination).ToList();
 
-            return filteredHotels;
+        //    return filteredHotels;
 
-        }
+        //}
 
         public async Task<Hotel> CreateAsync(PostHotelRequest request)
         {
             var hotel = new Hotel
             {
-                Name = request.Name,
-                Images = request.Images,
+                Title = request.Title,
                 Address = request.Address,
                 City = request.City,
                 Distance = request.Distance,
@@ -59,7 +59,6 @@ namespace Application.Services
                 ReviewCount = request.ReviewCount,
                 HasFreeCancellation = request.HasFreeCancellation,
                 HasPayOnArrival = request.HasPayOnArrival,
-                Rooms = request.Rooms
             };
 
             return await _hotelRepository.AddAsync(hotel);
@@ -67,14 +66,12 @@ namespace Application.Services
 
         public async Task DeleteByIdAsync(int id)
         {
-            var hotel = _hotelRepository.GetByIdAsync(id);
+            var affectedRows = await _hotelRepository.DeleteByIdAsync(id);
 
-            if (hotel is null)
+            if (affectedRows == 0)
             {
                 throw new HotelNotFoundException(id);
             }
-
-            await _hotelRepository.DeleteAsync(id);
         }
     }
 }

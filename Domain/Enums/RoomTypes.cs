@@ -2,7 +2,7 @@
 
 namespace Domain.Enums
 {
-    public enum RoomType
+    public enum RoomTypes
     {
         SingleRoom,
         DoubleRoom,

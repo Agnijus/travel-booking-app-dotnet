@@ -15,13 +15,13 @@ namespace travel_app.Controllers
             _hotelService = hotelService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetHotels()
-        {
-            var hotels = await _hotelService.GetAllAsync();
+        //[HttpGet]
+        //public async Task<IActionResult> GetHotels()
+        //{
+        //    var hotels = await _hotelService.GetAllAsync();
 
-            return Ok(hotels);
-        }
+        //    return Ok(hotels);
+        //}
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetHotelById(int id)
@@ -31,20 +31,20 @@ namespace travel_app.Controllers
             return Ok(hotel);
         }
 
-        [HttpGet("destination/{destination}")]
-        public async Task<IActionResult> GetByDestination(string destination)
-        {
-            var hotel = await _hotelService.GetByDestinationAsync(destination);
+        //[HttpGet("destination/{destination}")]
+        //public async Task<IActionResult> GetByDestination(string destination)
+        //{
+        //    var hotel = await _hotelService.GetByDestinationAsync(destination);
 
-            return Ok(hotel);
-        }
+        //    return Ok(hotel);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> CreateHotel([FromBody] PostHotelRequest request)
         {
             var hotel = await _hotelService.CreateAsync(request);
 
-            return CreatedAtAction(nameof(GetHotelById), new { id = hotel.Id }, hotel);
+            return CreatedAtAction(nameof(GetHotelById), new { id = hotel.HotelId }, hotel);
         }
     }
 }

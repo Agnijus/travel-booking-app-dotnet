@@ -1,14 +1,10 @@
-﻿using Domain.Entities;
-
-
+﻿
 namespace Application.Models.Requests
 {
     public class PostHotelRequest
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public string[]? Images { get; set; }
-        public List<Room>? Rooms { get; set; } = new List<Room>();
+        public int HotelId { get; set; }
+        public string? Title { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
         public double? Distance { get; set; }

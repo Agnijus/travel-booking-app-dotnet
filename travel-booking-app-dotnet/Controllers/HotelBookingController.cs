@@ -30,7 +30,7 @@ namespace travel_app.Controllers
         {
             var booking = await _hotelBookingService.CreateAsync(request);
 
-            return CreatedAtAction(nameof(GetBookingById), new { id = booking.Id }, booking);
+            return CreatedAtAction(nameof(GetBookingById), new {  id = booking.BookingId }, booking);
         }
 
         [HttpDelete]

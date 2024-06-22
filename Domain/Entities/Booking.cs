@@ -5,11 +5,14 @@ namespace Domain.Entities
 {
     public class Booking
     {
-        public int Id { get; set; }
-        public int AccountId { get; set; }
-        public int ReservationId { get; set; }
+        public int BookingId { get; set; }
+        public int GuestAccountId { get; set; }
+        public int HotelReservationId { get; set; }
         public double TotalPrice { get; set; }
-        public TransactionStatus Status { get; set; }
+        public int TransactionStatusId { get; set; }
+
+        //Navigation property
+        //public TransactionStatus? TransactionStatusId { get; set; }
     }
 }
 

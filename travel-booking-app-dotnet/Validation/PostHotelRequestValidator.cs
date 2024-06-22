@@ -8,12 +8,12 @@ namespace travel_app.Validation
         public PostHotelRequestValidator()
         {
 
-            RuleFor(request => request.Name)
+            RuleFor(request => request.Title)
                     .NotEmpty().WithMessage("Name cannot be empty");
 
-            RuleFor(request => request.Images)
-                    .NotNull()
-                    .Must(images => images?.Length == 3).WithMessage("Must contain 3 images.");
+            //RuleFor(request => request.Images)
+            //        .NotNull()
+            //        .Must(images => images?.Length == 3).WithMessage("Must contain 3 images.");
 
             RuleFor(request => request.Address)
                     .NotEmpty().WithMessage("Address cannot be empty.");

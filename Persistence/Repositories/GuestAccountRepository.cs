@@ -14,13 +14,13 @@ namespace Persistence.Repositories
         {
             _context = context;
         }
-        public async Task<GuestAccount> GetByIdAsync(int Id)
+        public async Task<GuestAccount> GetByIdAsync(int id)
         {
             var query = "SELECT * FROM GuestAccounts WHERE id = @id";
 
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QueryFirstOrDefaultAsync<GuestAccount>(query, new { Id });
+                return await connection.QueryFirstOrDefaultAsync<GuestAccount>(query, new { id });
             }
         }
 
@@ -38,13 +38,13 @@ namespace Persistence.Repositories
             }
         }
 
-        public async Task DeleteAsync(GuestAccount guestAccount)
+        public async Task DeleteByIdAsync(int id)
         {
             var query = "DELETE FROM GuestAccounts WHERE Id = @Id";
 
             using (var connection = _context.CreateConnection())
             {
-                await connection.ExecuteAsync(query, new { Id = guestAccount.Id });
+                await connection.ExecuteAsync(query, new { id });
             }
         }
     }

@@ -1,8 +1,9 @@
-﻿using Domain.Entities;
+﻿
+using Domain.Entities;
 
-namespace travel_app.Core.Entities
+namespace Application.Models.Responses
 {
-    public class Hotel
+    public class GetHotelResponse
     {
         public int HotelId { get; set; }
         public string? Title { get; set; }
@@ -14,5 +15,13 @@ namespace travel_app.Core.Entities
         public int? ReviewCount { get; set; }
         public bool? HasFreeCancellation { get; set; }
         public bool? HasPayOnArrival { get; set; }
+
+
+        // Join and get Images and Rooms associated with the HotelId
+        // IEnumerable because I won't be modifying, only iterating
+
+        public IEnumerable<string>? Images  { get; set; }
+        public IEnumerable<Room>? Rooms { get; set; }
+
     }
 }

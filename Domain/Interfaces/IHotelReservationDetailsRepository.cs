@@ -7,6 +7,6 @@ namespace Domain.Repository_Interfaces
     {
         Task<HotelReservation> GetByIdAsync(int Id);
         Task<int> AddAsync(HotelReservation hotelReservationDetails);
-        Task DeleteAsync(HotelReservation hotelReservationDetails);
+        Task DeleteByIdAsync(int id);
     }
 }

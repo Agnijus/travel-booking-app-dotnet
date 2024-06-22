@@ -48,10 +48,10 @@ namespace Application.Services
 
             var guestAccountId = await _guestAccountRepository.AddAsync(guestAccount);
 
-            var hotelReservationDetails = new HotelReservationDetails
+            var hotelReservationDetails = new HotelReservation
             {
                 HotelId = request.HotelId,
-                RoomType = request.RoomType,
+                RoomTypeId = request.RoomTypeId,
                 CheckInDate = request.CheckInDate,
                 CheckOutDate = request.CheckOutDate,
                 TotalPrice = request.TotalPrice,
@@ -61,10 +61,10 @@ namespace Application.Services
 
             var booking = new Booking
             {
-                AccountId = guestAccountId,
-                ReservationId = hotelReservationId,
+                GuestAccountId = guestAccountId,
+                HotelReservationId = hotelReservationId,
                 TotalPrice = hotelReservationDetails.TotalPrice,
-                Status = TransactionStatus.Pending
+                TransactionStatusId = 0
             };
 
             var createdBooking = await _bookingRepository.AddAsync(booking);
@@ -75,14 +75,12 @@ namespace Application.Services
 
         public async Task DeleteByIdAsync(int id)
         {
-            var hotelBooking = await _bookingRepository.GetByIdAsync(id);
+            var affectedRows = await _bookingRepository.DeleteByIdAsync(id);
 
-            if (hotelBooking is null)
+            if (affectedRows == 0)
             {
                 throw new BookingNotFoundException(id);
             }
-
-            await _bookingRepository.DeleteAsync(hotelBooking);
         }
     }
 }

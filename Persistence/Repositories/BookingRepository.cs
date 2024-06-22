@@ -28,36 +28,26 @@ namespace Persistence.Repositories
         public async Task<Booking> AddAsync(Booking booking)
         {
             var query = @"
-            INSERT INTO Bookings (AccountId, ReservationId, TotalPrice, Status) 
-            VALUES (@AccountId, @ReservationId, @TotalPrice, @Status);
+            INSERT INTO Bookings (GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId) 
+            VALUES (@GuestAccountId, @HotelReservationId, @TotalPrice, @TransactionStatusId);
             SELECT CAST(SCOPE_IDENTITY() as int);";
 
             using (var connection = _context.CreateConnection())
             {
-                var parameters = new
-                {
-                    AccountId = booking.AccountId,
-                    ReservationId = booking.ReservationId,
-                    TotalPrice = booking.TotalPrice,
-                    Status = booking.Status.ToString() 
-                };
+                var id = await connection.QuerySingleAsync<int>(query, booking);
+                booking.BookingId = id;
 
-                var id = await connection.QuerySingleAsync<int>(query, parameters);
-                booking.Id = id;
-
-                var selectQuery = "SELECT * FROM Bookings WHERE Id = @Id";
-                var createdBooking = await connection.QuerySingleAsync<Booking>(selectQuery, new { Id = id });
-                return createdBooking;
+                return booking;
             }
         }
 
-        public async Task DeleteAsync(Booking booking)
+        public async Task<int> DeleteByIdAsync(int id)
         {
             var query = "DELETE FROM Bookings WHERE Id = @Id";
 
             using (var connection = _context.CreateConnection())
             {
-                await connection.ExecuteAsync(query, new { Id = booking.Id });
+                 return await connection.ExecuteAsync(query, new { Id = id });
             }
         }
     }
