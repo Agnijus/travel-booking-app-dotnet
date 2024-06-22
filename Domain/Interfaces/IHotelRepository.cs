@@ -1,6 +1,6 @@
-﻿using travel_booking_app_dotnet.Core.Entities;
+﻿using travel_app.Core.Entities;
 
-namespace travel_booking_app_dotnet.Core.Repository_Interfaces
+namespace travel_app.Core.Repository_Interfaces
 {
     public interface IHotelRepository
     {

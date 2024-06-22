@@ -14,17 +14,17 @@ namespace Persistence.Repositories
         {
             _context = context;
         }
-        public async Task<HotelReservationDetails> GetByIdAsync(int Id)
+        public async Task<HotelReservation> GetByIdAsync(int Id)
         {
             var query = "SELECT * FROM HotelReservationDetails WHERE id = @id";
 
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QueryFirstOrDefaultAsync<HotelReservationDetails>(query, new { Id });
+                return await connection.QueryFirstOrDefaultAsync<HotelReservation>(query, new { Id });
             }
         }
 
-        public async Task<int> AddAsync(HotelReservationDetails hotelReservation)
+        public async Task<int> AddAsync(HotelReservation hotelReservation)
         {
             var query = @"
             INSERT INTO HotelReservationDetails (HotelId, RoomType, CheckInDate, CheckOutDate, TotalPrice) 
@@ -47,7 +47,7 @@ namespace Persistence.Repositories
             }
         }
 
-        public async Task DeleteAsync(HotelReservationDetails hotelBooking)
+        public async Task DeleteAsync(HotelReservation hotelBooking)
         {
             var query = "DELETE FROM GuestAccounts WHERE Id = @Id";
 

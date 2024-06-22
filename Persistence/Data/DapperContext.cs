@@ -17,6 +17,8 @@ namespace Persistence.Data
             _connectionString = _configuration.GetConnectionString("DefaultConnection");
         }
 
+
+
         public IDbConnection CreateConnection()
             => new SqlConnection(_connectionString);
     }

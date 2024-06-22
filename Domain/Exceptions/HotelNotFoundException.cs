@@ -1,5 +1,5 @@
 ﻿
-using travel_booking_app_dotnet.Core.Exceptions;
+using travel_app.Core.Exceptions;
 
 namespace Domain.Exceptions
 {

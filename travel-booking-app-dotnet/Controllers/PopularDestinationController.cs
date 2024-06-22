@@ -1,7 +1,7 @@
 ﻿using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace travel_booking_app_dotnet.Controllers
+namespace travel_app.Controllers
 {
     [ApiController]
     [Route("/api/popularDestinations")]

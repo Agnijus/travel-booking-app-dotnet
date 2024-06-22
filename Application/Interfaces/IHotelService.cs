@@ -1,5 +1,5 @@
 ﻿using Application.Models.Requests;
-using travel_booking_app_dotnet.Core.Entities;
+using travel_app.Core.Entities;
 
 namespace Application.Interfaces
 {

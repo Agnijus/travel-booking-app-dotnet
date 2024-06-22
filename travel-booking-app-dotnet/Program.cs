@@ -1,4 +1,4 @@
-using travel_booking_app_dotnet;
+using travel_app;
 
 var builder = WebApplication.CreateBuilder(args);
 

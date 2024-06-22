@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using travel_booking_app_dotnet.Validation;
+using travel_app.Validation;
 
-namespace travel_booking_app_dotnet.Middleware
+namespace travel_app.Middleware
 {
     public static class ValidationMiddleware
     {

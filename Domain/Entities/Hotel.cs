@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using System.Text.Json.Serialization;
 
-namespace travel_booking_app_dotnet.Core.Entities
+namespace travel_app.Core.Entities
 {
     public class Hotel
     {

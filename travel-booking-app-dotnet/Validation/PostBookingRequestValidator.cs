@@ -2,7 +2,7 @@
 using Application.Models.Requests;
 
 
-namespace travel_booking_app_dotnet.Validation
+namespace travel_app.Validation
 {
     public class PostBookingRequestValidator : AbstractValidator<PostBookingRequest>
     {

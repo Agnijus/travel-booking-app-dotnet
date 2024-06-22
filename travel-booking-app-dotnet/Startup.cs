@@ -3,11 +3,11 @@ using Application.Services;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
 using Persistence.Repositories;
-using travel_booking_app_dotnet.Controllers;
-using travel_booking_app_dotnet.Core.Repository_Interfaces;
-using travel_booking_app_dotnet.Middleware;
+using travel_app.Controllers;
+using travel_app.Core.Repository_Interfaces;
+using travel_app.Middleware;
 
-namespace travel_booking_app_dotnet
+namespace travel_app
 {
     public class Startup
     {

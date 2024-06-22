@@ -4,16 +4,17 @@ namespace Domain.Entities
 {
     public class Room
     {
-
         public int Id { get; set; }
-
-        public RoomType RoomType { get; set; }
+        public int RoomTypeId { get; set; } 
+        public RoomTypes RoomType { get; set; } 
         public ushort PricePerNight { get; set; }
 
-        public Room(int id, RoomType roomType, ushort pricePerNight)
+    
+        public Room(int id, int roomTypeId, ushort pricePerNight)
         {
             Id = id;
-            RoomType = roomType;
+            RoomTypeId = roomTypeId;
+            RoomType = (RoomTypes)roomTypeId; 
             PricePerNight = pricePerNight;
         }
     }

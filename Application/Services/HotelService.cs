@@ -1,8 +1,8 @@
 ﻿using Application.Interfaces;
 using Domain.Exceptions;
 using Application.Models.Requests;
-using travel_booking_app_dotnet.Core.Entities;
-using travel_booking_app_dotnet.Core.Repository_Interfaces;
+using travel_app.Core.Entities;
+using travel_app.Core.Repository_Interfaces;
 
 
 namespace Application.Services

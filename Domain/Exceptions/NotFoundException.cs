@@ -1,4 +1,4 @@
-﻿namespace travel_booking_app_dotnet.Core.Exceptions
+﻿namespace travel_app.Core.Exceptions
 {
     public abstract class NotFoundException : Exception
     {

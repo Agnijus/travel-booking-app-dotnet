@@ -1,6 +1,6 @@
-﻿using travel_booking_app_dotnet.Core.Entities;
+﻿using travel_app.Core.Entities;
 using Persistence.Data;
-using travel_booking_app_dotnet.Core.Repository_Interfaces;
+using travel_app.Core.Repository_Interfaces;
 using Dapper;
 using System.Text.Json;
 using Microsoft.IdentityModel.Tokens;
