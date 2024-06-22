@@ -4,9 +4,9 @@ namespace Domain.Enums
 {
     public enum RoomTypes
     {
-        SingleRoom = 0,
-        DoubleRoom = 1,
-        TwinRoom = 2,
-        QuadrupleRoom = 3
+        SingleRoom = 1,
+        DoubleRoom = 2,
+        TwinRoom = 3,
+        QuadrupleRoom = 4
     }
 }

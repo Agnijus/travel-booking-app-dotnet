@@ -16,7 +16,7 @@ namespace Persistence.Repositories
 
         public async Task<List<PopularDestination>> GetAllAsync()
         {
-             var query = "SELECT * FROM PopularDestinations";
+             var query = "SELECT * FROM PopularDestination";
 
              using (var connection = _context.CreateConnection())
                 {
