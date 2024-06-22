@@ -17,12 +17,12 @@ namespace Application.Services
             _hotelRepository = hotelRepository;
         }
 
-        //public async Task<List<Hotel>> GetAllAsync()
-        //{
-        //    var hotels = await _hotelRepository.GetAllAsync();
+        public async Task<List<GetHotelResponse>> GetAllAsync()
+        {
+            var hotels = await _hotelRepository.GetAllAsync();
 
-        //    return hotels;
-        //}
+            return hotels;
+        }
 
         public async Task<GetHotelResponse> GetByIdAsync(int id)
         {

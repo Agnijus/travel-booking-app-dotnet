@@ -15,13 +15,13 @@ namespace travel_app.Controllers
             _hotelService = hotelService;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetHotels()
-        //{
-        //    var hotels = await _hotelService.GetAllAsync();
+        [HttpGet]
+        public async Task<IActionResult> GetHotels()
+        {
+            var hotels = await _hotelService.GetAllAsync();
 
-        //    return Ok(hotels);
-        //}
+            return Ok(hotels);
+        }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetHotelById(int id)

@@ -6,7 +6,7 @@ namespace Application.Interfaces
 {
     public interface IHotelService
     {
-        //Task<List<Hotel>> GetAllAsync();
+        Task<List<GetHotelResponse>> GetAllAsync();
         Task<GetHotelResponse> GetByIdAsync(int id);
         //Task<List<Hotel>> GetByDestinationAsync(string destination);
         Task<Hotel> CreateAsync(PostHotelRequest request);

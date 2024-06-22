@@ -2,13 +2,8 @@
 using Persistence.Data;
 using travel_app.Core.Repository_Interfaces;
 using Dapper;
-using System.Text.Json;
-using Microsoft.IdentityModel.Tokens;
-using System.Data;
-using Application.Models.Requests;
 using Domain.Entities;
 using Application.Models.Responses;
-using Microsoft.Data.SqlClient;
 
 
 namespace Persistence.Repositories
@@ -21,41 +16,13 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        //public async Task<List<Hotel>> GetAllAsync()
-        //{
-        //    var query = "SELECT * FROM Hotels";
-
-        //    using (var connection = _context.CreateConnection())
-        //    {
-        //        var hotelData = await connection.QueryAsync<GetHotelRequest>(query);
-
-        //        var hotels = hotelData.Select(data => new Hotel
-        //        {
-        //            Id = data.Id,
-        //            Name = data.Name,
-        //            Images = JsonSerializer.Deserialize<string[]>(data.Images),
-        //            Address = data.Address,
-        //            City = data.City,
-        //            Distance = data.Distance,
-        //            StarRating = data.StarRating,
-        //            GuestRating = data.GuestRating,
-        //            ReviewCount = data.ReviewCount,
-        //            HasFreeCancellation = data.HasFreeCancellation,
-        //            HasPayOnArrival = data.HasPayOnArrival
-        //        }).ToList();
-
-        //        return hotels;
-        //    }
-        //}
-
-        public async Task<GetHotelResponse?> GetByIdAsync(int hotelId)
+        public async Task<List<GetHotelResponse>> GetAllAsync()
         {
             var query = @"
-            SELECT h.*, i.ImagePath, r.*
-            FROM Hotel h
-            LEFT JOIN HotelImage i ON h.HotelId = i.HotelId
-            LEFT JOIN Room r ON h.HotelId = r.HotelId
-            WHERE h.HotelId = @hotelId";
+                SELECT h.*, i.ImagePath, r.*
+                FROM Hotel h
+                LEFT JOIN HotelImage i ON h.HotelId = i.HotelId
+                LEFT JOIN Room r ON h.HotelId = r.HotelId";
 
             using (var connection = _context.CreateConnection())
             {
@@ -65,9 +32,9 @@ namespace Persistence.Repositories
                     query,
                     (hotel, imagePath, room) =>
                     {
-                        if (!hotelDictionary.TryGetValue(hotel.HotelId, out var currentHotel))
+                        if (!hotelDictionary.TryGetValue(hotel.HotelId, out var current))
                         {
-                            currentHotel = new GetHotelResponse
+                            current = new GetHotelResponse
                             {
                                 HotelId = hotel.HotelId,
                                 Title = hotel.Title,
@@ -82,25 +49,79 @@ namespace Persistence.Repositories
                                 Images = new List<string>(),
                                 Rooms = new List<Room>()
                             };
-                            hotelDictionary.Add(currentHotel.HotelId, currentHotel);
+                            hotelDictionary.Add(current.HotelId, current);
                         }
 
-                        if (imagePath != null && !currentHotel.Images.Contains(imagePath))
+                        if (!string.IsNullOrEmpty(imagePath) && !current.Images.Contains(imagePath))
                         {
-                            ((List<string>)currentHotel.Images).Add(imagePath);
+                            current.Images.Add(imagePath);
                         }
 
-                        if (room != null && !((List<Room>?)currentHotel.Rooms).Any(r => r.RoomId == room.RoomId))
+                        if (room != null && !current.Rooms.Any(r => r.RoomId == room.RoomId))
                         {
-                            ((List<Room>)currentHotel.Rooms).Add(room);
+                            current.Rooms.Add(room);
                         }
 
-                        return currentHotel;
+                        return current;
+                    },
+                    splitOn: "ImagePath,RoomId");
+
+                return hotelDictionary.Values.ToList();
+            }
+        }
+
+        public async Task<GetHotelResponse> GetByIdAsync(int hotelId)
+        {
+            var query = @"
+                SELECT h.*, i.ImagePath, r.*
+                FROM Hotel h
+                LEFT JOIN HotelImage i ON h.HotelId = i.HotelId
+                LEFT JOIN Room r ON h.HotelId = r.HotelId
+                WHERE h.HotelId = @hotelId";
+
+            using (var connection = _context.CreateConnection())
+            {
+                GetHotelResponse? response = null;
+
+                var result = await connection.QueryAsync<Hotel, string, Room, GetHotelResponse>(
+                    query,
+                    (hotel, imagePath, room) =>
+                    {
+                        if (response == null)
+                        {
+                            response = new GetHotelResponse
+                            {
+                                HotelId = hotel.HotelId,
+                                Title = hotel.Title,
+                                Address = hotel.Address,
+                                City = hotel.City,
+                                Distance = hotel.Distance,
+                                StarRating = hotel.StarRating,
+                                GuestRating = hotel.GuestRating,
+                                ReviewCount = hotel.ReviewCount,
+                                HasFreeCancellation = hotel.HasFreeCancellation,
+                                HasPayOnArrival = hotel.HasPayOnArrival,
+                                Images = new List<string>(),
+                                Rooms = new List<Room>()
+                            };
+                        }
+
+                        if (!string.IsNullOrEmpty(imagePath) && !response.Images.Contains(imagePath))
+                        {
+                            response.Images.Add(imagePath);
+                        }
+
+                        if (room != null && !response.Rooms.Any(r => r.RoomId == room.RoomId))
+                        {
+                            response.Rooms.Add(room);
+                        }
+
+                        return response;
                     },
                     new { HotelId = hotelId },
                     splitOn: "ImagePath,RoomId");
 
-                return hotelDictionary.Values.FirstOrDefault();
+                return response;
             }
         }
 
