@@ -21,6 +21,11 @@ namespace Application.Services
         {
             var hotels = await _hotelRepository.GetAllAsync();
 
+            if(hotels.Count == 0)
+            {
+                throw new EntityNotFoundException(nameof(Hotel));
+            }
+
             return hotels;
         }
 
@@ -30,7 +35,7 @@ namespace Application.Services
 
             if (hotel is null)
             {
-                throw new HotelNotFoundException(id);
+                throw new EntityNotFoundException(nameof(Hotel), id);
             }
 
             return hotel;
@@ -38,7 +43,14 @@ namespace Application.Services
 
         public async Task<List<GetHotelResponse>> GetByDestinationAsync(string destination)
         {
-            return await _hotelRepository.GetByDestinationAsync(destination);
+            var hotels = await _hotelRepository.GetByDestinationAsync(destination);
+
+            if (hotels.Count == 0)
+            {
+                throw new EntityNotFoundException(nameof(Hotel), destination);
+            }
+
+            return hotels;
         }
 
         public async Task<Hotel> CreateAsync(PostHotelRequest request)
@@ -65,7 +77,7 @@ namespace Application.Services
 
             if (affectedRows == 0)
             {
-                throw new HotelNotFoundException(id);
+                throw new EntityNotFoundException(nameof(Hotel),id);
             }
         }
     }

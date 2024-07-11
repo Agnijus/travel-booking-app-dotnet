@@ -30,7 +30,7 @@ namespace Application.Services
 
             if (hotelBooking is null)
             {
-                throw new BookingNotFoundException(id);
+                throw new EntityNotFoundException(nameof(Booking),id);
             }
 
             return hotelBooking;
@@ -77,7 +77,7 @@ namespace Application.Services
 
             if (affectedRows == 0)
             {
-                throw new BookingNotFoundException(id);
+                throw new EntityNotFoundException(nameof(Booking), id);
             }
         }
     }

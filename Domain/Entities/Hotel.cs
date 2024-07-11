@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-
+﻿
 namespace travel_app.Core.Entities
 {
     public class Hotel

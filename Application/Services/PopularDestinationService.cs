@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Repository_Interfaces;
 
 
@@ -17,6 +18,10 @@ namespace Application.Services
         {
             var popularDestinations = await _popularDestinationRepository.GetAllAsync();
 
+            if (popularDestinations.Count == 0)
+            {
+                throw new EntityNotFoundException(nameof(PopularDestination));
+            }
 
             return popularDestinations;
         }

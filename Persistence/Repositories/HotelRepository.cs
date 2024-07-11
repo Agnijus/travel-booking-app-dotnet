@@ -186,7 +186,7 @@ namespace Persistence.Repositories
         public async Task<Hotel> AddAsync(Hotel hotel)
         {
             var query = @"
-            INSERT INTO Hotels (Title, Address, City, Distance, StarRating, GuestRating, ReviewCount, HasFreeCancellation, HasPayOnArrival) 
+            INSERT INTO Hotel (Title, Address, City, Distance, StarRating, GuestRating, ReviewCount, HasFreeCancellation, HasPayOnArrival) 
             VALUES (@Title, @Address, @City, @Distance, @StarRating, @GuestRating, @ReviewCount, @HasFreeCancellation, @HasPayOnArrival);
             SELECT CAST(SCOPE_IDENTITY() as int);";
 
