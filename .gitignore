@@ -6,8 +6,8 @@
 /out-tsc
 /bazel-out
 
-/travel-booking-app-dotnet/bin
-/travel-booking-app-dotnet/obj
+/travel-app/bin
+/travel-app/obj
 
 /Domain/bin
 /Domain/obj
@@ -18,7 +18,8 @@
 /Application/bin
 /Application/obj
 
-
+bin/
+obj/
 
 /.vs
 
