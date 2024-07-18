@@ -18,8 +18,6 @@ namespace Persistence.Data
             _connectionString = _configuration?.GetConnectionString("DefaultConnection");
         }
 
-
-
         public IDbConnection CreateConnection()
         {
             try
@@ -28,7 +26,7 @@ namespace Persistence.Data
             }
             catch (Exception ex)
             {
-                throw new DatabaseConnectionException("Failed to create a database connection.", ex);
+                throw new DatabaseConnectionException("Failed to create a database connection");
             }
         }
     }

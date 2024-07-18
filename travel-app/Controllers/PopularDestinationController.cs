@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
-using Domain.Entities;
+using Application.Models;
 using Microsoft.AspNetCore.Mvc;
-using travel_app.Core.Entities;
 using travel_app.Models;
 
 namespace travel_app.Controllers
@@ -22,7 +21,7 @@ namespace travel_app.Controllers
         {
             var popularDestinations = await _popularDestinationService.GetAllAsync();
 
-            return new ApiResponse("GET all popular destinations successful", popularDestinations);
+            return new ApiResponse(string.Format(Constant.GetAllPopularDestinationSuccess), popularDestinations);
         }
     }
 }

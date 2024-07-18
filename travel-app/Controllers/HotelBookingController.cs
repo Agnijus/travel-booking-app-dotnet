@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Application.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 using travel_app.Models;
@@ -21,7 +22,7 @@ namespace travel_app.Controllers
         {
             var booking = await _hotelBookingService.GetByIdAsync(id);
 
-            return new ApiResponse("GET booking by id successful", booking);
+            return new ApiResponse(string.Format(Constant.GetHotelBookingByIdSuccess), booking);
         }
 
         [HttpPost]
@@ -29,7 +30,7 @@ namespace travel_app.Controllers
         {
             var booking = await _hotelBookingService.CreateAsync(request);
 
-            return new ApiResponse("Booking POST request successful", booking);
+            return new ApiResponse(string.Format(Constant.PostHotelBookingSuccess), booking);
         }
 
         [HttpDelete("{id}")]
@@ -37,7 +38,7 @@ namespace travel_app.Controllers
         {
             await _hotelBookingService.DeleteByIdAsync(id);
 
-            return new ApiResponse("DELETE booking by id successful", null);
+            return new ApiResponse(string.Format(Constant.DeleteHotelBookingSuccess));
         }
     }
 }

@@ -40,6 +40,12 @@ namespace travel_app.Middleware
                 case ArgumentException:
                     code = HttpStatusCode.BadRequest;
                     break;
+                case NotSupportedException:
+                    code = HttpStatusCode.MethodNotAllowed;
+                    break;
+                case DatabaseConnectionException:
+                    code = HttpStatusCode.ServiceUnavailable;
+                    break;
                 default:
                     code = HttpStatusCode.InternalServerError;
                     break;
@@ -50,7 +56,7 @@ namespace travel_app.Middleware
             context.Response.StatusCode = (int)code;
             var errorMessage = exception.Message;
 
-            var response = new ApiResponse((int)code, errorMessage, null);
+            var response = new ApiResponse((int)code, errorMessage);
             var jsonResponse = JsonSerializer.Serialize(response);
 
             return context.Response.WriteAsync(jsonResponse);

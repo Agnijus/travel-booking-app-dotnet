@@ -24,5 +24,11 @@
             StatusCode = statusCode;
             Message = message;
         }
+
+        public ApiResponse(string message)
+        {
+            Message = message;
+        }
+
     }
 }

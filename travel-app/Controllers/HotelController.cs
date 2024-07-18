@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Application.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 using travel_app.Models;
@@ -20,28 +21,28 @@ namespace travel_app.Controllers
         public async Task<ApiResponse> GetHotels()
         {
             var hotels = await _hotelService.GetAllAsync();
-            return new ApiResponse("GET all hotels successful", hotels);
+            return new ApiResponse(string.Format(Constant.GetAllHotelsSuccess), hotels);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ApiResponse> GetHotelById(int id)
         {
             var hotel = await _hotelService.GetByIdAsync(id);
-            return new ApiResponse("GET hotel by id successful", hotel);
+            return new ApiResponse(string.Format(Constant.GetHotelByIdSuccess), hotel);
         }
 
         [HttpGet("destination/{destination}")]
         public async Task<ApiResponse> GetByDestination(string destination)
         {
             var hotels = await _hotelService.GetByDestinationAsync(destination);
-            return new ApiResponse("GET hotels by destination successful", hotels);
+            return new ApiResponse(string.Format(Constant.GetHotelByDestinationSuccess), hotels);
         }
 
         [HttpPost]
         public async Task<ApiResponse> CreateHotel([FromBody] PostHotelRequest request)
         {
             var hotel = await _hotelService.CreateAsync(request);
-            return new ApiResponse("Hotel POST request successful", hotel);
+            return new ApiResponse(string.Format(Constant.PostHotelSuccess), hotel);
         }
     }
 }
