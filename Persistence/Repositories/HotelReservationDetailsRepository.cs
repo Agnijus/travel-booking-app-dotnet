@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Domain.Entities;
-using Domain.Enums;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
 

@@ -4,6 +4,7 @@ using Application.Models.Requests;
 using travel_app.Core.Entities;
 using travel_app.Core.Repository_Interfaces;
 using Application.Models.Responses;
+using Application.Models;
 
 
 namespace Application.Services
@@ -23,7 +24,7 @@ namespace Application.Services
 
             if(hotels.Count == 0)
             {
-                throw new EntityNotFoundException(nameof(Hotel));
+                throw new EntityNotFoundException(string.Format(Constant.HotelsNotFoundError));
             }
 
             return hotels;
@@ -35,7 +36,7 @@ namespace Application.Services
 
             if (hotel is null)
             {
-                throw new EntityNotFoundException(nameof(Hotel), id);
+                throw new EntityNotFoundException(string.Format(Constant.HotelNotFoundError, id));
             }
 
             return hotel;
@@ -47,7 +48,7 @@ namespace Application.Services
 
             if (hotels.Count == 0)
             {
-                throw new EntityNotFoundException(nameof(Hotel), destination);
+                throw new EntityNotFoundException(string.Format(Constant.HotelDestinationNotFoundError, destination));
             }
 
             return hotels;
@@ -77,7 +78,7 @@ namespace Application.Services
 
             if (affectedRows == 0)
             {
-                throw new EntityNotFoundException(nameof(Hotel),id);
+                throw new EntityNotFoundException(string.Format(Constant.HotelNotFoundError, id));
             }
         }
     }

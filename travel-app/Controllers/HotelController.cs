@@ -1,7 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
-using travel_app.Core.Entities;
+using travel_app.Models;
 
 namespace travel_app.Controllers
 {
@@ -17,35 +17,31 @@ namespace travel_app.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetHotels()
+        public async Task<ApiResponse> GetHotels()
         {
             var hotels = await _hotelService.GetAllAsync();
-
-            return Ok(new { StatusCode = 200, Message = "GET all hotels successful", hotels });
+            return new ApiResponse("GET all hotels successful", hotels);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetHotelById(int id)
+        public async Task<ApiResponse> GetHotelById(int id)
         {
             var hotel = await _hotelService.GetByIdAsync(id);
-
-            return Ok(new { StatusCode = 200, Message = "GET hotels by id successful", hotel });
+            return new ApiResponse("GET hotel by id successful", hotel);
         }
 
         [HttpGet("destination/{destination}")]
-        public async Task<IActionResult> GetByDestination(string destination)
+        public async Task<ApiResponse> GetByDestination(string destination)
         {
             var hotels = await _hotelService.GetByDestinationAsync(destination);
-
-            return Ok(new { StatusCode = 200, Message = "GET hotels by destination successful", hotels });
+            return new ApiResponse("GET hotels by destination successful", hotels);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateHotel([FromBody] PostHotelRequest request)
+        public async Task<ApiResponse> CreateHotel([FromBody] PostHotelRequest request)
         {
             var hotel = await _hotelService.CreateAsync(request);
-
-            return CreatedAtAction(nameof(GetHotelById), new { id = hotel.HotelId }, hotel);
+            return new ApiResponse("Hotel POST request successful", hotel);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Domain.Exceptions;
+using System.Net;
 using System.Text.Json;
+using travel_app.Models;
 
 namespace travel_app.Middleware
 {
@@ -18,22 +20,40 @@ namespace travel_app.Middleware
             {
                 await _next(context);
             }
-            catch (EntityNotFoundException ex)
-            {
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = 404;
-                var response = new { StatusCode = 404, Message = ex.Message };
-                var jsonResponse = JsonSerializer.Serialize(response);
-                await context.Response.WriteAsync(jsonResponse);
-            }
             catch (Exception ex)
             {
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = 500;
-                var response = new { StatusCode = 500, Message = ex.Message };
-                var jsonResponse = JsonSerializer.Serialize(response);
-                await context.Response.WriteAsync(jsonResponse);
+                await HandleExceptionAsync(context, ex);
             }
+        }
+
+        public Task HandleExceptionAsync(HttpContext context, Exception exception)
+        {
+            var code = HttpStatusCode.InternalServerError;
+
+            switch (exception)
+            {
+                case EntityNotFoundException:
+                    code = HttpStatusCode.NotFound;
+                    break;
+                case ArgumentNullException:
+                case InvalidOperationException:
+                case ArgumentException:
+                    code = HttpStatusCode.BadRequest;
+                    break;
+                default:
+                    code = HttpStatusCode.InternalServerError;
+                    break;
+            }
+
+            context.Response.Clear();
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)code;
+            var errorMessage = exception.Message;
+
+            var response = new ApiResponse((int)code, errorMessage, null);
+            var jsonResponse = JsonSerializer.Serialize(response);
+
+            return context.Response.WriteAsync(jsonResponse);
         }
     }
 }

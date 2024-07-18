@@ -1,9 +1,12 @@
 ﻿using Application.Interfaces;
-using Application.Models.Requests;
+using Application.Models.Responses;
+using Application.Models;
 using Domain.Entities;
-using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Repository_Interfaces;
+using Microsoft.VisualBasic;
+using Application.Models.Requests;
+
 
 
 namespace Application.Services
@@ -14,7 +17,6 @@ namespace Application.Services
         private readonly IHotelReservationDetailsRepository _hotelReservationDetailsRepository;
         private readonly IGuestAccountRepository _guestAccountRepository;
         private readonly IBookingRepository _bookingRepository;
-
 
 
         public HotelBookingService(IHotelReservationDetailsRepository hotelReservationDetailsRepository, IGuestAccountRepository guestAccountRepository, IBookingRepository
@@ -30,7 +32,7 @@ namespace Application.Services
 
             if (hotelBooking is null)
             {
-                throw new EntityNotFoundException(nameof(Booking),id);
+                throw new EntityNotFoundException(string.Format(Constant.HotelBookingNotFoundError, id));
             }
 
             return hotelBooking;
@@ -77,7 +79,7 @@ namespace Application.Services
 
             if (affectedRows == 0)
             {
-                throw new EntityNotFoundException(nameof(Booking), id);
+                throw new EntityNotFoundException(string.Format(Constant.HotelBookingNotFoundError, id));
             }
         }
     }

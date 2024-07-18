@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Dapper;
+﻿using Dapper;
 using Domain.Entities;
 using Domain.Repository_Interfaces;
 using Persistence.Data;

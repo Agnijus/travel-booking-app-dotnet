@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Repository_Interfaces;
+using Application.Models;
 
 
 namespace Application.Services
@@ -20,7 +21,7 @@ namespace Application.Services
 
             if (popularDestinations.Count == 0)
             {
-                throw new EntityNotFoundException(nameof(PopularDestination));
+                throw new EntityNotFoundException(Constant.PopularDestinationsNotFoundError);
             }
 
             return popularDestinations;
