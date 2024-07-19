@@ -54,9 +54,10 @@ namespace travel_app.Middleware
             context.Response.Clear();
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
+            var isSuccess = false;
             var errorMessage = exception.Message;
 
-            var response = new ApiResponse((int)code, errorMessage);
+            var response = new ApiResponse((int)code,isSuccess, errorMessage);
             var jsonResponse = JsonSerializer.Serialize(response);
 
             return context.Response.WriteAsync(jsonResponse);
