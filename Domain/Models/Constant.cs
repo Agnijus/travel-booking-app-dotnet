@@ -7,6 +7,7 @@
         public const string HotelsNotFoundError = "No hotels found";
         public const string HotelBookingNotFoundError = "Hotel booking with an id of {0} not found";
         public const string PopularDestinationsNotFoundError = "Popular destinations not found";
+        public const string DatabaseConnectionError = "Failed to create a database connection";
 
         public const string GetHotelBookingByIdSuccess = "GET booking by id successful";
         public const string PostHotelBookingSuccess = "POST booking request successful";

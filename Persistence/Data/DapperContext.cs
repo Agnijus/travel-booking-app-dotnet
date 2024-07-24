@@ -2,12 +2,13 @@
 using System.Data;
 using Microsoft.Data.SqlClient;
 using Domain.Exceptions;
+using Application.Models;
 
 
 
 namespace Persistence.Data
 {
-    public class DapperContext
+    public class DapperContext : IDapperContext
     {
         private readonly IConfiguration? _configuration;
         private readonly string? _connectionString;
@@ -26,7 +27,7 @@ namespace Persistence.Data
             }
             catch (Exception ex)
             {
-                throw new DatabaseConnectionException("Failed to create a database connection");
+                throw new DatabaseConnectionException(Constant.DatabaseConnectionError);
             }
         }
     }

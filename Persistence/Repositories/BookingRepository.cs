@@ -8,8 +8,8 @@ namespace Persistence.Repositories
 {
     public class BookingRepository : IBookingRepository
     {
-        private readonly DapperContext _context;
-        public BookingRepository(DapperContext context)
+        private readonly IDapperContext _context;
+        public BookingRepository(IDapperContext context)
         {
             _context = context;
         }

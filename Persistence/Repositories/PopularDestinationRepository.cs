@@ -8,8 +8,8 @@ namespace Persistence.Repositories
 {
     public class PopularDestinationRepository : IPopularDestinationRepository
     {
-        private readonly DapperContext _context;
-        public PopularDestinationRepository(DapperContext context)
+        private readonly IDapperContext _context;
+        public PopularDestinationRepository(IDapperContext context)
         {
             _context = context;
         }

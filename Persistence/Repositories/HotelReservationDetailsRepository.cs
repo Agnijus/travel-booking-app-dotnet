@@ -7,15 +7,15 @@ namespace Persistence.Repositories
 {
     public class HotelReservationDetailsRepository : IHotelReservationDetailsRepository
     {
-        private readonly DapperContext _context;
+        private readonly IDapperContext _context;
 
-        public HotelReservationDetailsRepository(DapperContext context)
+        public HotelReservationDetailsRepository(IDapperContext context)
         {
             _context = context;
         }
         public async Task<HotelReservation> GetByIdAsync(int Id)
         {
-            var query = "SELECT * FROM HotelReservation WHERE id = @id";
+            var query = "SELECT r.HotelId, r.RoomTypeId, r.CheckInDate, r.CheckOutDate, r.TotalPrice * FROM HotelReservation r WHERE id = @id";
 
             using (var connection = _context.CreateConnection())
             {

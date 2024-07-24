@@ -57,7 +57,7 @@ namespace travel_app.Middleware
             var isSuccess = false;
             var errorMessage = exception.Message;
 
-            var response = new ApiResponse((int)code,isSuccess, errorMessage);
+            var response = new ApiResponse((int)code, isSuccess, errorMessage);
             var jsonResponse = JsonSerializer.Serialize(response);
 
             return context.Response.WriteAsync(jsonResponse);

@@ -8,7 +8,6 @@ namespace Application.Interfaces
     {
         Task<Booking> GetByIdAsync(int id);
         Task DeleteByIdAsync(int id);
-
         Task<Booking> CreateAsync(PostBookingRequest request);
 
     }

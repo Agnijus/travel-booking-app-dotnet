@@ -8,9 +8,6 @@ namespace Domain.Entities
         public int HotelReservationId { get; set; }
         public double TotalPrice { get; set; }
         public int TransactionStatusId { get; set; }
-
-        //Navigation property
-        //public TransactionStatus? TransactionStatusId { get; set; }
     }
 }
 

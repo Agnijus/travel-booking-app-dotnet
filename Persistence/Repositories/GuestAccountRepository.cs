@@ -7,9 +7,9 @@ namespace Persistence.Repositories
 {
     public class GuestAccountRepository : IGuestAccountRepository
     {
-        private readonly DapperContext _context;
+        private readonly IDapperContext _context;
 
-        public GuestAccountRepository(DapperContext context)
+        public GuestAccountRepository(IDapperContext context)
         {
             _context = context;
         }

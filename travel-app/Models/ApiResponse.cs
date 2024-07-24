@@ -15,17 +15,18 @@
             Data = data;
         }
 
-        public ApiResponse(string message, object data)
-            : this(200, message, data)
-        {
-        }
-
         public ApiResponse(int statusCode, bool isSuccess, string message)
         {
             StatusCode = statusCode;
             IsSuccess = isSuccess;
             Message = message;
         }
+
+        public ApiResponse(string message, object data)
+            : this(200, message, data)
+        {
+        }
+        
 
         public ApiResponse(string message)
             : this(200, message, null)

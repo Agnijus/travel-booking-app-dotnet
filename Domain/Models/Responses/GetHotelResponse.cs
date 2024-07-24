@@ -16,9 +16,6 @@ namespace Application.Models.Responses
         public bool? HasFreeCancellation { get; set; }
         public bool? HasPayOnArrival { get; set; }
 
-
-        // Join and get Images and Rooms associated with the HotelId
-
         public ICollection<string>? Images  { get; set; }
         public ICollection<Room>? Rooms { get; set; }
 

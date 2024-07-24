@@ -10,7 +10,5 @@ namespace Domain.Entities
         public DateTime CheckOutDate { get; set; }
         public double TotalPrice { get; set; }
 
-        // Navigation property
-        //public RoomType? RoomTypeId { get; set; }
     }
 }
