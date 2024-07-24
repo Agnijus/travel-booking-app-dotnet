@@ -1,0 +1,52 @@
+2024-07-24 21:24:08.151 +01:00 [INF] Now listening on: https://localhost:5000
+2024-07-24 21:24:08.189 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-24 21:24:08.189 +01:00 [INF] Hosting environment: Development
+2024-07-24 21:24:08.189 +01:00 [INF] Content root path: C:\Users\Agnijus\travel-booking-app-dotnet\travel-app
+2024-07-24 21:24:09.016 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5000/swagger/index.html - null null
+2024-07-24 21:24:09.429 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5000/swagger/index.html - 200 null text/html;charset=utf-8 419.3108ms
+2024-07-24 21:24:09.434 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5000/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-24 21:24:09.444 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5000/_framework/aspnetcore-browser-refresh.js - 200 13756 application/javascript; charset=utf-8 9.6164ms
+2024-07-24 21:24:09.548 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5000/_vs/browserLink - null null
+2024-07-24 21:24:09.640 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5000/_vs/browserLink - 200 null text/javascript; charset=UTF-8 92.8909ms
+2024-07-24 21:24:09.788 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5000/swagger/v1/swagger.json - null null
+2024-07-24 21:24:09.856 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5000/swagger/favicon-32x32.png - null null
+2024-07-24 21:24:09.874 +01:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-07-24 21:24:09.874 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5000/swagger/favicon-32x32.png - 200 628 image/png 17.5804ms
+2024-07-24 21:24:09.990 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5000/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 201.761ms
+2024-07-24 21:24:17.845 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5000/api/hotels - null null
+2024-07-24 21:24:17.874 +01:00 [INF] Executing endpoint 'travel_app.Controllers.HotelController.GetHotels (travel-app)'
+2024-07-24 21:24:17.898 +01:00 [INF] Route matched with {action = "GetHotels", controller = "Hotel"}. Executing controller action with signature System.Threading.Tasks.Task`1[travel_app.Models.ApiResponse] GetHotels() on controller travel_app.Controllers.HotelController (travel-app).
+2024-07-24 21:24:19.323 +01:00 [INF] Executing ObjectResult, writing value of type 'travel_app.Models.ApiResponse'.
+2024-07-24 21:24:19.362 +01:00 [INF] Executed action travel_app.Controllers.HotelController.GetHotels (travel-app) in 1458.7616ms
+2024-07-24 21:24:19.362 +01:00 [INF] Executed endpoint 'travel_app.Controllers.HotelController.GetHotels (travel-app)'
+2024-07-24 21:24:19.362 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5000/api/hotels - 200 null application/json; charset=utf-8 1517.6035ms
+2024-07-24 21:24:38.129 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5000/api/hotels/1 - null null
+2024-07-24 21:24:38.143 +01:00 [INF] Executing endpoint 'travel_app.Controllers.HotelController.GetHotelById (travel-app)'
+2024-07-24 21:24:38.162 +01:00 [INF] Route matched with {action = "GetHotelById", controller = "Hotel"}. Executing controller action with signature System.Threading.Tasks.Task`1[travel_app.Models.ApiResponse] GetHotelById(Int32) on controller travel_app.Controllers.HotelController (travel-app).
+2024-07-24 21:24:38.337 +01:00 [INF] Executing ObjectResult, writing value of type 'travel_app.Models.ApiResponse'.
+2024-07-24 21:24:38.337 +01:00 [INF] Executed action travel_app.Controllers.HotelController.GetHotelById (travel-app) in 174.5854ms
+2024-07-24 21:24:38.337 +01:00 [INF] Executed endpoint 'travel_app.Controllers.HotelController.GetHotelById (travel-app)'
+2024-07-24 21:24:38.337 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5000/api/hotels/1 - 200 null application/json; charset=utf-8 208.6169ms
+2024-07-24 21:24:42.974 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5000/api/hotels/13123 - null null
+2024-07-24 21:24:42.975 +01:00 [INF] Executing endpoint 'travel_app.Controllers.HotelController.GetHotelById (travel-app)'
+2024-07-24 21:24:42.975 +01:00 [INF] Route matched with {action = "GetHotelById", controller = "Hotel"}. Executing controller action with signature System.Threading.Tasks.Task`1[travel_app.Models.ApiResponse] GetHotelById(Int32) on controller travel_app.Controllers.HotelController (travel-app).
+2024-07-24 21:24:43.092 +01:00 [INF] Executed action travel_app.Controllers.HotelController.GetHotelById (travel-app) in 116.8303ms
+2024-07-24 21:24:43.093 +01:00 [INF] Executed endpoint 'travel_app.Controllers.HotelController.GetHotelById (travel-app)'
+2024-07-24 21:24:43.178 +01:00 [ERR] An unhandled exception occurred.
+Domain.Exceptions.EntityNotFoundException: Hotel with an id of 13123 not found
+   at Application.Services.HotelService.GetByIdAsync(Int32 id) in C:\Users\Agnijus\travel-booking-app-dotnet\Application\Services\HotelService.cs:line 39
+   at travel_app.Controllers.HotelController.GetHotelById(Int32 id) in C:\Users\Agnijus\travel-booking-app-dotnet\travel-app\Controllers\HotelController.cs:line 30
+   at lambda_method15(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at travel_app.Middleware.ErrorHandlingMiddleware.Invoke(HttpContext context) in C:\Users\Agnijus\travel-booking-app-dotnet\travel-app\Middleware\ErrorHandlingMiddleware.cs:line 23
+2024-07-24 21:24:43.307 +01:00 [ERR] Error NotFound
+2024-07-24 21:24:43.307 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5000/api/hotels/13123 - 404 null application/json 332.756ms

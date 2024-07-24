@@ -1,6 +1,11 @@
+using Serilog;
 using travel_app;
+using travel_app.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
+
+LoggerConfig.ConfigureLogger();
+builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
 

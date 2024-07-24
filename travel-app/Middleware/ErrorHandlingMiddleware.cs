@@ -2,6 +2,8 @@
 using System.Net;
 using System.Text.Json;
 using travel_app.Models;
+using Serilog;
+
 
 namespace travel_app.Middleware
 {
@@ -22,6 +24,7 @@ namespace travel_app.Middleware
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "An unhandled exception occurred.");
                 await HandleExceptionAsync(context, ex);
             }
         }
@@ -59,6 +62,8 @@ namespace travel_app.Middleware
 
             var response = new ApiResponse((int)code, isSuccess, errorMessage);
             var jsonResponse = JsonSerializer.Serialize(response);
+
+            Log.Error(exception.InnerException, $"Error {code}");
 
             return context.Response.WriteAsync(jsonResponse);
         }
