@@ -1,6 +1,7 @@
 ﻿using System.Text;
-using System.Text.Json;
 using Application.Models.Requests;
+using travel_app.Models;
+using Newtonsoft.Json;
 
 namespace IntegrationTests.Helpers
 {
@@ -10,25 +11,33 @@ namespace IntegrationTests.Helpers
         {
         }
 
-        public async Task<HttpResponseMessage> CreateHotel(PostHotelRequest request)
+        public async Task<ApiResponse> CreateHotel(PostHotelRequest request)
         {
-            var jsonContent = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
-            return await Client.PostAsync("/api/hotels", jsonContent);
+            var jsonContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+            var response = await Client.PostAsync("/api/hotels", jsonContent);
+            var responseString = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ApiResponse>(responseString);
         }
 
-        public async Task<HttpResponseMessage> GetHotelById(int id)
+        public async Task<ApiResponse> GetHotelById(int id)
         {
-            return await Client.GetAsync($"/api/hotels/{id}");
+            var response = await Client.GetAsync($"/api/hotels/{id}");
+            var responseString = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ApiResponse>(responseString);
         }
 
-        public async Task<HttpResponseMessage> GetHotels()
+        public async Task<ApiResponse> GetHotels()
         {
-            return await Client.GetAsync("/api/hotels");
+            var response = await Client.GetAsync("/api/hotels");
+            var responseString = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ApiResponse>(responseString);
         }
 
-        public async Task<HttpResponseMessage> GetByDestination(string destination)
+        public async Task<ApiResponse> GetByDestination(string destination)
         {
-            return await Client.GetAsync($"/api/hotels/destination/{destination}");
+            var response = await Client.GetAsync($"/api/hotels/destination/{destination}");
+            var responseString = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ApiResponse>(responseString);
         }
     }
 }

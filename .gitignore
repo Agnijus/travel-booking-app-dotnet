@@ -21,9 +21,12 @@
 bin/
 obj/
 
+# Ignore TestResults folders
+TestResults/
+CoverageReport/
+logs/
+
 /.vs
-
-
 
 # Node
 /node_modules

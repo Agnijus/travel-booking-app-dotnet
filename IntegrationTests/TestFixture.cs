@@ -2,14 +2,16 @@
 using Persistence.Data;
 using Dapper;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Logging;
 
 
 namespace IntegrationTests;
 public class TestFixture : IDisposable
 {
-    public DapperContext Context { get; private set; }
+    public IDapperContext Context { get; private set; }
     public HttpClient Client { get; private set; }
     private readonly IConfiguration _configuration;
+
 
 
     public TestFixture()
