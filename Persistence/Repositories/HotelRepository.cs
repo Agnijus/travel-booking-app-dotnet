@@ -4,6 +4,7 @@ using travel_app.Core.Repository_Interfaces;
 using Dapper;
 using Domain.Entities;
 using Application.Models.Responses;
+using System.Text;
 
 
 namespace Persistence.Repositories
@@ -18,11 +19,15 @@ namespace Persistence.Repositories
 
         public async Task<List<GetHotelResponse>> GetAllAsync()
         {
-            var query = @"
-                SELECT h.*, i.ImagePath, r.*
-                FROM Hotel h
-                LEFT JOIN HotelImage i ON h.HotelId = i.HotelId
-                LEFT JOIN Room r ON h.HotelId = r.HotelId";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival, i.ImagePath,");
+            sb.AppendLine("r.RoomId, r.HotelId, r.RoomType, r.Price, r.Availability");
+            sb.AppendLine("FROM Hotel h");
+            sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
+            sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -72,12 +77,16 @@ namespace Persistence.Repositories
 
         public async Task<List<GetHotelResponse>> GetByDestinationAsync(string destination)
         {
-            var query = @"
-                SELECT h.*, i.ImagePath, r.*
-                FROM Hotel h
-                LEFT JOIN HotelImage i ON h.HotelId = i.HotelId
-                LEFT JOIN Room r ON h.HotelId = r.HotelId
-                WHERE h.CITY = @Destination";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival, i.ImagePath,");
+            sb.AppendLine("r.RoomId, r.HotelId, r.RoomType, r.Price, r.Availability");
+            sb.AppendLine("FROM Hotel h");
+            sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
+            sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
+            sb.AppendLine("WHERE h.City = @Destination");
+
+            var query = sb.ToString();
 
 
             using (var connection = _context.CreateConnection())
@@ -130,12 +139,17 @@ namespace Persistence.Repositories
 
         public async Task<GetHotelResponse> GetByIdAsync(int hotelId)
         {
-            var query = @"
-                SELECT h.*, i.ImagePath, r.*
-                FROM Hotel h
-                LEFT JOIN HotelImage i ON h.HotelId = i.HotelId
-                LEFT JOIN Room r ON h.HotelId = r.HotelId
-                WHERE h.HotelId = @hotelId";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival, i.ImagePath,");
+            sb.AppendLine("r.RoomId, r.HotelId, r.RoomType, r.Price, r.Availability");
+            sb.AppendLine("FROM Hotel h");
+            sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
+            sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
+            sb.AppendLine("WHERE h.HotelId = @hotelId");
+
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -185,10 +199,13 @@ namespace Persistence.Repositories
 
         public async Task<Hotel> AddAsync(Hotel hotel)
         {
-            var query = @"
-            INSERT INTO Hotel (Title, Address, City, Distance, StarRating, GuestRating, ReviewCount, HasFreeCancellation, HasPayOnArrival) 
-            VALUES (@Title, @Address, @City, @Distance, @StarRating, @GuestRating, @ReviewCount, @HasFreeCancellation, @HasPayOnArrival);
-            SELECT CAST(SCOPE_IDENTITY() as int);";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO Hotel (Title, Address, City, Distance, StarRating, GuestRating, ReviewCount, HasFreeCancellation, HasPayOnArrival)");
+            sb.AppendLine("VALUES (@Title, @Address, @City, @Distance, @StarRating, @GuestRating, @ReviewCount, @HasFreeCancellation, @HasPayOnArrival);");
+            sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -202,7 +219,12 @@ namespace Persistence.Repositories
 
         public async Task<int> DeleteByIdAsync(int id)
         {
-            var query = "DELETE FROM Hotels WHERE Id = @Id";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("DELETE FROM Hotels");
+            sb.AppendLine("WHERE Id = @Id");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {

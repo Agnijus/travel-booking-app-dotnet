@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
+using System.Text;
 
 namespace Persistence.Repositories
 {
@@ -15,7 +16,13 @@ namespace Persistence.Repositories
         }
         public async Task<HotelReservation> GetByIdAsync(int Id)
         {
-            var query = "SELECT r.HotelId, r.RoomTypeId, r.CheckInDate, r.CheckOutDate, r.TotalPrice * FROM HotelReservation r WHERE id = @id";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("SELECT r.HotelId, r.RoomTypeId, r.CheckInDate, r.CheckOutDate, r.TotalPrice");
+            sb.AppendLine("FROM HotelReservation r");
+            sb.AppendLine("WHERE r.Id = @id");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -25,10 +32,13 @@ namespace Persistence.Repositories
 
         public async Task<int> AddAsync(HotelReservation hotelReservation)
         {
-            var query = @"
-            INSERT INTO HotelReservation (HotelId, RoomTypeId, CheckInDate, CheckOutDate, TotalPrice) 
-            VALUES (@HotelId, @RoomTypeId, @CheckInDate, @CheckOutDate, @TotalPrice);
-            SELECT CAST(SCOPE_IDENTITY() as int);";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO HotelReservation (HotelId, RoomTypeId, CheckInDate, CheckOutDate, TotalPrice)");
+            sb.AppendLine("VALUES (@HotelId, @RoomTypeId, @CheckInDate, @CheckOutDate, @TotalPrice);");
+            sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -40,7 +50,12 @@ namespace Persistence.Repositories
 
         public async Task DeleteByIdAsync(int id)
         {
-            var query = "DELETE FROM GuestAccounts WHERE Id = @Id";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("DELETE FROM GuestAccounts");
+            sb.AppendLine("WHERE Id = @Id");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {

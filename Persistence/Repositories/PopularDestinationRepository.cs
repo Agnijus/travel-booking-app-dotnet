@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
+using System.Text;
 
 
 namespace Persistence.Repositories
@@ -16,14 +17,20 @@ namespace Persistence.Repositories
 
         public async Task<List<PopularDestination>> GetAllAsync()
         {
-             var query = "SELECT * FROM PopularDestination";
 
-             using (var connection = _context.CreateConnection())
-                {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("SELECT City, Location from PopularDestination");
+
+            var query = sb.ToString();
+
+            using (var connection = _context.CreateConnection())
+            {
                 var destinations = await connection.QueryAsync<PopularDestination>(query);
 
-                return destinations.ToList();  
-             }    
+                return destinations.ToList();
+            }
+
         }
     }
 }

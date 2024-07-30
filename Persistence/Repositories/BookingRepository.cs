@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
+using System.Text;
 
 
 namespace Persistence.Repositories
@@ -16,7 +17,13 @@ namespace Persistence.Repositories
 
         public async Task<Booking> GetByIdAsync(int id)
         {
-            var query = "SELECT * FROM Booking WHERE BookingId = @id";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("SELECT BookingId, GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId");
+            sb.AppendLine("FROM Booking");
+            sb.AppendLine("WHERE BookingId = @id");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -27,10 +34,13 @@ namespace Persistence.Repositories
 
         public async Task<Booking> AddAsync(Booking booking)
         {
-            var query = @"
-            INSERT INTO Booking (GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId) 
-            VALUES (@GuestAccountId, @HotelReservationId, @TotalPrice, @TransactionStatusId);
-            SELECT CAST(SCOPE_IDENTITY() as int);";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO Booking (GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId)");
+            sb.AppendLine("VALUES (@GuestAccountId, @HotelReservationId, @TotalPrice, @TransactionStatusId);");
+            sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -43,7 +53,12 @@ namespace Persistence.Repositories
 
         public async Task<int> DeleteByIdAsync(int id)
         {
-            var query = "DELETE FROM Booking WHERE BookingId = @id";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("DELETE FROM Booking");
+            sb.AppendLine("WHERE BookingId = @id");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {

@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Repository_Interfaces;
 using Persistence.Data;
+using System.Text;
 
 namespace Persistence.Repositories
 {
@@ -15,7 +16,13 @@ namespace Persistence.Repositories
         }
         public async Task<GuestAccount> GetByIdAsync(int id)
         {
-            var query = "SELECT * FROM GuestAccount WHERE id = @id";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("SELECT Id, FirstName, LastName, Email, ContactNumber");
+            sb.AppendLine("FROM GuestAccount");
+            sb.AppendLine("WHERE Id = @id");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -25,10 +32,13 @@ namespace Persistence.Repositories
 
         public async Task<int> AddAsync(GuestAccount guestAccount)
         {
-            var query = @"
-            INSERT INTO GuestAccount (FirstName, LastName, Email, ContactNumber) 
-            VALUES (@FirstName, @LastName, @Email, @ContactNumber);
-            SELECT CAST(SCOPE_IDENTITY() as int);";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("INSERT INTO GuestAccount (FirstName, LastName, Email, ContactNumber)");
+            sb.AppendLine("VALUES (@FirstName, @LastName, @Email, @ContactNumber);");
+            sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
@@ -39,7 +49,12 @@ namespace Persistence.Repositories
 
         public async Task DeleteByIdAsync(int id)
         {
-            var query = "DELETE FROM GuestAccount WHERE Id = @Id";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("DELETE FROM GuestAccount");
+            sb.AppendLine("WHERE Id = @Id");
+
+            var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
