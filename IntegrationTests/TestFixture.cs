@@ -2,7 +2,7 @@
 using Persistence.Data;
 using Dapper;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Logging;
+using Domain.Repository_Interfaces;
 
 
 namespace IntegrationTests;

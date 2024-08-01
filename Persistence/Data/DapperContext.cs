@@ -3,6 +3,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using Domain.Exceptions;
 using Application.Models;
+using Domain.Repository_Interfaces;
 
 
 
@@ -30,5 +31,7 @@ namespace Persistence.Data
                 throw new DatabaseConnectionException(Constant.DatabaseConnectionError);
             }
         }
+
+
     }
 }

@@ -6,9 +6,9 @@ namespace Application.Interfaces
 {
     public interface IHotelBookingService
     {
-        Task<Booking> GetByIdAsync(int id);
-        Task DeleteByIdAsync(int id);
-        Task<Booking> CreateAsync(PostBookingRequest request);
+        Task<Booking> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+        Task DeleteByIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<Booking> CreateAsync(PostBookingRequest request, CancellationToken cancellationToken = default);
 
     }
 }

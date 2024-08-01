@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Persistence.Data
+namespace Domain.Repository_Interfaces
 {
     public interface IDapperContext
     {

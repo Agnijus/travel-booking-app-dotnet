@@ -1,11 +1,10 @@
 ﻿using Dapper;
 using Domain.Entities;
+using Domain.Repository_Interfaces;
 using Moq;
 using Moq.Dapper;
-using Persistence.Data;
 using Persistence.Repositories;
 using System.Data;
-using Xunit;
 
 namespace UnitTests.Repositories
 {

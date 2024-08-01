@@ -1,9 +1,9 @@
 ﻿
 using Dapper;
 using Domain.Entities;
+using Domain.Repository_Interfaces;
 using Moq;
 using Moq.Dapper;
-using Persistence.Data;
 using Persistence.Repositories;
 using System.Data;
 
@@ -11,6 +11,8 @@ namespace UnitTests.Repositories
 {
     public class HotelReservationDetailsRepositoryTest
     {
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
+
         private readonly Mock<IDapperContext> _mockContext;
         private readonly Mock<IDbConnection> _mockDbConnection;
         private readonly HotelReservationDetailsRepository _repository;
@@ -20,7 +22,7 @@ namespace UnitTests.Repositories
             _mockContext = new Mock<IDapperContext>();
             _mockDbConnection = new Mock<IDbConnection>();
             _mockContext.Setup(m => m.CreateConnection()).Returns(_mockDbConnection.Object);
-            _repository = new HotelReservationDetailsRepository(_mockContext.Object);
+            _repository = new HotelReservationDetailsRepository(_mockUnitOfWork.Object);
         }
 
         //[Fact]

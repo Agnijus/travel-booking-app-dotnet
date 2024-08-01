@@ -21,6 +21,8 @@ namespace travel_app
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IDapperContext, DapperContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
             services.AddControllers()
                 .AddApplicationPart(typeof(HotelController).Assembly)

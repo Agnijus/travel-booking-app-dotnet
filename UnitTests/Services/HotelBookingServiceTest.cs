@@ -13,22 +13,24 @@ namespace UnitTests.Services
         private readonly Mock<IHotelReservationDetailsRepository> _mockHotelReservationDetailsRepository;
         private readonly Mock<IGuestAccountRepository> _mockGuestAccountRepository;
         private readonly Mock<IBookingRepository> _mockBookingRepository;
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
         private readonly HotelBookingService _service;
         public HotelBookingServiceTest()
         {
             _mockHotelReservationDetailsRepository = new Mock<IHotelReservationDetailsRepository>();
             _mockGuestAccountRepository = new Mock<IGuestAccountRepository>();
             _mockBookingRepository = new Mock<IBookingRepository>();
+            _mockUnitOfWork = new Mock<IUnitOfWork>();
             _service = new HotelBookingService(_mockHotelReservationDetailsRepository.Object,
                                                _mockGuestAccountRepository.Object,
-                                               _mockBookingRepository.Object);
+                                               _mockBookingRepository.Object, _mockUnitOfWork.Object);
         }
 
         [Fact]
         public async Task GetByIdAsync_BookingExists_ReturnsBooking()
         {
             // Arrange
-            var booking = new Booking
+            var expectedBooking = new Booking
             {
                 BookingId = 1,
                 GuestAccountId = 100,
@@ -37,21 +39,20 @@ namespace UnitTests.Services
                 TransactionStatusId = 1
             };
 
-            _mockBookingRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(booking);
+            _mockBookingRepository.Setup(r => r.GetByIdAsync(1, It.IsAny<CancellationToken>())).ReturnsAsync(expectedBooking);
 
             // Act
             var result = await _service.GetByIdAsync(1);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(booking, result);
+            Assert.Equal(expectedBooking, result);
         }
-
         [Fact]
         public async Task GetByIdAsync_BookingDoesntExist_ThrowsEntityNotFoundException()
         {
             // Arrange
-            _mockBookingRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Booking)null);
+            _mockBookingRepository.Setup(r => r.GetByIdAsync(1, It.IsAny<CancellationToken>())).ReturnsAsync((Booking)null);
 
             // Act & Assert
             await Assert.ThrowsAsync<EntityNotFoundException>(() => _service.GetByIdAsync(1));
@@ -77,13 +78,13 @@ namespace UnitTests.Services
             var guestAccountId = 2;
             var hotelReservationId = 3;
 
-            _mockGuestAccountRepository.Setup(m => m.AddAsync(It.IsAny<GuestAccount>()))
+            _mockGuestAccountRepository.Setup(m => m.AddAsync(It.IsAny<GuestAccount>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(guestAccountId);
-            _mockHotelReservationDetailsRepository.Setup(m => m.AddAsync(It.IsAny<HotelReservation>()))
+            _mockHotelReservationDetailsRepository.Setup(m => m.AddAsync(It.IsAny<HotelReservation>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(hotelReservationId);
 
-            _mockBookingRepository.Setup(m => m.AddAsync(It.IsAny<Booking>()))
-            .ReturnsAsync((Booking b) => b);
+            _mockBookingRepository.Setup(m => m.AddAsync(It.IsAny<Booking>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((Booking b) => b); 
 
             // Act
             var result = await _service.CreateAsync(request);
@@ -93,7 +94,7 @@ namespace UnitTests.Services
             Assert.Equal(guestAccountId, result.GuestAccountId);
             Assert.Equal(hotelReservationId, result.HotelReservationId);
             Assert.Equal(request.TotalPrice, result.TotalPrice);
-            Assert.Equal(1, result.TransactionStatusId);  
+            Assert.Equal(1, result.TransactionStatusId);
         }
 
         [Fact]
@@ -102,14 +103,13 @@ namespace UnitTests.Services
             // Arrange
             int bookingId = 1;
 
-            _mockBookingRepository.Setup(r => r.DeleteByIdAsync(bookingId)).ReturnsAsync(10);
+            _mockBookingRepository.Setup(r => r.DeleteByIdAsync(bookingId, It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
             // Act
-            await _service.DeleteByIdAsync(1);
+            await _service.DeleteByIdAsync(bookingId);
 
             // Assert
-            _mockBookingRepository.Verify(r => r.DeleteByIdAsync(bookingId), Times.Once(), "Should be invoked once");
-
+            _mockBookingRepository.Verify(r => r.DeleteByIdAsync(bookingId, It.IsAny<CancellationToken>()), Times.Once(), "Should be invoked once");
         }
 
         [Fact]
@@ -117,7 +117,7 @@ namespace UnitTests.Services
         {
             // Arrange
             int bookingId = 1;
-            _mockBookingRepository.Setup(r => r.DeleteByIdAsync(bookingId)).ReturnsAsync(0); // 0 affected rows
+            _mockBookingRepository.Setup(r => r.DeleteByIdAsync(bookingId, It.IsAny<CancellationToken>())).ReturnsAsync(0); // 0 affected rows
 
             // Act & Assert
             await Assert.ThrowsAsync<EntityNotFoundException>(() => _service.DeleteByIdAsync(bookingId));

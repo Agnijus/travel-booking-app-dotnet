@@ -1,69 +1,56 @@
 ﻿using Dapper;
 using Domain.Entities;
 using Domain.Repository_Interfaces;
-using Persistence.Data;
 using System.Text;
-
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
     public class BookingRepository : IBookingRepository
     {
-        private readonly IDapperContext _context;
-        public BookingRepository(IDapperContext context)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public BookingRepository(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<Booking> GetByIdAsync(int id)
+        public async Task<Booking> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             var sb = new StringBuilder();
-
             sb.AppendLine("SELECT BookingId, GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId");
             sb.AppendLine("FROM Booking");
             sb.AppendLine("WHERE BookingId = @id");
 
             var query = sb.ToString();
-
-            using (var connection = _context.CreateConnection())
-            {
-                return await connection.QueryFirstOrDefaultAsync<Booking>(query, new { id });
-
-            }
+            return await _unitOfWork.Connection.QueryFirstOrDefaultAsync<Booking>(
+                new CommandDefinition(query, new { id }, transaction: _unitOfWork.Transaction, cancellationToken: cancellationToken));
         }
 
-        public async Task<Booking> AddAsync(Booking booking)
+        public async Task<Booking> AddAsync(Booking booking, CancellationToken cancellationToken = default)
         {
             var sb = new StringBuilder();
-
             sb.AppendLine("INSERT INTO Booking (GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId)");
             sb.AppendLine("VALUES (@GuestAccountId, @HotelReservationId, @TotalPrice, @TransactionStatusId);");
             sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
 
             var query = sb.ToString();
-
-            using (var connection = _context.CreateConnection())
-            {
-                var id = await connection.QuerySingleAsync<int>(query, booking);
-                booking.BookingId = id;
-
-                return booking;
-            }
+            var id = await _unitOfWork.Connection.QuerySingleAsync<int>(
+                new CommandDefinition(query, booking, transaction: _unitOfWork.Transaction, cancellationToken: cancellationToken));
+            booking.BookingId = id;
+            return booking;
         }
 
-        public async Task<int> DeleteByIdAsync(int id)
+        public async Task<int> DeleteByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             var sb = new StringBuilder();
-
             sb.AppendLine("DELETE FROM Booking");
             sb.AppendLine("WHERE BookingId = @id");
 
             var query = sb.ToString();
-
-            using (var connection = _context.CreateConnection())
-            {
-                 return await connection.ExecuteAsync(query, new { Id = id });
-            }
+            return await _unitOfWork.Connection.ExecuteAsync(
+                new CommandDefinition(query, new { Id = id }, transaction: _unitOfWork.Transaction, cancellationToken: cancellationToken));
         }
     }
 }

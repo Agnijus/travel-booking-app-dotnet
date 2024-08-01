@@ -1,10 +1,10 @@
 ﻿using travel_app.Core.Entities;
-using Persistence.Data;
 using travel_app.Core.Repository_Interfaces;
 using Dapper;
 using Domain.Entities;
 using Application.Models.Responses;
 using System.Text;
+using Domain.Repository_Interfaces;
 
 
 namespace Persistence.Repositories
