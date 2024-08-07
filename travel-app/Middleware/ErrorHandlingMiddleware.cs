@@ -3,6 +3,7 @@ using System.Net;
 using System.Text.Json;
 using travel_app.Models;
 using Serilog;
+using Polly.Timeout;
 
 
 namespace travel_app.Middleware
@@ -32,6 +33,8 @@ namespace travel_app.Middleware
         public Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var code = HttpStatusCode.InternalServerError;
+            var errorMessage = exception.Message;
+
 
             switch (exception)
             {
@@ -46,6 +49,11 @@ namespace travel_app.Middleware
                 case NotSupportedException:
                     code = HttpStatusCode.MethodNotAllowed;
                     break;
+                case TimeoutRejectedException:
+                case RetryException:
+                    code = HttpStatusCode.RequestTimeout;
+                    errorMessage = "Unable to process the request";
+                    break;
                 case DatabaseConnectionException:
                     code = HttpStatusCode.ServiceUnavailable;
                     break;
@@ -58,7 +66,6 @@ namespace travel_app.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             var isSuccess = false;
-            var errorMessage = exception.Message;
 
             var response = new ApiResponse((int)code, isSuccess, errorMessage);
             var jsonResponse = JsonSerializer.Serialize(response);

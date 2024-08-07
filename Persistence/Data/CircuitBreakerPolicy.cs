@@ -1,20 +1,15 @@
 ﻿using Polly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Exceptions;
 
 namespace Persistence.Data
 {
     public static class CircuitBreakerPolicy
     {
         public static IAsyncPolicy RetryPolicy = Policy
-            .Handle<Exception>() 
-            .RetryAsync(3, onRetry: (exception, retryCount) =>
-            {
-                Console.WriteLine($"Retry {retryCount} for exception: {exception.Message}");
-            });
+             .Handle<RetryException>()
+             .RetryAsync(3, onRetry: (exception, retryCount) =>
+             {
+             });
 
         public static IAsyncPolicy TimeoutPolicy = Policy
             .TimeoutAsync(TimeSpan.FromSeconds(30), Polly.Timeout.TimeoutStrategy.Pessimistic);
