@@ -27,8 +27,8 @@ namespace Persistence.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QueryFirstOrDefaultAsync<Booking>(query, new { id });
-
+                return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.QueryFirstOrDefaultAsync<Booking>(query, new { id }));
             }
         }
 
@@ -42,11 +42,13 @@ namespace Persistence.Repositories
 
             var query = sb.ToString();
 
+
+
             using (var connection = _context.CreateConnection())
             {
-                var id = await connection.QuerySingleAsync<int>(query, booking);
+                var id = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.QuerySingleAsync<int>(query, booking));
                 booking.BookingId = id;
-
                 return booking;
             }
         }
@@ -59,10 +61,10 @@ namespace Persistence.Repositories
             sb.AppendLine("WHERE BookingId = @id");
 
             var query = sb.ToString();
-
             using (var connection = _context.CreateConnection())
             {
-                 return await connection.ExecuteAsync(query, new { Id = id });
+                return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.ExecuteAsync(query, new { Id = id }));
             }
         }
     }

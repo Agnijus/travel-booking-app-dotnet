@@ -3,7 +3,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using Domain.Exceptions;
 using Application.Models;
-
+using Polly;
 
 
 namespace Persistence.Data
@@ -23,12 +23,35 @@ namespace Persistence.Data
         {
             try
             {
-                return new SqlConnection(_connectionString);
+                var connection = new SqlConnection(_connectionString);
+                OpenConnectionWithPolicies(connection).Wait(); 
+                return connection;
             }
             catch (Exception ex)
             {
                 throw new DatabaseConnectionException(Constant.DatabaseConnectionError);
             }
         }
+
+
+
+        private async Task OpenConnectionWithPolicies(IDbConnection connection)
+        {
+            var retryPolicy = Policy.Handle<Exception>()
+                .RetryAsync(3);
+
+            var circuitBreakerPolicy = Policy.Handle<Exception>()
+                .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
+
+            await retryPolicy.ExecuteAsync(async () =>
+            {
+                await circuitBreakerPolicy.ExecuteAsync(async () =>
+                {
+                    await Task.Run(() => connection.Open());
+                });
+            });
+        }
     }
+
+
 }

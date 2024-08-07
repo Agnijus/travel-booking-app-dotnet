@@ -14,6 +14,7 @@ namespace Persistence.Repositories
         {
             _context = context;
         }
+
         public async Task<HotelReservation> GetByIdAsync(int Id)
         {
             var sb = new StringBuilder();
@@ -26,7 +27,8 @@ namespace Persistence.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QueryFirstOrDefaultAsync<HotelReservation>(query, new { Id });
+                return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.QueryFirstOrDefaultAsync<HotelReservation>(query, new { Id }));
             }
         }
 
@@ -42,8 +44,8 @@ namespace Persistence.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                
-                var id = await connection.QuerySingleAsync<int>(query, hotelReservation);
+                var id = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.QuerySingleAsync<int>(query, hotelReservation));
                 return id;
             }
         }
@@ -52,14 +54,15 @@ namespace Persistence.Repositories
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine("DELETE FROM GuestAccounts");
+            sb.AppendLine("DELETE FROM HotelReservation");
             sb.AppendLine("WHERE Id = @Id");
 
             var query = sb.ToString();
 
             using (var connection = _context.CreateConnection())
             {
-                await connection.ExecuteAsync(query, new { id });
+                await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.ExecuteAsync(query, new { id }));
             }
         }
     }

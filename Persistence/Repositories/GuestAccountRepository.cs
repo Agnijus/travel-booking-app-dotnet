@@ -26,7 +26,8 @@ namespace Persistence.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QueryFirstOrDefaultAsync<GuestAccount>(query, new { id });
+                return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.QueryFirstOrDefaultAsync<GuestAccount>(query, new { id }));
             }
         }
 
@@ -42,8 +43,8 @@ namespace Persistence.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                var id = await connection.QuerySingleAsync<int>(query, guestAccount);
-                return id;
+                return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.QuerySingleAsync<int>(query, guestAccount));
             }
         }
 
@@ -58,7 +59,8 @@ namespace Persistence.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                await connection.ExecuteAsync(query, new { id });
+                await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+                    connection.ExecuteAsync(query, new { id }));
             }
         }
     }
