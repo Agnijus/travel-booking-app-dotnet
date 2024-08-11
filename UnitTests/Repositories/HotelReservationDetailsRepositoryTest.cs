@@ -11,42 +11,17 @@ namespace UnitTests.Repositories
 {
     public class HotelReservationDetailsRepositoryTest
     {
-        private readonly Mock<IDapperContext> _mockContext;
+        private readonly Mock<DbContextMembers> _mockContext;
         private readonly Mock<IDbConnection> _mockDbConnection;
         private readonly HotelReservationDetailsRepository _repository;
 
         public HotelReservationDetailsRepositoryTest()
         {
-            _mockContext = new Mock<IDapperContext>();
+            _mockContext = new Mock<DbContextMembers>();
             _mockDbConnection = new Mock<IDbConnection>();
             _mockContext.Setup(m => m.CreateConnection()).Returns(_mockDbConnection.Object);
             _repository = new HotelReservationDetailsRepository(_mockContext.Object);
         }
-
-        //[Fact]
-        //public async Task GetByIdAsync_ReturnsHotelReservation()
-        //{
-        //    // Arrange
-        //    var reservation = new HotelReservation
-        //    {
-        //        HotelReservationId = 1,
-        //        HotelId = 1,
-        //        RoomTypeId = 2,
-        //        CheckInDate = new DateTime(2024, 7, 1),
-        //        CheckOutDate = new DateTime(2023, 7, 8),
-        //        TotalPrice = 499.99d
-        //    };
-
-        //    _mockDbConnection.Setup(x => x.QueryFirstOrDefaultAsync<HotelReservation>(
-        //   It.IsAny<string>(), It.IsAny<object>(), null, null, null))
-        //   .ReturnsAsync(reservation);
-
-        //    // Act
-        //    var result = await _repository.GetByIdAsync(1);
-
-        //    // Assert
-        //    Assert.Equal(result, reservation);
-        //}
 
         [Fact]
         public async Task AddAsync_ReturnsNewlyCreatedId()

@@ -2,7 +2,7 @@
 using IntegrationTests.Helpers;
 using Newtonsoft.Json;
 using System.Net;
-using travel_app.Core.Entities;
+using Domain.Entities;
 
 namespace IntegrationTests.Tests
 {
@@ -37,9 +37,9 @@ namespace IntegrationTests.Tests
                 Title = "Hotel A",
                 Address = "123 London St.",
                 City = "London",
-                Distance = 3.2,
+                Distance = 3.2d,
                 StarRating = 5,
-                GuestRating = 4.6f,
+                GuestRating = 4.6d,
                 ReviewCount = 1234,
                 HasFreeCancellation = true,
                 HasPayOnArrival = false
@@ -63,9 +63,9 @@ namespace IntegrationTests.Tests
                 Title = "Hotel B",
                 Address = "456 Another St",
                 City = "London",
-                Distance = 3.2,
+                Distance = 3.2d,
                 StarRating = 5,
-                GuestRating = 4.7f,
+                GuestRating = 4.7d,
                 ReviewCount = 200,
                 HasFreeCancellation = false,
                 HasPayOnArrival = true
@@ -83,6 +83,19 @@ namespace IntegrationTests.Tests
             Assert.NotNull(apiResponse.Data);
         }
 
+
+        [Fact]
+        public async Task GET_GetsHotelById_Returns404()
+        {
+            // Act
+            var apiResponse = await _hotelHelper.GetHotelById(400);
+
+            // Assert
+            Assert.Equal(expected: (int)HttpStatusCode.NotFound, actual: (int)apiResponse.StatusCode);
+            Assert.False(apiResponse.IsSuccess);
+            Assert.Null(apiResponse.Data);
+        }
+
         [Fact]
         public async Task GET_GetsHotelByDestination_Returns200()
         {
@@ -92,9 +105,9 @@ namespace IntegrationTests.Tests
                 Title = "Hotel C",
                 Address = "789 Another St",
                 City = "London",
-                Distance = 2.5,
+                Distance = 2.5d,
                 StarRating = 4,
-                GuestRating = 4.2f,
+                GuestRating = 4.2d,
                 ReviewCount = 150,
                 HasFreeCancellation = true,
                 HasPayOnArrival = false

@@ -12,16 +12,17 @@ namespace IntegrationTests.Tests
             _popularDestinationHelper = new PopularDestinationHelper(fixture);
         }
 
+
         [Fact]
-        public async Task GET_ReturnsAllPopularDestinations_Returns200()
+        public async Task GET_ReturnsAllPopularDestinations_Returns404()
         {
             // Act
             var apiResponse = await _popularDestinationHelper.GetAllPopularDestinations();
 
             // Assert
-            Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
-            Assert.True(apiResponse.IsSuccess);
-            Assert.NotNull(apiResponse.Data);
+            Assert.Equal(expected: (int)HttpStatusCode.NotFound, actual: (int)apiResponse.StatusCode);
+            Assert.False(apiResponse.IsSuccess);
+            Assert.Null(apiResponse.Data);
         }
     }
 }

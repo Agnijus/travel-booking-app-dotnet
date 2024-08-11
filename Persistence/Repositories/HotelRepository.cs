@@ -1,235 +1,320 @@
-﻿using travel_app.Core.Entities;
-using Persistence.Data;
+﻿using Persistence.Data;
 using travel_app.Core.Repository_Interfaces;
-using Dapper;
 using Domain.Entities;
-using Application.Models.Responses;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repositories
 {
     public class HotelRepository : IHotelRepository
     {
-        private readonly IDapperContext _context;
-        public HotelRepository(IDapperContext context)
+        //private readonly IDapperContext _context;
+        private readonly DbContextMembers _context;
+        public HotelRepository(DbContextMembers context)
         {
             _context = context;
         }
 
-        public async Task<List<GetHotelResponse>> GetAllAsync()
+        public async Task<List<Hotel>?> GetAllAsync()
         {
-            var sb = new StringBuilder();
-
-            sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival,");
-            sb.AppendLine("i.ImagePath,");
-            sb.AppendLine("r.RoomId, r.RoomTypeId, r.PricePerNight");
-            sb.AppendLine("FROM Hotel h");
-            sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
-            sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
-
-            var query = sb.ToString();
-
-            using (var connection = _context.CreateConnection())
-            {
-                var hotelDictionary = new Dictionary<int, GetHotelResponse>();
-
-                var result = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.QueryAsync<Hotel, string, Room, GetHotelResponse>(
-                        query,
-                        (hotel, imagePath, room) =>
+            var hotels = await _context.Hotels.AsNoTracking()
+                        .Select(hotel => new Hotel
                         {
-                            if (!hotelDictionary.TryGetValue(hotel.HotelId, out var current))
-                            {
-                                current = new GetHotelResponse
-                                {
-                                    HotelId = hotel.HotelId,
-                                    Title = hotel.Title,
-                                    Address = hotel.Address,
-                                    City = hotel.City,
-                                    Distance = hotel.Distance,
-                                    StarRating = hotel.StarRating,
-                                    GuestRating = hotel.GuestRating,
-                                    ReviewCount = hotel.ReviewCount,
-                                    HasFreeCancellation = hotel.HasFreeCancellation,
-                                    HasPayOnArrival = hotel.HasPayOnArrival,
-                                    Images = new List<string>(),
-                                    Rooms = new List<Room>()
-                                };
-                                hotelDictionary.Add(current.HotelId, current);
-                            }
+                            HotelId = hotel.HotelId,
+                            Title = hotel.Title,
+                            Address = hotel.Address,
+                            City = hotel.City,
+                            Distance = hotel.Distance,
+                            StarRating = hotel.StarRating,
+                            GuestRating = hotel.GuestRating,
+                            ReviewCount = hotel.ReviewCount,
+                            HasFreeCancellation = hotel.HasFreeCancellation,
+                            HasPayOnArrival = hotel.HasPayOnArrival,
+                            HotelImages = _context.HotelImages.Where(hi => hi.HotelId == hotel.HotelId).ToList(),
+                            Rooms = _context.Rooms.Where(r => r.HotelId == hotel.HotelId).ToList()
+                        })
+                        .ToListAsync();
 
-                            if (!string.IsNullOrEmpty(imagePath) && !current.Images.Contains(imagePath))
-                            {
-                                current.Images.Add(imagePath);
-                            }
+            return hotels;
 
-                            if (room != null && !current.Rooms.Any(r => r.RoomId == room.RoomId))
-                            {
-                                current.Rooms.Add(room);
-                            }
+            //var sb = new StringBuilder();
 
-                            return current;
-                        },
-                        splitOn: "ImagePath,RoomId"));
+            //sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival,");
+            //sb.AppendLine("i.ImagePath,");
+            //sb.AppendLine("r.RoomId, r.RoomTypeId, r.PricePerNight");
+            //sb.AppendLine("FROM Hotel h");
+            //sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
+            //sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
 
-                return hotelDictionary.Values.ToList();
-            }
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    var hotelDictionary = new Dictionary<int, GetHotelResponse>();
+
+            //    var result = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.QueryAsync<Hotel, string, Room, GetHotelResponse>(
+            //            query,
+            //            (hotel, imagePath, room) =>
+            //            {
+            //                if (!hotelDictionary.TryGetValue(hotel.HotelId, out var current))
+            //                {
+            //                    current = new GetHotelResponse
+            //                    {
+            //                        HotelId = hotel.HotelId,
+            //                        Title = hotel.Title,
+            //                        Address = hotel.Address,
+            //                        City = hotel.City,
+            //                        Distance = hotel.Distance,
+            //                        StarRating = hotel.StarRating,
+            //                        GuestRating = hotel.GuestRating,
+            //                        ReviewCount = hotel.ReviewCount,
+            //                        HasFreeCancellation = hotel.HasFreeCancellation,
+            //                        HasPayOnArrival = hotel.HasPayOnArrival,
+            //                        Images = new List<string>(),
+            //                        Rooms = new List<Room>()
+            //                    };
+            //                    hotelDictionary.Add(current.HotelId, current);
+            //                }
+
+            //                if (!string.IsNullOrEmpty(imagePath) && !current.Images.Contains(imagePath))
+            //                {
+            //                    current.Images.Add(imagePath);
+            //                }
+
+            //                if (room != null && !current.Rooms.Any(r => r.RoomId == room.RoomId))
+            //                {
+            //                    current.Rooms.Add(room);
+            //                }
+
+            //                return current;
+            //            },
+            //            splitOn: "ImagePath,RoomId"));
+
+            //    return hotelDictionary.Values.ToList();
+        
         }
 
-        public async Task<List<GetHotelResponse>> GetByDestinationAsync(string destination)
+        public async Task<List<Hotel?>> GetByDestinationAsync(string destination)
         {
-            var sb = new StringBuilder();
-
-            sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival, i.ImagePath,");
-            sb.AppendLine("r.RoomId, r.RoomTypeId, r.PricePerNight");
-            sb.AppendLine("FROM Hotel h");
-            sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
-            sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
-            sb.AppendLine("WHERE h.City = @destination");
-
-            var query = sb.ToString();
-
-            using (var connection = _context.CreateConnection())
-            {
-                var hotelDictionary = new Dictionary<int, GetHotelResponse>();
-
-                var result = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.QueryAsync<Hotel, string, Room, GetHotelResponse>(
-                        query,
-                        (hotel, imagePath, room) =>
+            var hotels = await _context.Hotels.AsNoTracking()
+                        .Where(h => h.City == destination)
+                        .Select(hotel => new Hotel
                         {
-                            if (!hotelDictionary.TryGetValue(hotel.HotelId, out var current))
-                            {
-                                current = new GetHotelResponse
-                                {
-                                    HotelId = hotel.HotelId,
-                                    Title = hotel.Title,
-                                    Address = hotel.Address,
-                                    City = hotel.City,
-                                    Distance = hotel.Distance,
-                                    StarRating = hotel.StarRating,
-                                    GuestRating = hotel.GuestRating,
-                                    ReviewCount = hotel.ReviewCount,
-                                    HasFreeCancellation = hotel.HasFreeCancellation,
-                                    HasPayOnArrival = hotel.HasPayOnArrival,
-                                    Images = new List<string>(),
-                                    Rooms = new List<Room>()
-                                };
-                                hotelDictionary.Add(current.HotelId, current);
-                            }
+                            HotelId = hotel.HotelId,
+                            Title = hotel.Title,
+                            Address = hotel.Address,
+                            City = hotel.City,
+                            Distance = hotel.Distance,
+                            StarRating = hotel.StarRating,
+                            GuestRating = hotel.GuestRating,
+                            ReviewCount = hotel.ReviewCount,
+                            HasFreeCancellation = hotel.HasFreeCancellation,
+                            HasPayOnArrival = hotel.HasPayOnArrival,
+                            HotelImages = _context.HotelImages.Where(hi => hi.HotelId == hotel.HotelId).ToList(),
+                            Rooms = _context.Rooms.Where(r => r.HotelId == hotel.HotelId).ToList()
+                        })
+                        .ToListAsync();
 
-                            if (!string.IsNullOrEmpty(imagePath) && !current.Images.Contains(imagePath))
-                            {
-                                current.Images.Add(imagePath);
-                            }
+            return hotels;
 
-                            if (room != null && !current.Rooms.Any(r => r.RoomId == room.RoomId))
-                            {
-                                current.Rooms.Add(room);
-                            }
 
-                            return current;
-                        },
-                        new { destination },
-                        splitOn: "ImagePath,RoomId"));
+            //var sb = new StringBuilder();
 
-                return hotelDictionary.Values.ToList();
-            }
+            //sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival, i.ImagePath,");
+            //sb.AppendLine("r.RoomId, r.RoomTypeId, r.PricePerNight");
+            //sb.AppendLine("FROM Hotel h");
+            //sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
+            //sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
+            //sb.AppendLine("WHERE h.City = @destination");
+
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    var hotelDictionary = new Dictionary<int, GetHotelResponse>();
+
+            //    var result = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.QueryAsync<Hotel, string, Room, GetHotelResponse>(
+            //            query,
+            //            (hotel, imagePath, room) =>
+            //            {
+            //                if (!hotelDictionary.TryGetValue(hotel.HotelId, out var current))
+            //                {
+            //                    current = new GetHotelResponse
+            //                    {
+            //                        HotelId = hotel.HotelId,
+            //                        Title = hotel.Title,
+            //                        Address = hotel.Address,
+            //                        City = hotel.City,
+            //                        Distance = hotel.Distance,
+            //                        StarRating = hotel.StarRating,
+            //                        GuestRating = hotel.GuestRating,
+            //                        ReviewCount = hotel.ReviewCount,
+            //                        HasFreeCancellation = hotel.HasFreeCancellation,
+            //                        HasPayOnArrival = hotel.HasPayOnArrival,
+            //                        Images = new List<string>(),
+            //                        Rooms = new List<Room>()
+            //                    };
+            //                    hotelDictionary.Add(current.HotelId, current);
+            //                }
+
+            //                if (!string.IsNullOrEmpty(imagePath) && !current.Images.Contains(imagePath))
+            //                {
+            //                    current.Images.Add(imagePath);
+            //                }
+
+            //                if (room != null && !current.Rooms.Any(r => r.RoomId == room.RoomId))
+            //                {
+            //                    current.Rooms.Add(room);
+            //                }
+
+            //                return current;
+            //            },
+            //            new { destination },
+            //            splitOn: "ImagePath,RoomId"));
+
+            //    return hotelDictionary.Values.ToList();
+    
         }
 
-        public async Task<GetHotelResponse> GetByIdAsync(int hotelId)
+        public async Task<Hotel?> GetByIdAsync(int hotelId)
         {
-            var sb = new StringBuilder();
-
-            sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival, i.ImagePath,");
-            sb.AppendLine("r.RoomId, r.RoomTypeId, r.PricePerNight");
-            sb.AppendLine("FROM Hotel h");
-            sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
-            sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
-            sb.AppendLine("WHERE h.HotelId = @hotelId");
-
-            var query = sb.ToString();
-
-            using (var connection = _context.CreateConnection())
-            {
-                GetHotelResponse? response = null;
-
-                var result = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.QueryAsync<Hotel, string, Room, GetHotelResponse>(
-                        query,
-                        (hotel, imagePath, room) =>
+            var hotel = await _context.Hotels.AsNoTracking()
+                        .Where(h => h.HotelId == hotelId)
+                        .Select(h => new Hotel
                         {
-                            if (response == null)
-                            {
-                                response = new GetHotelResponse
-                                {
-                                    HotelId = hotel.HotelId,
-                                    Title = hotel.Title,
-                                    Address = hotel.Address,
-                                    City = hotel.City,
-                                    Distance = hotel.Distance,
-                                    StarRating = hotel.StarRating,
-                                    GuestRating = hotel.GuestRating,
-                                    ReviewCount = hotel.ReviewCount,
-                                    HasFreeCancellation = hotel.HasFreeCancellation,
-                                    HasPayOnArrival = hotel.HasPayOnArrival,
-                                    Images = new List<string>(),
-                                    Rooms = new List<Room>()
-                                };
-                            }
+                            HotelId = h.HotelId,
+                            Title = h.Title,
+                            Address = h.Address,
+                            City = h.City,
+                            Distance = h.Distance,
+                            StarRating = h.StarRating,
+                            GuestRating = h.GuestRating,
+                            ReviewCount = h.ReviewCount,
+                            HasFreeCancellation = h.HasFreeCancellation,
+                            HasPayOnArrival = h.HasPayOnArrival,
+                            HotelImages = _context.HotelImages
+                                .Where(hi => hi.HotelId == h.HotelId)
+                                .ToList(),
+                            Rooms = _context.Rooms
+                                .Where(r => r.HotelId == h.HotelId)
+                                .ToList()
+                        })
+                        .FirstOrDefaultAsync();
 
-                            if (!string.IsNullOrEmpty(imagePath) && !response.Images.Contains(imagePath))
-                            {
-                                response.Images.Add(imagePath);
-                            }
 
-                            if (room != null && !response.Rooms.Any(r => r.RoomId == room.RoomId))
-                            {
-                                response.Rooms.Add(room);
-                            }
+            return hotel;
 
-                            return response;
-                        },
-                        new { hotelId },
-                        splitOn: "ImagePath,RoomId"));
+            //var sb = new StringBuilder();
 
-                return response;
-            }
+            //sb.AppendLine("SELECT h.HotelId, h.Title, h.Address, h.City, h.Distance, h.StarRating, h.GuestRating, h.ReviewCount, h.HasFreeCancellation, h.HasPayOnArrival, i.ImagePath,");
+            //sb.AppendLine("r.RoomId, r.RoomTypeId, r.PricePerNight");
+            //sb.AppendLine("FROM Hotel h");
+            //sb.AppendLine("LEFT JOIN HotelImage i ON h.HotelId = i.HotelId");
+            //sb.AppendLine("LEFT JOIN Room r ON h.HotelId = r.HotelId");
+            //sb.AppendLine("WHERE h.HotelId = @hotelId");
+
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    GetHotelResponse? response = null;
+
+            //    var result = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.QueryAsync<Hotel, string, Room, GetHotelResponse>(
+            //            query,
+            //            (hotel, imagePath, room) =>
+            //            {
+            //                if (response == null)
+            //                {
+            //                    response = new GetHotelResponse
+            //                    {
+            //                        HotelId = hotel.HotelId,
+            //                        Title = hotel.Title,
+            //                        Address = hotel.Address,
+            //                        City = hotel.City,
+            //                        Distance = hotel.Distance,
+            //                        StarRating = hotel.StarRating,
+            //                        GuestRating = hotel.GuestRating,
+            //                        ReviewCount = hotel.ReviewCount,
+            //                        HasFreeCancellation = hotel.HasFreeCancellation,
+            //                        HasPayOnArrival = hotel.HasPayOnArrival,
+            //                        Images = new List<string>(),
+            //                        Rooms = new List<Room>()
+            //                    };
+            //                }
+
+            //                if (!string.IsNullOrEmpty(imagePath) && !response.Images.Contains(imagePath))
+            //                {
+            //                    response.Images.Add(imagePath);
+            //                }
+
+            //                if (room != null && !response.Rooms.Any(r => r.RoomId == room.RoomId))
+            //                {
+            //                    response.Rooms.Add(room);
+            //                }
+
+            //                return response;
+            //            },
+            //            new { hotelId },
+            //            splitOn: "ImagePath,RoomId"));
+
+            //    return response;
+            //}
         }
 
-        public async Task<Hotel> AddAsync(Hotel hotel)
+        public async Task<Hotel?> AddAsync(Hotel hotel)
         {
-            var sb = new StringBuilder();
+            await _context.Hotels.AddAsync(hotel);
+            await _context.SaveChangesAsync();
+            return hotel;
 
-            sb.AppendLine("INSERT INTO Hotel (Title, Address, City, Distance, StarRating, GuestRating, ReviewCount, HasFreeCancellation, HasPayOnArrival)");
-            sb.AppendLine("VALUES (@Title, @Address, @City, @Distance, @StarRating, @GuestRating, @ReviewCount, @HasFreeCancellation, @HasPayOnArrival);");
-            sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
+            //var sb = new StringBuilder();
 
-            var query = sb.ToString();
+            //sb.AppendLine("INSERT INTO Hotel (Title, Address, City, Distance, StarRating, GuestRating, ReviewCount, HasFreeCancellation, HasPayOnArrival)");
+            //sb.AppendLine("VALUES (@Title, @Address, @City, @Distance, @StarRating, @GuestRating, @ReviewCount, @HasFreeCancellation, @HasPayOnArrival);");
+            //sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
 
-            using (var connection = _context.CreateConnection())
-            {
-                var id = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.QuerySingleAsync<int>(query, hotel));
-                hotel.HotelId = id;
-                return hotel;
-            }
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    var id = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.QuerySingleAsync<int>(query, hotel));
+            //    hotel.HotelId = id;
+            //    return hotel;
+            //}
         }
 
-        public async Task<int> DeleteByIdAsync(int id)
+        public async Task<int?> DeleteByIdAsync(int id)
         {
-            var sb = new StringBuilder();
+            var hotel = await (from h in _context.Hotels.AsNoTracking()
+                               where h.HotelId == id
+                               select h).FirstOrDefaultAsync();
 
-            sb.AppendLine("DELETE FROM Hotel");
-            sb.AppendLine("WHERE HotelId = @Id");
+            //var hotel = await _context.Hotels.FirstOrDefaultAsync(h => h.HotelId == id);
 
-            var query = sb.ToString();
-
-            using (var connection = _context.CreateConnection())
+            if (hotel == null)
             {
-                return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.ExecuteAsync(query, new { Id = id }));
+                return null;
             }
+
+            _context.Hotels.Remove(hotel);
+            return await _context.SaveChangesAsync();
+
+
+            //var sb = new StringBuilder();
+
+            //sb.AppendLine("DELETE FROM Hotel");
+            //sb.AppendLine("WHERE HotelId = @Id");
+
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.ExecuteAsync(query, new { Id = id }));
+            //}
         }
     }
 }

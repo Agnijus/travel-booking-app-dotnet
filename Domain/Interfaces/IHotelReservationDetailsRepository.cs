@@ -5,7 +5,7 @@ namespace Domain.Repository_Interfaces
 {
     public interface IHotelReservationDetailsRepository
     {
-        Task<HotelReservation> GetByIdAsync(int Id);
+        Task<HotelReservation?> GetByIdAsync(int Id);
         Task<int> AddAsync(HotelReservation hotelReservationDetails);
         Task DeleteByIdAsync(int id);
     }

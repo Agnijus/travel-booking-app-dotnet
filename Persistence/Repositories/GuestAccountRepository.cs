@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Domain.Entities;
 using Domain.Repository_Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using System.Text;
 
@@ -8,60 +9,94 @@ namespace Persistence.Repositories
 {
     public class GuestAccountRepository : IGuestAccountRepository
     {
-        private readonly IDapperContext _context;
+        //private readonly IDapperContext _context;
+        private readonly DbContextMembers _context;
 
-        public GuestAccountRepository(IDapperContext context)
+        public GuestAccountRepository(DbContextMembers context)
         {
             _context = context;
         }
-        public async Task<GuestAccount> GetByIdAsync(int id)
+        public async Task<GuestAccount?> GetByIdAsync(int id)
         {
-            var sb = new StringBuilder();
+            var guestAccount = await (from g in _context.GuestAccounts.AsNoTracking()
+                                      where g.GuestAccountId == id
+                                      select g).FirstOrDefaultAsync();
 
-            sb.AppendLine("SELECT Id, FirstName, LastName, Email, ContactNumber");
-            sb.AppendLine("FROM GuestAccount");
-            sb.AppendLine("WHERE Id = @id");
+            return guestAccount;     
 
-            var query = sb.ToString();
+            //var guestAccount = _context.GuestAccounts.FirstOrDefault(g => g.GuestAccountId == id);
+            //await _context.SaveChangesAsync();
+            //return guestAccount;
 
-            using (var connection = _context.CreateConnection())
-            {
-                return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.QueryFirstOrDefaultAsync<GuestAccount>(query, new { id }));
-            }
+
+
+
+
+            //var sb = new StringBuilder();
+
+            //sb.AppendLine("SELECT Id, FirstName, LastName, Email, ContactNumber");
+            //sb.AppendLine("FROM GuestAccount");
+            //sb.AppendLine("WHERE Id = @id");
+
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.QueryFirstOrDefaultAsync<GuestAccount>(query, new { id }));
+            //}
         }
 
         public async Task<int> AddAsync(GuestAccount guestAccount)
         {
-            var sb = new StringBuilder();
+            _context.GuestAccounts.Add(guestAccount);
+            await _context.SaveChangesAsync();
 
-            sb.AppendLine("INSERT INTO GuestAccount (FirstName, LastName, Email, ContactNumber)");
-            sb.AppendLine("VALUES (@FirstName, @LastName, @Email, @ContactNumber);");
-            sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
+            return guestAccount.GuestAccountId;
+            
+            //var sb = new StringBuilder();
 
-            var query = sb.ToString();
+            //sb.AppendLine("INSERT INTO GuestAccount (FirstName, LastName, Email, ContactNumber)");
+            //sb.AppendLine("VALUES (@FirstName, @LastName, @Email, @ContactNumber);");
+            //sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
 
-            using (var connection = _context.CreateConnection())
-            {
-                return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.QuerySingleAsync<int>(query, guestAccount));
-            }
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.QuerySingleAsync<int>(query, guestAccount));
+            //}
         }
 
         public async Task DeleteByIdAsync(int id)
         {
-            var sb = new StringBuilder();
+            var guestAccount = await (from g in _context.GuestAccounts.AsNoTracking()
+                                      where g.GuestAccountId == id
+                                      select g).FirstOrDefaultAsync();
 
-            sb.AppendLine("DELETE FROM GuestAccount");
-            sb.AppendLine("WHERE Id = @Id");
 
-            var query = sb.ToString();
 
-            using (var connection = _context.CreateConnection())
+            //var guestAccount = await _context.GuestAccounts.FindAsync(id);
+
+            if (guestAccount != null)
             {
-                await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.ExecuteAsync(query, new { id }));
+                _context.GuestAccounts.Remove(guestAccount);
+                await _context.SaveChangesAsync();
             }
+
+            //var sb = new StringBuilder();
+
+            //sb.AppendLine("DELETE FROM GuestAccount");
+            //sb.AppendLine("WHERE Id = @Id");
+
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.ExecuteAsync(query, new { id }));
+            //}
         }
     }
 }

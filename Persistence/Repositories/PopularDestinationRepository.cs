@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Domain.Entities;
 using Domain.Repository_Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using System.Text;
 
@@ -8,28 +9,36 @@ namespace Persistence.Repositories
 {
     public class PopularDestinationRepository : IPopularDestinationRepository
     {
-        private readonly IDapperContext _context;
+        //private readonly IDapperContext _context;
+        private readonly DbContextMembers _context;
 
-        public PopularDestinationRepository(IDapperContext context)
+        public PopularDestinationRepository(DbContextMembers context)
         {
             _context = context;
         }
 
         public async Task<List<PopularDestination>> GetAllAsync()
         {
-            var sb = new StringBuilder();
+            var popularDestinations = await (from pd in _context.PopularDestinations.AsNoTracking()
+                                            select pd).ToListAsync();
 
-            sb.AppendLine("SELECT City, Location FROM PopularDestination");
+            //var popularDestinations = await _context.PopularDestinations.ToListAsync();
 
-            var query = sb.ToString();
+            return popularDestinations;
 
-            using (var connection = _context.CreateConnection())
-            {
-                var destinations = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-                    connection.QueryAsync<PopularDestination>(query));
+            //var sb = new StringBuilder();
 
-                return destinations.ToList();
-            }
+            //sb.AppendLine("SELECT City, Location FROM PopularDestination");
+
+            //var query = sb.ToString();
+
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    var destinations = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
+            //        connection.QueryAsync<PopularDestination>(query));
+
+            //    return destinations.ToList();
+            //}
         }
     }
 }

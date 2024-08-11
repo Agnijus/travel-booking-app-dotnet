@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Persistence.Data;
-using Dapper;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 
 
 namespace IntegrationTests;
 public class TestFixture : IDisposable
 {
-    public IDapperContext Context { get; private set; }
+    public DbContextMembers Context { get; private set; }
     public HttpClient Client { get; private set; }
     private readonly IConfiguration _configuration;
 
@@ -23,9 +24,17 @@ public class TestFixture : IDisposable
 
         _configuration = builder.Build();
 
-        Context = new DapperContext(_configuration);
+        var options = new DbContextOptionsBuilder<DbContextMembers>()
+                .UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
+                .Options;
 
-        var factory = new WebApplicationFactory<Program>();
+        Context = new DbContextMembers(options);
+
+        var factory = new WebApplicationFactory<Program>()
+                    .WithWebHostBuilder(builder =>
+                    {
+                        builder.UseEnvironment("Testing"); 
+                    });
 
         Client = factory.CreateClient();
 
@@ -33,17 +42,16 @@ public class TestFixture : IDisposable
 
     public void Dispose()
     {
-        using (var connection = Context.CreateConnection())
-        {
-            connection.Execute("DELETE FROM Booking");
-            connection.Execute("DELETE FROM HotelReservation");
-            connection.Execute("DELETE FROM HotelImage");
-            connection.Execute("DELETE FROM Room");
-            connection.Execute("DELETE FROM GuestAccount");
-            connection.Execute("DELETE FROM PopularDestination");
-            connection.Execute("DELETE FROM Hotel");
-            connection.Execute("DELETE FROM RoomType");
-            connection.Execute("DELETE FROM TransactionStatus");
-        }
+        Context.Database.ExecuteSqlRaw("DELETE FROM Booking");
+        Context.Database.ExecuteSqlRaw("DELETE FROM HotelReservation");
+        Context.Database.ExecuteSqlRaw("DELETE FROM HotelImage");
+        Context.Database.ExecuteSqlRaw("DELETE FROM Room");
+        Context.Database.ExecuteSqlRaw("DELETE FROM GuestAccount");
+        Context.Database.ExecuteSqlRaw("DELETE FROM PopularDestination");
+        Context.Database.ExecuteSqlRaw("DELETE FROM Hotel");
+        Context.Database.ExecuteSqlRaw("DELETE FROM RoomType");
+        Context.Database.ExecuteSqlRaw("DELETE FROM TransactionStatus");
+
+        Context.Dispose();
     }
 }

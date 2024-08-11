@@ -1,4 +1,5 @@
 ﻿
+
 namespace Domain.Entities
 {
     public class HotelReservation
@@ -9,6 +10,10 @@ namespace Domain.Entities
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public double TotalPrice { get; set; }
+
+        public Hotel? Hotel { get; set; }
+        public RoomType? RoomType { get; set; }
+        public ICollection<Booking>? Bookings { get; set; }
 
     }
 }

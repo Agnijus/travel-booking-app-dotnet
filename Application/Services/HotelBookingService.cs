@@ -63,7 +63,7 @@ namespace Application.Services
             {
                 GuestAccountId = guestAccountId,
                 HotelReservationId = hotelReservationId,
-                TotalPrice = hotelReservationDetails.TotalPrice,
+                TotalPrice = (int)hotelReservationDetails.TotalPrice,
                 TransactionStatusId = 1 // Pending
             };
 
@@ -75,7 +75,7 @@ namespace Application.Services
         {
             var affectedRows = await _bookingRepository.DeleteByIdAsync(id);
 
-            if (affectedRows == 0)
+            if (affectedRows == 0 || affectedRows == null)
             {
                 throw new EntityNotFoundException(string.Format(Constant.HotelBookingNotFoundError, id));
             }

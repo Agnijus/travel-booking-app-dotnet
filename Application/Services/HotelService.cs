@@ -1,10 +1,9 @@
 ﻿using Application.Interfaces;
 using Domain.Exceptions;
 using Application.Models.Requests;
-using travel_app.Core.Entities;
 using travel_app.Core.Repository_Interfaces;
-using Application.Models.Responses;
 using Application.Models;
+using Domain.Entities;
 
 
 namespace Application.Services
@@ -18,7 +17,7 @@ namespace Application.Services
             _hotelRepository = hotelRepository;
         }
 
-        public async Task<List<GetHotelResponse>> GetAllAsync()
+        public async Task<List<Hotel>> GetAllAsync()
         {
             var hotels = await _hotelRepository.GetAllAsync();
 
@@ -30,7 +29,7 @@ namespace Application.Services
             return hotels;
         }
 
-        public async Task<GetHotelResponse> GetByIdAsync(int id)
+        public async Task<Hotel> GetByIdAsync(int id)
         {
             var hotel = await _hotelRepository.GetByIdAsync(id);
 
@@ -42,7 +41,7 @@ namespace Application.Services
             return hotel;
         }
 
-        public async Task<List<GetHotelResponse>> GetByDestinationAsync(string destination)
+        public async Task<List<Hotel>> GetByDestinationAsync(string destination)
         {
             var hotels = await _hotelRepository.GetByDestinationAsync(destination);
 

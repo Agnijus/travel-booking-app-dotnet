@@ -10,5 +10,5 @@ public class PostBookingRequest
     public int RoomTypeId { get; set; }
     public DateTime CheckInDate { get; set; }
     public DateTime CheckOutDate { get; set; }
-    public double TotalPrice { get; set; }
+    public int TotalPrice { get; set; }
 }

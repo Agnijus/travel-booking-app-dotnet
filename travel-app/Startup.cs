@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Domain.Repository_Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Persistence.Repositories;
 using travel_app.Controllers;
@@ -20,7 +21,10 @@ namespace travel_app
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDapperContext, DapperContext>();
+            //services.AddSingleton<IDapperContext, DapperContext>();
+
+            services.AddDbContext<DbContextMembers>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers()
                 .AddApplicationPart(typeof(HotelController).Assembly)

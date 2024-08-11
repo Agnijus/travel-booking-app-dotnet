@@ -5,7 +5,6 @@ using Moq.Dapper;
 using Persistence.Data;
 using Persistence.Repositories;
 using System.Data;
-using Xunit;
 
 namespace UnitTests.Repositories
 {

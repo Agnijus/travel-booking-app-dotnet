@@ -33,7 +33,7 @@ namespace UnitTests.Services
                 BookingId = 1,
                 GuestAccountId = 100,
                 HotelReservationId = 200,
-                TotalPrice = 300.00,
+                TotalPrice = 300,
                 TransactionStatusId = 1
             };
 
@@ -71,7 +71,7 @@ namespace UnitTests.Services
                 RoomTypeId = 1,
                 CheckInDate = new DateTime(2024, 7, 7),
                 CheckOutDate = new DateTime(2024, 7, 24),
-                TotalPrice = 1250.00
+                TotalPrice = 1250
             };
 
             var guestAccountId = 2;
