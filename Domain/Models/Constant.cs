@@ -18,6 +18,14 @@
         public const string GetHotelByDestinationSuccess = "GET hotels by destination successful";
         public const string PostHotelSuccess = "POST Hotel request successful";
 
+
         public const string GetAllPopularDestinationSuccess = "GET all popular destinations successful";
+
+        public const string RoomTypeNotFoundError = "Room type with an id of {0} not found";
+        public const string GetRoomTypeByIdSuccess = "GET room type by id successful";
+        public const string PostRoomTypeSuccess = "POST room type by id successful";
+        public const string DeleteRoomTypeSuccess = "DELETE room type by id successful";
+        public const string UpdateRoomTypeSuccess = "UPDATE room type successful";
+
     }
 }

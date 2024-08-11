@@ -1,18 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Persistence.Data;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace IntegrationTests;
 public class TestFixture : IDisposable
 {
     public DbContextMembers Context { get; private set; }
     public HttpClient Client { get; private set; }
+    private readonly IDbContextTransaction _transaction;
     private readonly IConfiguration _configuration;
-
-
 
     public TestFixture()
     {
@@ -23,34 +20,42 @@ public class TestFixture : IDisposable
             .AddEnvironmentVariables();
 
         _configuration = builder.Build();
-
         var options = new DbContextOptionsBuilder<DbContextMembers>()
-                .UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
-                .Options;
+            .UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
+            .Options;
 
         Context = new DbContextMembers(options);
+        Context.Database.EnsureCreated();
 
-        var factory = new WebApplicationFactory<Program>()
-                    .WithWebHostBuilder(builder =>
-                    {
-                        builder.UseEnvironment("Testing"); 
-                    });
+       
 
+        var factory = new CustomWebApplicationFactory();
         Client = factory.CreateClient();
-
     }
 
     public void Dispose()
     {
-        Context.Database.ExecuteSqlRaw("DELETE FROM Booking");
-        Context.Database.ExecuteSqlRaw("DELETE FROM HotelReservation");
-        Context.Database.ExecuteSqlRaw("DELETE FROM HotelImage");
-        Context.Database.ExecuteSqlRaw("DELETE FROM Room");
-        Context.Database.ExecuteSqlRaw("DELETE FROM GuestAccount");
-        Context.Database.ExecuteSqlRaw("DELETE FROM PopularDestination");
-        Context.Database.ExecuteSqlRaw("DELETE FROM Hotel");
-        Context.Database.ExecuteSqlRaw("DELETE FROM RoomType");
-        Context.Database.ExecuteSqlRaw("DELETE FROM TransactionStatus");
+        Context.Database.ExecuteSqlRaw(@"
+        DELETE FROM Booking; DBCC CHECKIDENT('Booking', RESEED, 0);
+        DELETE FROM HotelReservation; DBCC CHECKIDENT('HotelReservation', RESEED, 0);
+        DELETE FROM HotelImage; DBCC CHECKIDENT('HotelImage', RESEED, 0);
+        DELETE FROM Room; DBCC CHECKIDENT('Room', RESEED, 0);
+        DELETE FROM GuestAccount; DBCC CHECKIDENT('GuestAccount', RESEED, 0);
+        DELETE FROM PopularDestination; DBCC CHECKIDENT('PopularDestination', RESEED, 0);
+        DELETE FROM Hotel; DBCC CHECKIDENT('Hotel', RESEED, 0);
+        DELETE FROM RoomType; DBCC CHECKIDENT('RoomType', RESEED, 0);
+        DELETE FROM TransactionStatus; DBCC CHECKIDENT('TransactionStatus', RESEED, 0);
+    ");
+         var scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "TestData.sql");
+        if (File.Exists(scriptPath))
+        {
+            var script = File.ReadAllText(scriptPath);
+            Context.Database.ExecuteSqlRaw(script);
+        }
+        else
+        {
+            throw new FileNotFoundException($"Could not find file at {scriptPath}");
+        }
 
         Context.Dispose();
     }

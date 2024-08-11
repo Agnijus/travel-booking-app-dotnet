@@ -11,9 +11,6 @@ namespace Domain.Entities
         public DateTime CheckOutDate { get; set; }
         public double TotalPrice { get; set; }
 
-        public Hotel? Hotel { get; set; }
-        public RoomType? RoomType { get; set; }
-        public ICollection<Booking>? Bookings { get; set; }
 
     }
 }

@@ -67,7 +67,8 @@ namespace Application.Services
                 TransactionStatusId = 1 // Pending
             };
 
-            return await _bookingRepository.AddAsync(booking);
+            var createdBooking =  await _bookingRepository.AddAsync(booking);
+            return createdBooking;
         }
 
 

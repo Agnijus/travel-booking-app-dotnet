@@ -8,8 +8,5 @@ namespace Domain.Entities
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? ContactNumber { get; set; }
-
-        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-
     }
 }

@@ -3,6 +3,8 @@ using System.Net;
 
 namespace IntegrationTests.Tests
 {
+    [Collection("Sequential")]
+
     public class PopularDestinationControllerTest : IClassFixture<TestFixture>
     {
         private readonly PopularDestinationHelper _popularDestinationHelper;
@@ -10,19 +12,20 @@ namespace IntegrationTests.Tests
         public PopularDestinationControllerTest(TestFixture fixture)
         {
             _popularDestinationHelper = new PopularDestinationHelper(fixture);
+        
+
         }
 
-
         [Fact]
-        public async Task GET_ReturnsAllPopularDestinations_Returns404()
+        public async Task GET_ReturnsAllPopularDestinations_Returns200()
         {
             // Act
             var apiResponse = await _popularDestinationHelper.GetAllPopularDestinations();
 
             // Assert
-            Assert.Equal(expected: (int)HttpStatusCode.NotFound, actual: (int)apiResponse.StatusCode);
-            Assert.False(apiResponse.IsSuccess);
-            Assert.Null(apiResponse.Data);
+            Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
+            Assert.True(apiResponse.IsSuccess);
+            Assert.NotNull(apiResponse.Data);
         }
     }
 }

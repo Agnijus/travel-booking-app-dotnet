@@ -1,11 +1,13 @@
 ﻿using Application.Models.Requests;
+using Domain.Entities;
 using IntegrationTests.Helpers;
 using Newtonsoft.Json;
 using System.Net;
-using Domain.Entities;
 
 namespace IntegrationTests.Tests
 {
+    [Collection("Sequential")]
+
     public class HotelControllerTest : IClassFixture<TestFixture>
     {
         private readonly HotelHelper _hotelHelper;
@@ -15,6 +17,29 @@ namespace IntegrationTests.Tests
             _hotelHelper = new HotelHelper(fixture);
         }
 
+        [Fact]
+        public async Task GET_GetsHotelById_Returns200()
+        {
+            // Act
+            var apiResponse = await _hotelHelper.GetHotelById(1); 
+
+            // Assert
+            Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
+            Assert.True(apiResponse.IsSuccess);
+            Assert.NotNull(apiResponse.Data);
+        }
+
+        [Fact]
+        public async Task GET_GetsHotelById_Returns404()
+        {
+            // Act
+            var apiResponse = await _hotelHelper.GetHotelById(999); 
+
+            // Assert
+            Assert.Equal(expected: (int)HttpStatusCode.NotFound, actual: (int)apiResponse.StatusCode);
+            Assert.False(apiResponse.IsSuccess);
+            Assert.Null(apiResponse.Data);
+        }
 
         [Fact]
         public async Task GET_ReturnsAllHotels_Returns200()
@@ -25,13 +50,28 @@ namespace IntegrationTests.Tests
             // Assert
             Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
             Assert.True(apiResponse.IsSuccess);
-            Assert.NotNull(apiResponse.Data);
+            Assert.NotNull(apiResponse.Data); 
         }
 
         [Fact]
-        public async Task POST_CreatesHotel_Returns200()
+        public async Task GET_GetsHotelByDestination_Returns200()
+        {
+            // Act
+            var apiResponse = await _hotelHelper.GetByDestination("London");
+
+            // Assert
+            Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
+            Assert.True(apiResponse.IsSuccess);
+            Assert.NotNull(apiResponse.Data);
+            var hotels = JsonConvert.DeserializeObject<List<Hotel>>(apiResponse.Data.ToString());
+            Assert.All(hotels, hotel => Assert.Equal("London", hotel.City));
+        }
+
+        [Fact]
+        public async Task GET_CreatesHotel_Returns200()
         {
             // Arrange
+
             var request = new PostHotelRequest
             {
                 Title = "Hotel A",
@@ -52,79 +92,6 @@ namespace IntegrationTests.Tests
             Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
             Assert.True(apiResponse.IsSuccess);
             Assert.NotNull(apiResponse.Data);
-        }
-
-        [Fact]
-        public async Task GET_GetsHotelById_Returns200()
-        {
-            // Arrange
-            var request = new PostHotelRequest
-            {
-                Title = "Hotel B",
-                Address = "456 Another St",
-                City = "London",
-                Distance = 3.2d,
-                StarRating = 5,
-                GuestRating = 4.7d,
-                ReviewCount = 200,
-                HasFreeCancellation = false,
-                HasPayOnArrival = true
-            };
-
-            var createResponse = await _hotelHelper.CreateHotel(request);
-            var createdHotel = JsonConvert.DeserializeObject<Hotel>(createResponse.Data.ToString());
-
-            // Act
-            var apiResponse = await _hotelHelper.GetHotelById(createdHotel.HotelId);
-
-            // Assert
-            Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
-            Assert.True(apiResponse.IsSuccess);
-            Assert.NotNull(apiResponse.Data);
-        }
-
-
-        [Fact]
-        public async Task GET_GetsHotelById_Returns404()
-        {
-            // Act
-            var apiResponse = await _hotelHelper.GetHotelById(400);
-
-            // Assert
-            Assert.Equal(expected: (int)HttpStatusCode.NotFound, actual: (int)apiResponse.StatusCode);
-            Assert.False(apiResponse.IsSuccess);
-            Assert.Null(apiResponse.Data);
-        }
-
-        [Fact]
-        public async Task GET_GetsHotelByDestination_Returns200()
-        {
-            // Arrange
-            var request = new PostHotelRequest
-            {
-                Title = "Hotel C",
-                Address = "789 Another St",
-                City = "London",
-                Distance = 2.5d,
-                StarRating = 4,
-                GuestRating = 4.2d,
-                ReviewCount = 150,
-                HasFreeCancellation = true,
-                HasPayOnArrival = false
-            };
-
-            await _hotelHelper.CreateHotel(request);
-
-            // Act
-            var apiResponse = await _hotelHelper.GetByDestination("London");
-
-            // Assert
-            Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
-            Assert.True(apiResponse.IsSuccess);
-            Assert.NotNull(apiResponse.Data);
-
-            var hotels = JsonConvert.DeserializeObject<List<Hotel>>(apiResponse.Data.ToString());
-            Assert.All(hotels, hotel => Assert.Equal("London", hotel.City));
         }
     }
 }

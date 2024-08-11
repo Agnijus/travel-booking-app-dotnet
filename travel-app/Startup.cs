@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Services;
+using Domain.Interfaces;
 using Domain.Repository_Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -29,6 +30,8 @@ namespace travel_app
             services.AddControllers()
                 .AddApplicationPart(typeof(HotelController).Assembly)
                 .AddApplicationPart(typeof(HotelBookingController).Assembly)
+                .AddApplicationPart(typeof(PopularDestinationController).Assembly)
+                .AddApplicationPart(typeof(RoomTypeController).Assembly)
                 .AddTravelFluentValidation();
 
             services.AddScoped<IHotelService, HotelService>();
@@ -42,6 +45,8 @@ namespace travel_app
 
             services.AddScoped<IPopularDestinationRepository, PopularDestinationRepository>();
             services.AddScoped<IPopularDestinationService, PopularDestinationService>();
+
+            services.AddScoped<IRoomTypeRespository, RoomTypeRepository>();
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

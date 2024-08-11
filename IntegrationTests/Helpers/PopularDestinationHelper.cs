@@ -10,7 +10,7 @@ namespace IntegrationTests.Helpers
         {
         }
 
-        public async Task<ApiResponse> GetAllPopularDestinations()
+        public async Task<ApiResponse?> GetAllPopularDestinations()
         {
             var response = await Client.GetAsync("/api/popularDestinations");
             var responseString = await response.Content.ReadAsStringAsync();
