@@ -1,6 +1,4 @@
 ﻿using Application.Models;
-using Domain.Entities;
-using Domain.Exceptions;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using travel_app.Models;

@@ -26,7 +26,6 @@ public class TestFixture : IDisposable
 
         Context = new DbContextMembers(options);
         Context.Database.EnsureCreated();
-
        
 
         var factory = new CustomWebApplicationFactory();

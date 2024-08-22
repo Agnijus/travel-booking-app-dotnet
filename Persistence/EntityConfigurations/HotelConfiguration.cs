@@ -22,6 +22,17 @@ namespace Persistence.EntityConfigurations
             entity.Property(e => e.ReviewCount).HasColumnName("reviewCount");
             entity.Property(e => e.HasFreeCancellation).HasColumnName("hasFreeCancellation");
             entity.Property(e => e.HasPayOnArrival).HasColumnName("hasPayOnArrival");
+
+            entity.HasMany(h => h.HotelImages)
+            .WithOne()
+            .HasForeignKey("HotelId") 
+            .OnDelete(DeleteBehavior.Cascade);
+            
+            entity.HasMany(h => h.Rooms)
+                .WithOne()
+                .HasForeignKey("HotelId")
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

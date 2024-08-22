@@ -8,5 +8,7 @@ namespace Domain.Entities
         public int HotelId { get; set; }
         public string? ImagePath { get; set; }
 
+        public Hotel? Hotel { get; set; }
+
     }
 }

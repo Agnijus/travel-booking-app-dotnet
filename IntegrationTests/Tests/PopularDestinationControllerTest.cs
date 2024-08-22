@@ -12,8 +12,6 @@ namespace IntegrationTests.Tests
         public PopularDestinationControllerTest(TestFixture fixture)
         {
             _popularDestinationHelper = new PopularDestinationHelper(fixture);
-        
-
         }
 
         [Fact]

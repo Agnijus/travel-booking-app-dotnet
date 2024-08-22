@@ -19,9 +19,6 @@ namespace IntegrationTests.Helpers
             return JsonConvert.DeserializeObject<ApiResponse>(responseString);
         }
 
-
-
-
         public async Task<ApiResponse?> GetBookingById(int id)
         {
             var response = await Client.GetAsync($"/api/booking/{id}");

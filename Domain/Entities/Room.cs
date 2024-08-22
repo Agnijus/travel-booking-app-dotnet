@@ -9,5 +9,9 @@ namespace Domain.Entities
         public int RoomTypeId { get; set; } 
         public ushort PricePerNight { get; set; }
 
+        public Hotel? Hotel { get; set; }
+        public RoomType? RoomType { get; set; }
+
+
     }
 }

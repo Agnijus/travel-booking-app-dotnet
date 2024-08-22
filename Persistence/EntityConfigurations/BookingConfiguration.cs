@@ -14,5 +14,20 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
         entity.Property(e => e.TotalPrice).HasColumnName("totalPrice");
         entity.Property(e => e.TransactionStatusId).HasColumnName("transactionStatusId");
 
+        entity.HasOne(b => b.GuestAccount)
+            .WithMany()  
+            .HasForeignKey(b => b.GuestAccountId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        entity.HasOne(b => b.HotelReservation)
+            .WithMany()  
+            .HasForeignKey(b => b.HotelReservationId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        entity.HasOne(b => b.TransactionStatus)
+            .WithMany() 
+            .HasForeignKey(b => b.TransactionStatusId)
+            .OnDelete(DeleteBehavior.Cascade);
+
     }
 }
