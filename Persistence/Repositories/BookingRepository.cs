@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Models.Responses;
 using Domain.Repository_Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -14,81 +15,34 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public async Task<Booking?> GetByIdAsync(int id)
+        public async Task<GetBookingResponse?> GetByIdAsync(int id)
         {
-            var booking = await (from b in _context.Bookings.AsNoTracking()
-                                 where b.BookingId == id
-                                 select b).FirstOrDefaultAsync();
+            return await (from b in _context.Bookings
+                                         join ga in _context.GuestAccounts on b.GuestAccountId equals ga.GuestAccountId
+                                         join hr in _context.HotelReservations on b.HotelReservationId equals hr.HotelReservationId
+                                         join h in _context.Hotels on hr.HotelId equals h.HotelId
+                                         join ts in _context.TransactionStatuses on b.TransactionStatusId equals ts.TransactionStatusId
+                                         where b.BookingId == id
+                                         select new GetBookingResponse
+                                         {
+                                             BookingId = b.BookingId,
+                                             FullName = ga.FirstName + " " + ga.LastName,
+                                             HotelTitle = h.Title,
+                                             CheckInDate = hr.CheckInDate,
+                                             CheckOutDate = hr.CheckOutDate,
+                                             TotalPrice = (int)hr.TotalPrice,
+                                             TransactionStatus = ts.Description
+                                         }).AsNoTracking().FirstOrDefaultAsync();
 
-
-            return booking;
-
-            //var sb = new StringBuilder();
-
-            //sb.AppendLine("SELECT BookingId, GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId");
-            //sb.AppendLine("FROM Booking");
-            //sb.AppendLine("WHERE BookingId = @id");
-
-            //var query = sb.ToString();
-
-            //using (var connection = _context.CreateConnection())
-            //{
-            //    return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-            //        connection.QueryFirstOrDefaultAsync<Booking>(query, new { id }));
-            //}
         }
 
-        public async Task<Booking> AddAsync(Booking booking)
+        public async Task<PostBookingResponse> AddAsync(Booking booking)
         {
-
             await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
-            return booking;
 
-            //var sb = new StringBuilder();
-
-            //sb.AppendLine("INSERT INTO Booking (GuestAccountId, HotelReservationId, TotalPrice, TransactionStatusId)");
-            //sb.AppendLine("VALUES (@GuestAccountId, @HotelReservationId, @TotalPrice, @TransactionStatusId);");
-            //sb.AppendLine("SELECT CAST(SCOPE_IDENTITY() as int);");
-
-            //var query = sb.ToString();
-
-
-
-            //using (var connection = _context.CreateConnection())
-            //{
-            //    var id = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-            //        connection.QuerySingleAsync<int>(query, booking));
-            //    booking.BookingId = id;
-            //    return booking;
-            //}
-        }
-
-        public async Task<int?> DeleteByIdAsync(int id)
-        {
-            var booking = await (from b in _context.Bookings.AsNoTracking()
-                                 where b.BookingId == id
-                                 select b).FirstOrDefaultAsync();
-
-            if (booking == null)
-            {
-                return null;
-            }
-
-            _context.Bookings.Remove(booking);
-            return await _context.SaveChangesAsync();
-
-            //var sb = new StringBuilder();
-
-            //sb.AppendLine("DELETE FROM Booking");
-            //sb.AppendLine("WHERE BookingId = @id");
-
-            //var query = sb.ToString();
-            //using (var connection = _context.CreateConnection())
-            //{
-            //    return await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-            //        connection.ExecuteAsync(query, new { Id = id }));
-            //}
+            var bookingid = new PostBookingResponse { BookingId = booking.BookingId };
+            return bookingid;
         }
     }
 }

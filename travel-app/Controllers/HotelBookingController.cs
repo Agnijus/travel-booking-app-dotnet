@@ -32,13 +32,5 @@ namespace travel_app.Controllers
 
             return new ApiResponse(string.Format(Constant.PostHotelBookingSuccess), booking);
         }
-
-        [HttpDelete("{id}")]
-        public async Task<ApiResponse> DeleteBookingById(int id)
-        {
-            await _hotelBookingService.DeleteByIdAsync(id);
-
-            return new ApiResponse(string.Format(Constant.DeleteHotelBookingSuccess));
-        }
     }
 }

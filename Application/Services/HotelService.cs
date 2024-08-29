@@ -4,6 +4,7 @@ using Application.Models.Requests;
 using travel_app.Core.Repository_Interfaces;
 using Application.Models;
 using Domain.Entities;
+using Domain.Models.Responses;
 
 
 namespace Application.Services
@@ -17,7 +18,7 @@ namespace Application.Services
             _hotelRepository = hotelRepository;
         }
 
-        public async Task<List<Hotel>> GetAllAsync()
+        public async Task<List<GetHotelsResponse>> GetAllAsync()
         {
             var hotels = await _hotelRepository.GetAllAsync();
 
@@ -29,7 +30,7 @@ namespace Application.Services
             return hotels;
         }
 
-        public async Task<Hotel> GetByIdAsync(int id)
+        public async Task<GetHotelResponse> GetByIdAsync(int id)
         {
             var hotel = await _hotelRepository.GetByIdAsync(id);
 
@@ -41,7 +42,7 @@ namespace Application.Services
             return hotel;
         }
 
-        public async Task<List<Hotel>> GetByDestinationAsync(string destination)
+        public async Task<List<GetHotelsResponse?>> GetByDestinationAsync(string destination)
         {
             var hotels = await _hotelRepository.GetByDestinationAsync(destination);
 
@@ -53,7 +54,9 @@ namespace Application.Services
             return hotels;
         }
 
-        public async Task<Hotel> CreateAsync(PostHotelRequest request)
+        public async Task<Hotel>
+            
+            CreateAsync(PostHotelRequest request)
         {
             var hotel = new Hotel
             {
@@ -69,16 +72,6 @@ namespace Application.Services
             };
 
             return await _hotelRepository.AddAsync(hotel);
-        }
-
-        public async Task DeleteByIdAsync(int id)
-        {
-            var affectedRows = await _hotelRepository.DeleteByIdAsync(id);
-
-            if (affectedRows == 0)
-            {
-                throw new EntityNotFoundException(string.Format(Constant.HotelNotFoundError, id));
-            }
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
+using Domain.Models.Responses;
 
 namespace Domain.Repository_Interfaces
 {
     public interface IBookingRepository
     {
-        Task<Booking?> GetByIdAsync(int Id);
-        Task<Booking> AddAsync(Booking booking);
-        Task<int?> DeleteByIdAsync(int id);
+        Task<GetBookingResponse?> GetByIdAsync(int Id);
+        Task<PostBookingResponse> AddAsync(Booking booking);
     }
 }

@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Repository_Interfaces;
 using Application.Models.Requests;
+using Domain.Models.Responses;
 
 
 
@@ -24,7 +25,7 @@ namespace Application.Services
             _guestAccountRepository = guestAccountRepository;
             _bookingRepository = bookingRepository;
         }
-        public async Task<Booking> GetByIdAsync(int id)
+        public async Task<GetBookingResponse> GetByIdAsync(int id)
         {
             var hotelBooking = await _bookingRepository.GetByIdAsync(id);
 
@@ -36,7 +37,7 @@ namespace Application.Services
             return hotelBooking;
         }
 
-        public async Task<Booking> CreateAsync(PostBookingRequest request)
+        public async Task<PostBookingResponse> CreateAsync(PostBookingRequest request)
         {
             var guestAccount = new GuestAccount
             {
@@ -67,19 +68,7 @@ namespace Application.Services
                 TransactionStatusId = 1 // Pending
             };
 
-            var createdBooking =  await _bookingRepository.AddAsync(booking);
-            return createdBooking;
-        }
-
-
-        public async Task DeleteByIdAsync(int id)
-        {
-            var affectedRows = await _bookingRepository.DeleteByIdAsync(id);
-
-            if (affectedRows == 0 || affectedRows == null)
-            {
-                throw new EntityNotFoundException(string.Format(Constant.HotelBookingNotFoundError, id));
-            }
+            return await _bookingRepository.AddAsync(booking);
         }
     }
 }

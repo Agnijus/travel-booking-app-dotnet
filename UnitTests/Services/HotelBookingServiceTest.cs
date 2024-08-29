@@ -3,6 +3,7 @@ using Application.Models.Requests;
 using Application.Services;
 using Domain.Entities;
 using Domain.Exceptions;
+using Domain.Models.Responses;
 using Domain.Repository_Interfaces;
 using Moq;
 
@@ -28,13 +29,15 @@ namespace UnitTests.Services
         public async Task GetByIdAsync_BookingExists_ReturnsBooking()
         {
             // Arrange
-            var booking = new Booking
+            var booking = new GetBookingResponse
             {
                 BookingId = 1,
-                GuestAccountId = 100,
-                HotelReservationId = 200,
-                TotalPrice = 300,
-                TransactionStatusId = 1
+                FullName = "Agnijus Botyrius",
+                HotelTitle = "Hotel A",
+                CheckInDate = new DateTime(2024, 08, 10),
+                CheckOutDate = new DateTime(2024, 08, 29),
+                TotalPrice = 1200,
+                TransactionStatus = "Pending"
             };
 
             _mockBookingRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(booking);
@@ -51,7 +54,7 @@ namespace UnitTests.Services
         public async Task GetByIdAsync_BookingDoesntExist_ThrowsEntityNotFoundException()
         {
             // Arrange
-            _mockBookingRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Booking)null);
+            _mockBookingRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((GetBookingResponse)null);
 
             // Act & Assert
             await Assert.ThrowsAsync<EntityNotFoundException>(() => _service.GetByIdAsync(1));
@@ -83,44 +86,13 @@ namespace UnitTests.Services
                 .ReturnsAsync(hotelReservationId);
 
             _mockBookingRepository.Setup(m => m.AddAsync(It.IsAny<Booking>()))
-            .ReturnsAsync((Booking b) => b);
+            .ReturnsAsync((PostBookingResponse b) => b);
 
             // Act
             var result = await _service.CreateAsync(request);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(guestAccountId, result.GuestAccountId);
-            Assert.Equal(hotelReservationId, result.HotelReservationId);
-            Assert.Equal(request.TotalPrice, result.TotalPrice);
-            Assert.Equal(1, result.TransactionStatusId);  
-        }
-
-        [Fact]
-        public async Task DeleteByIdAsync_BookingExists_BookingDeleted()
-        {
-            // Arrange
-            int bookingId = 1;
-
-            _mockBookingRepository.Setup(r => r.DeleteByIdAsync(bookingId)).ReturnsAsync(10);
-
-            // Act
-            await _service.DeleteByIdAsync(1);
-
-            // Assert
-            _mockBookingRepository.Verify(r => r.DeleteByIdAsync(bookingId), Times.Once(), "Should be invoked once");
-
-        }
-
-        [Fact]
-        public async Task DeleteByIdAsync_BookingDoesntExist_ThrowsEntityNotFoundException()
-        {
-            // Arrange
-            int bookingId = 1;
-            _mockBookingRepository.Setup(r => r.DeleteByIdAsync(bookingId)).ReturnsAsync(0); // 0 affected rows
-
-            // Act & Assert
-            await Assert.ThrowsAsync<EntityNotFoundException>(() => _service.DeleteByIdAsync(bookingId));
         }
     }
 }

@@ -1,14 +1,13 @@
 ﻿using Application.Models.Requests;
 using Domain.Entities;
+using Domain.Models.Responses;
 
 
 namespace Application.Interfaces
 {
     public interface IHotelBookingService
     {
-        Task<Booking> GetByIdAsync(int id);
-        Task DeleteByIdAsync(int id);
-        Task<Booking> CreateAsync(PostBookingRequest request);
-
+        Task<GetBookingResponse> GetByIdAsync(int id);
+        Task<PostBookingResponse> CreateAsync(PostBookingRequest request);
     }
 }

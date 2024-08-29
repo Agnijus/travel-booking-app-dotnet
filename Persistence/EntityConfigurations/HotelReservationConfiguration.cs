@@ -14,15 +14,5 @@ public class HotelReservationConfiguration : IEntityTypeConfiguration<HotelReser
         entity.Property(e => e.CheckInDate).HasColumnName("checkInDate");
         entity.Property(e => e.CheckOutDate).HasColumnName("checkOutDate");
         entity.Property(e => e.TotalPrice).HasColumnName("totalPrice");
-
-        entity.HasOne(hr => hr.Hotel)
-            .WithMany()  
-            .HasForeignKey(hr => hr.HotelId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        entity.HasOne(hr => hr.RoomType)
-            .WithMany()  
-            .HasForeignKey(hr => hr.RoomTypeId)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -6,6 +6,5 @@ namespace Domain.Repository_Interfaces
     {
         Task<GuestAccount?> GetByIdAsync(int id);
         Task<int> AddAsync(GuestAccount guestAccount);
-        Task DeleteByIdAsync(int id);
     }
 }

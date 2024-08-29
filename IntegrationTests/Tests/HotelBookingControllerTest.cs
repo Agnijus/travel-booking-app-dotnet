@@ -49,26 +49,5 @@ namespace IntegrationTests.Tests
             Assert.True(apiResponse.IsSuccess);
             Assert.NotNull(apiResponse.Data);
         }
-
-     
-
-        [Fact]
-        public async Task DELETE_DeletesBookingById_Returns200()
-        {
-            var apiResponse = await _hotelBookingHelper.DeleteBookingById(1);
-
-            Assert.Equal(expected: (int)HttpStatusCode.OK, actual: (int)apiResponse.StatusCode);
-            Assert.True(apiResponse.IsSuccess);
-        }
-
-        [Fact]
-        public async Task DELETE_DeletesBookingById_Returns404()
-        {
-            var apiResponse = await _hotelBookingHelper.DeleteBookingById(999);
-
-            Assert.Equal(expected: (int)HttpStatusCode.NotFound, actual: (int)apiResponse.StatusCode);
-            Assert.False(apiResponse.IsSuccess);
-            Assert.Null(apiResponse.Data);
-        }
     }
 }

@@ -5,6 +5,7 @@ using Domain.Exceptions;
 using Moq;
 using Domain.Entities;
 using travel_app.Core.Repository_Interfaces;
+using Domain.Models.Responses;
 
 namespace UnitTests.Services
 {
@@ -23,10 +24,10 @@ namespace UnitTests.Services
         public async Task GetAllAsync_HotelsExist_ReturnsHotels()
         {
             // Arrange
-            var hotels = new List<Hotel>
+            var hotels = new List<GetHotelsResponse>
             {
-                new Hotel { HotelId = 1, Title = "Hotel One" },
-                new Hotel { HotelId = 2, Title = "Hotel Two" }
+                new GetHotelsResponse { HotelId = 1, Title = "Hotel One", City = "City One", Image = "/path/to/image1.jpg" },
+                new GetHotelsResponse { HotelId = 2, Title = "Hotel Two", City = "City Two", Image = "/path/to/image2.jpg" }
             };
 
             _mockHotelRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(hotels);
@@ -43,7 +44,7 @@ namespace UnitTests.Services
         public async Task GetAllAsync_NoHotelsExist_ThrowsEntityNotFoundException()
         {
             // Arrange
-            var hotelList = new List<Hotel>();
+            var hotelList = new List<GetHotelsResponse>();
 
             _mockHotelRepository.Setup(r => r.GetAllAsync()).ReturnsAsync(hotelList);
 
@@ -55,7 +56,7 @@ namespace UnitTests.Services
         public async Task GetByIdAsync_HotelExists_ReturnsHotel()
         {
             // Arrange
-            var hotel = new Hotel { HotelId = 1, Title = "Hotel A" };
+            var hotel = new GetHotelResponse { HotelId = 1, Title = "Hotel A" };
             _mockHotelRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(hotel);
 
             // Act
@@ -70,7 +71,7 @@ namespace UnitTests.Services
         public async Task GetByIdAsync_HotelDoesntExist_ThrowsEntityNotFoundException()
         {
             // Arrange
-            _mockHotelRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((Hotel)null);
+            _mockHotelRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((GetHotelResponse)null);
 
             // Act & Assert
             await Assert.ThrowsAsync<EntityNotFoundException>(() => _service.GetByIdAsync(1));
@@ -80,10 +81,10 @@ namespace UnitTests.Services
         public async Task GetByDestinationAsync_HotelsExist_ReturnsHotels()
         {
             // Arrange
-            var hotels = new List<Hotel>
+            var hotels = new List<GetHotelsResponse>
             {
-                new Hotel { HotelId = 1, Title = "Hotel A", City = "London" },
-                new Hotel { HotelId = 2, Title = "Hotel B", City = "London" }
+                new GetHotelsResponse { HotelId = 1, Title = "Hotel One", City = "City One", Image = "/path/to/image1.jpg" },
+                new GetHotelsResponse { HotelId = 2, Title = "Hotel Two", City = "City Two", Image = "/path/to/image2.jpg" }
             };
 
             _mockHotelRepository.Setup(r => r.GetByDestinationAsync("London")).ReturnsAsync(hotels);
@@ -100,7 +101,7 @@ namespace UnitTests.Services
         public async Task GetByDestinationAsync_NoHotelsExist_ThrowsEntityNotFoundException()
         {
             // Arrange
-            var hotels = new List<Hotel>();
+            var hotels = new List<GetHotelsResponse>();
 
             _mockHotelRepository.Setup(r => r.GetByDestinationAsync("London")).ReturnsAsync(hotels);
 
@@ -149,33 +150,6 @@ namespace UnitTests.Services
             Assert.Equal(request.ReviewCount, result.ReviewCount);
             Assert.Equal(request.HasFreeCancellation, result.HasFreeCancellation);
             Assert.Equal(request.HasPayOnArrival, result.HasPayOnArrival);
-        }
-
-        [Fact]
-        public async Task DeleteByIdAsync_HotelExists_HotelDeleted()
-        {
-            // Arrange
-            int hotelId = 1;
-
-            _mockHotelRepository.Setup(r => r.DeleteByIdAsync(hotelId)).ReturnsAsync(10);
-
-            // Act
-            await _service.DeleteByIdAsync(hotelId);
-
-            // Assert
-            _mockHotelRepository.Verify(r => r.DeleteByIdAsync(hotelId), Times.Once(), "Should be invoked once");
-        }
-
-        [Fact]
-        public async Task DeleteByIdAsync_HotelDoesntExists_ThrowsEntityNotFoundException()
-        {
-            // Arrange
-            int hotelId = 1;
-
-            _mockHotelRepository.Setup(r => r.DeleteByIdAsync(hotelId)).ReturnsAsync(0); // 0 affected rows
-
-            // Act & Assert
-            await Assert.ThrowsAsync<EntityNotFoundException>(() => _service.DeleteByIdAsync(hotelId));
         }
     }
 }

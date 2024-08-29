@@ -9,7 +9,6 @@ namespace Persistence.Repositories
 {
     public class PopularDestinationRepository : IPopularDestinationRepository
     {
-        //private readonly IDapperContext _context;
         private readonly DbContextMembers _context;
 
         public PopularDestinationRepository(DbContextMembers context)
@@ -19,26 +18,8 @@ namespace Persistence.Repositories
 
         public async Task<List<PopularDestination>> GetAllAsync()
         {
-            var popularDestinations = await (from pd in _context.PopularDestinations.AsNoTracking()
-                                            select pd).ToListAsync();
-
-            //var popularDestinations = await _context.PopularDestinations.ToListAsync();
-
-            return popularDestinations;
-
-            //var sb = new StringBuilder();
-
-            //sb.AppendLine("SELECT City, Location FROM PopularDestination");
-
-            //var query = sb.ToString();
-
-            //using (var connection = _context.CreateConnection())
-            //{
-            //    var destinations = await CircuitBreakerPolicy.ResiliencePolicy.ExecuteAsync(() =>
-            //        connection.QueryAsync<PopularDestination>(query));
-
-            //    return destinations.ToList();
-            //}
+            return await (from pd in _context.PopularDestinations.AsNoTracking()
+                                            select pd).ToListAsync(); 
         }
     }
 }

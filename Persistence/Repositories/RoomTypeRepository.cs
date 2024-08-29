@@ -20,11 +20,10 @@ namespace Persistence.Repositories
 
         public async Task<RoomType> GetByIdAsync(int id)
         {
-            var roomType = await (from r in _context.RoomTypes.AsNoTracking()
+            return await (from r in _context.RoomTypes.AsNoTracking()
                                  where r.RoomTypeId == id
-                                 select r).FirstOrDefaultAsync() ?? throw new EntityNotFoundException(string.Format(Constant.RoomTypeNotFoundError, id));
-
-            return roomType;
+                                 select r).FirstOrDefaultAsync() 
+                                 ?? throw new EntityNotFoundException(string.Format(Constant.RoomTypeNotFoundError, id));
         }
     }
 }

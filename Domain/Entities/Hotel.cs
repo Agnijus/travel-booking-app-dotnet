@@ -14,9 +14,6 @@ namespace Domain.Entities
         public int? ReviewCount { get; set; } 
         public bool? HasFreeCancellation { get; set; } 
         public bool? HasPayOnArrival { get; set; }
-
-        public ICollection<HotelImage>? HotelImages { get; set; }
-        public ICollection<Room>? Rooms { get; set; }
     }
 }
 
