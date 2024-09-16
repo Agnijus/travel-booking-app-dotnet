@@ -15,5 +15,6 @@ namespace Domain.Models.Responses
         public bool? HasFreeCancellation { get; set; }
         public bool? HasPayOnArrival { get; set; }
         public string? Image { get; set; }
+        public ushort? StartingPrice { get; set; }
     }
 }

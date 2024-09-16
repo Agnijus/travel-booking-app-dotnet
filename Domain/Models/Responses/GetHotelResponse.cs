@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Models.Responses
 {
@@ -16,6 +17,8 @@ namespace Domain.Models.Responses
         public bool? HasPayOnArrival { get; set; }
 
         public List<string>? ImagePaths { get; set; }
+
+        [NotMapped]
         public List<GetRoomResponse>? Rooms { get; set; }
     }
 }

@@ -34,28 +34,5 @@ public class TestFixture : IDisposable
 
     public void Dispose()
     {
-        Context.Database.ExecuteSqlRaw(@"
-        DELETE FROM Booking; DBCC CHECKIDENT('Booking', RESEED, 0);
-        DELETE FROM HotelReservation; DBCC CHECKIDENT('HotelReservation', RESEED, 0);
-        DELETE FROM HotelImage; DBCC CHECKIDENT('HotelImage', RESEED, 0);
-        DELETE FROM Room; DBCC CHECKIDENT('Room', RESEED, 0);
-        DELETE FROM GuestAccount; DBCC CHECKIDENT('GuestAccount', RESEED, 0);
-        DELETE FROM PopularDestination; DBCC CHECKIDENT('PopularDestination', RESEED, 0);
-        DELETE FROM Hotel; DBCC CHECKIDENT('Hotel', RESEED, 0);
-        DELETE FROM RoomType; DBCC CHECKIDENT('RoomType', RESEED, 0);
-        DELETE FROM TransactionStatus; DBCC CHECKIDENT('TransactionStatus', RESEED, 0);
-    ");
-         var scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "TestData.sql");
-        if (File.Exists(scriptPath))
-        {
-            var script = File.ReadAllText(scriptPath);
-            Context.Database.ExecuteSqlRaw(script);
-        }
-        else
-        {
-            throw new FileNotFoundException($"Could not find file at {scriptPath}");
-        }
-
-        Context.Dispose();
     }
 }

@@ -54,9 +54,7 @@ namespace Application.Services
             return hotels;
         }
 
-        public async Task<Hotel>
-            
-            CreateAsync(PostHotelRequest request)
+        public async Task<PostHotelResponse> CreateAsync(PostHotelRequest request)
         {
             var hotel = new Hotel
             {

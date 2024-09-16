@@ -9,6 +9,6 @@ namespace Application.Interfaces
         Task<List<GetHotelsResponse>> GetAllAsync();
         Task<GetHotelResponse> GetByIdAsync(int id);
         Task<List<GetHotelsResponse>> GetByDestinationAsync(string destination);
-        Task<Hotel> CreateAsync(PostHotelRequest request);
+        Task<PostHotelResponse> CreateAsync(PostHotelRequest request);
     }
 }

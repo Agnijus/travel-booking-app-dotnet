@@ -33,7 +33,6 @@ namespace Persistence.Repositories
                                              TotalPrice = (int)hr.TotalPrice,
                                              TransactionStatus = ts.Description
                                          }).AsNoTracking().FirstOrDefaultAsync();
-
         }
 
         public async Task<PostBookingResponse> AddAsync(Booking booking)
@@ -41,8 +40,7 @@ namespace Persistence.Repositories
             await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
 
-            var bookingid = new PostBookingResponse { BookingId = booking.BookingId };
-            return bookingid;
+            return new PostBookingResponse { BookingId = booking.BookingId };
         }
     }
 }
